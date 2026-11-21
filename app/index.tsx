@@ -5,10 +5,10 @@ import { loadProfile, completedLessons, type Profile } from '../src/storage';
 import { colors } from '../src/theme';
 import { lessons, months } from '../src/curriculum';
 export default function Home(){
- const [profile,setProfile]=useState<Profile|null>(null);const [done,setDone]=useState<string[]>([]);const [loading,setLoading]=useState(true);const [error,setError]=useState('');
- useFocusEffect(useCallback(()=>{let active=true;(async()=>{try{const p=await loadProfile();if(!active)return;if(!p){router.replace('/onboarding');return;}setProfile(p);setDone(await completedLessons());setError('')}catch(e){if(active)setError(e instanceof Error?e.message:'Unable to load data')}finally{if(active)setLoading(false)}})();return()=>{active=false}},[]));
+ const [profile,setProfile]=useState<Profile|null>(null);const [done,setDone]=useState<string[]>([]);const [loading,setLoading]=useState(true);const [error,setError]=useState('');const [retry,setRetry]=useState(0);
+ useFocusEffect(useCallback(()=>{let active=true;(async()=>{try{const p=await loadProfile();if(!active)return;if(!p){router.replace('/onboarding');return;}setProfile(p);setDone(await completedLessons());setError('')}catch(e){if(active)setError(e instanceof Error?e.message:'Unable to load data')}finally{if(active)setLoading(false)}})();return()=>{active=false}},[retry]));
  if(loading)return <View style={s.center}><ActivityIndicator color={colors.primary}/></View>;
- if(error)return <View style={s.center}><Text style={s.body}>{error}</Text><Pressable onPress={()=>router.replace('/onboarding')}><Text style={s.link}>Open setup</Text></Pressable></View>;
+ if(error)return <View style={s.center}><Text style={s.body}>{error}</Text><Pressable onPress={()=>{setLoading(true);setError('');setRetry(v=>v+1)}}><Text style={s.link}>Retry loading</Text></Pressable></View>;
  if(!profile)return null;
  const next=lessons.find(x=>!done.includes(x.id));
  return <ScrollView style={s.page} contentContainerStyle={s.content}>
