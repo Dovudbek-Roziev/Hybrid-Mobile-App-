@@ -17,6 +17,10 @@ export default function Home(){
  <View style={s.card}><Text style={s.cardTitle}>Your progress</Text><Text style={s.metric}>{done.length} / {lessons.length}</Text><Text style={s.body}>Lessons completed on this device</Text></View>
  <Text style={s.section}>Continue learning</Text>
  {next?<Pressable style={s.card} onPress={()=>router.push({pathname:'/lesson',params:{id:next.id}})}><Text style={s.kicker}>MONTH {next.month} · {next.minutes} MIN</Text><Text style={s.cardTitle}>{next.title}</Text><Text style={s.link}>Start lesson →</Text></Pressable>:<View style={s.card}><Text style={s.cardTitle}>All available lessons complete 🎉</Text></View>}
+ <Text style={s.section}>Your academy</Text>
+ <Pressable style={s.card} onPress={()=>router.push('/english')}><Text style={s.kicker}>LANGUAGES</Text><Text style={s.cardTitle}>English Academy</Text><Text style={s.body}>A1–B2 · Vocabulary · Grammar · Offline</Text><Text style={s.link}>Open English →</Text></Pressable>
+ <Pressable style={s.card} onPress={()=>router.push('/quiz')}><Text style={s.kicker}>ASSESSMENT</Text><Text style={s.cardTitle}>Weekly Quiz</Text><Text style={s.body}>JavaScript · 5 questions · Save your score</Text><Text style={s.link}>Start quiz →</Text></Pressable>
+ <Pressable style={s.card} onPress={()=>router.push('/progress')}><Text style={s.kicker}>YOUR RESULTS</Text><Text style={s.cardTitle}>Progress & Analytics</Text><Text style={s.body}>Lessons · English · Quiz history</Text><Text style={s.link}>View progress →</Text></Pressable>
  <Text style={s.section}>12-month roadmap</Text>
  {months.map((m,i)=><View style={s.month} key={m}><Text style={s.monthNumber}>{String(i+1).padStart(2,'0')}</Text><Text style={s.monthText}>{m}</Text></View>)}
  <Text style={s.footer}>Offline-first · No login · Data stored locally</Text>
