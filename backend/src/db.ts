@@ -1,9 +1,9 @@
-import pg from 'pg';
+import mongoose from 'mongoose';
 import 'dotenv/config';
 
-let pool: pg.Pool | undefined;
-export function getDb(): pg.Pool {
-  if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is required');
-  pool ??= new pg.Pool({ connectionString: process.env.DATABASE_URL, max: 10 });
-  return pool;
+export async function connectDb(): Promise<void> {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) throw new Error('MONGODB_URI is required');
+  await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
+  console.log('MongoDB connected');
 }
