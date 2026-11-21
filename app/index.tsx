@@ -22,8 +22,9 @@ export default function Home(){
  <Pressable style={s.card} onPress={()=>router.push('/english')}><Text style={s.kicker}>LANGUAGES</Text><Text style={s.cardTitle}>English Academy</Text><Text style={s.body}>A1–B2 · Vocabulary · Grammar · Offline</Text><Text style={s.link}>Open English →</Text></Pressable>
  <Pressable style={s.card} onPress={()=>router.push('/quiz')}><Text style={s.kicker}>ASSESSMENT</Text><Text style={s.cardTitle}>Weekly Quiz</Text><Text style={s.body}>JavaScript · 5 questions · Save your score</Text><Text style={s.link}>Start quiz →</Text></Pressable>
  <Pressable style={s.card} onPress={()=>router.push('/progress')}><Text style={s.kicker}>YOUR RESULTS</Text><Text style={s.cardTitle}>Progress & Analytics</Text><Text style={s.body}>Lessons · English · Quiz history</Text><Text style={s.link}>View progress →</Text></Pressable>
+ <Pressable onPress={()=>router.push('/catalog')} style={s.card}><Text style={s.kicker}>COURSE LIBRARY</Text><Text style={s.cardTitle}>All available lessons</Text><Text style={s.body}>Browse topics, revisit examples and practice at your own pace.</Text><Text style={s.link}>Browse lessons →</Text></Pressable>
  <Text style={s.section}>12-month roadmap</Text>
- {months.map((m,i)=><View style={s.month} key={m}><Text style={s.monthNumber}>{String(i+1).padStart(2,'0')}</Text><Text style={s.monthText}>{m}</Text></View>)}
+ {months.map((m,i)=><Pressable onPress={()=>router.push('/catalog')} style={s.month} key={m}><Text style={s.monthNumber}>{String(i+1).padStart(2,'0')}</Text><Text style={s.monthText}>{m}</Text></Pressable>)}
  <Text style={s.footer}>Offline-first · No login · Data stored locally</Text>
  </ScrollView>
 }
