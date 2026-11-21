@@ -1,4 +1,6 @@
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { getProfile, type Profile } from '../lib/profile';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -10,12 +12,27 @@ const months = [
 ];
 
 export default function HomeScreen() {
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let active = true;
+    getProfile().then(value => {
+      if (!active) return;
+      if (!value) router.replace('/onboarding');
+      else setProfile(value);
+    }).catch(error => console.warn('Profile loading failed', error))
+      .finally(() => { if (active) setReady(true); });
+    return () => { active = false; };
+  }, []);
+  if (!ready || !profile) return <View style={styles.screen} />;
   return (
     <View style={styles.screen}>
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.eyebrow}>YOUR LEARNING JOURNEY</Text>
-        <Text style={styles.title}>Software Engineer Roadmap</Text>
+        <Text style={styles.title}>Hello, {profile.firstName}!</Text>
+        <Text style={styles.subtitle}>{profile.goal.toUpperCase()} · {profile.codingLevel} · English {profile.englishLevel.toUpperCase()}</Text>
+        <Text style={styles.sectionTitle}>Software Engineer Roadmap</Text>
         <Text style={styles.subtitle}>12 months · 52 weeks · One step at a time</Text>
         <View style={styles.card}>
           <Text style={styles.cardLabel}>TODAY'S LESSON</Text>
