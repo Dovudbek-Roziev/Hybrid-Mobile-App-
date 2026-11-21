@@ -15,3 +15,16 @@ export async function completeEnglish(id:string){await(await db()).runAsync('INS
 export async function completedEnglish(){const rows=await(await db()).getAllAsync<{exercise_id:string}>('SELECT exercise_id FROM english_progress');return rows.map(x=>x.exercise_id)}
 export async function saveQuizAttempt(quizId:string,score:number,total:number){await(await db()).runAsync('INSERT INTO quiz_attempts(quiz_id,score,total,created_at) VALUES(?,?,?,?)',quizId,score,total,new Date().toISOString())}
 export async function quizAttempts():Promise<QuizAttempt[]>{const rows=await(await db()).getAllAsync<{id:number;quiz_id:string;score:number;total:number;created_at:string}>('SELECT * FROM quiz_attempts ORDER BY id DESC');return rows.map(r=>({id:r.id,quizId:r.quiz_id,score:r.score,total:r.total,createdAt:r.created_at}))}
+
+export type DailyTask='programming'|'practice'|'english'|'review';
+export async function setDailyTask(day:string,task:DailyTask,completed:boolean){
+ const database=await db();
+ await database.execAsync('CREATE TABLE IF NOT EXISTS daily_tasks (day TEXT NOT NULL, task TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(day,task));');
+ await database.runAsync('INSERT INTO daily_tasks(day,task,completed) VALUES(?,?,?) ON CONFLICT(day,task) DO UPDATE SET completed=excluded.completed',day,task,completed?1:0);
+}
+export async function getDailyTasks(day:string):Promise<DailyTask[]>{
+ const database=await db();
+ await database.execAsync('CREATE TABLE IF NOT EXISTS daily_tasks (day TEXT NOT NULL, task TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(day,task));');
+ const rows=await database.getAllAsync<{task:DailyTask}>('SELECT task FROM daily_tasks WHERE day=? AND completed=1',day);
+ return rows.map(r=>r.task);
+}
