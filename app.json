@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Software Engineer Roadmap",
+    "slug": "hybrid-mobile-app",
+    "scheme": "hybridroadmap",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "android": {
+      "package": "com.dovudbek.hybridroadmap"
+    }
+  }
+}
