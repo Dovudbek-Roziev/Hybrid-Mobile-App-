@@ -17,7 +17,9 @@
     "expo-router": "*",
     "expo-status-bar": "*",
     "react-native-safe-area-context": "*",
-    "react-native-screens": "*"
+    "react-native-screens": "*",
+    "expo-sqlite": "*",
+    "@expo/vector-icons": "*"
   },
   "devDependencies": {
     "typescript": "~5.9.2",
