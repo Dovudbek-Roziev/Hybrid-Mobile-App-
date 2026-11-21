@@ -15,6 +15,7 @@ export default function Home(){
  <Text style={s.kicker}>PERSONAL ACADEMY</Text><Text style={s.title}>Салом, {profile.firstName} 👋</Text>
  <Text style={s.body}>{profile.goal.toUpperCase()} · {profile.codingLevel} · English {profile.englishLevel.toUpperCase()}</Text>
  <View style={s.card}><Text style={s.cardTitle}>Your progress</Text><Text style={s.metric}>{done.length} / {lessons.length}</Text><Text style={s.body}>Lessons completed on this device</Text></View>
+ <Pressable style={s.card} onPress={()=>router.push('/daily')}><Text style={s.kicker}>YOUR DAILY ROUTINE</Text><Text style={s.cardTitle}>60-minute study plan</Text><Text style={s.body}>25m programming · 15m practice · 15m English · 5m review</Text><Text style={s.link}>Open today's plan →</Text></Pressable>
  <Text style={s.section}>Continue learning</Text>
  {next?<Pressable style={s.card} onPress={()=>router.push({pathname:'/lesson',params:{id:next.id}})}><Text style={s.kicker}>MONTH {next.month} · {next.minutes} MIN</Text><Text style={s.cardTitle}>{next.title}</Text><Text style={s.link}>Start lesson →</Text></Pressable>:<View style={s.card}><Text style={s.cardTitle}>All available lessons complete 🎉</Text></View>}
  <Text style={s.section}>Your academy</Text>
