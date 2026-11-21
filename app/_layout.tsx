@@ -14,6 +14,7 @@ export default function RootLayout() {
       <Tabs.Screen name="practice" options={{ title: 'Practice', tabBarIcon: ({ color, size }) => <Ionicons name="code-slash-outline" color={color} size={size} /> }} />
       <Tabs.Screen name="ai" options={{ title: 'AI Tutor', tabBarIcon: ({ color, size }) => <Ionicons name="chatbubble-ellipses-outline" color={color} size={size} /> }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile', tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" color={color} size={size} /> }} />
+      <Tabs.Screen name="account" options={{ title: 'Account', tabBarIcon: ({ color, size }) => <Ionicons name="log-in-outline" color={color} size={size} /> }} />
       <Tabs.Screen name="lesson" options={{ href: null }} />
     </Tabs>
   );
