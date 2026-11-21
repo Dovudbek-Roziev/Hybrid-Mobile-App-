@@ -1,0 +1,6 @@
+export const months=['JavaScript Fundamentals','Advanced JavaScript','TypeScript','React','Next.js','Backend Engineering','MongoDB & Databases','Computer Science','Algorithms','Software Engineering','DevOps & Cloud','Final SaaS Project'];
+export const lessons=[
+{id:'js-001',month:1,title:'Variables: const & let',minutes:25,body:'Variables store values. Use const when a value should not be reassigned, and let when it will change.',code:"const name = 'Developer';\nlet score = 0;\nscore += 10;",question:'Which keyword allows reassignment?',choices:['const','let','import'],correct:1},
+{id:'js-002',month:1,title:'JavaScript Data Types',minutes:25,body:'Strings contain text, numbers represent numeric values, and booleans are true or false.',code:"const age = 15;\nconst ready = true;\nconst language = 'JavaScript';",question:'What type is true?',choices:['string','number','boolean'],correct:2},
+{id:'js-003',month:1,title:'Functions',minutes:25,body:'Functions group reusable logic. Parameters are inputs and return gives back a result.',code:"function add(a, b) {\n  return a + b;\n}\nadd(2, 3);",question:'Which keyword returns a result?',choices:['return','let','break'],correct:0}
+] as const;
