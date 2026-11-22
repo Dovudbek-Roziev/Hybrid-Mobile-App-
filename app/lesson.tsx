@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { lessons } from '../src/curriculum';
@@ -6,8 +6,9 @@ import { completeLesson } from '../src/storage';
 import { colors } from '../src/theme';
 export default function Lesson(){
  const {id}=useLocalSearchParams<{id:string}>();const lesson=lessons.find(x=>x.id===id);const [selected,setSelected]=useState<number|null>(null);const [busy,setBusy]=useState(false);
+ useEffect(()=>{setSelected(null);setBusy(false)},[id]);
  if(!lesson)return <View style={s.page}><Text style={s.body}>Lesson not found.</Text><Pressable onPress={()=>router.replace('/')}><Text style={s.link}>Go home</Text></Pressable></View>;
- async function finish(){if(selected!==lesson!.correct){Alert.alert('Try again','Review the explanation and choose another answer.');return;}setBusy(true);try{await completeLesson(lesson!.id);router.replace('/')}catch(e){Alert.alert('Save failed',e instanceof Error?e.message:'Unknown error')}finally{setBusy(false)}}
+ async function finish(){if(!lesson||selected!==lesson.correct){Alert.alert('Try again','Review the explanation and choose another answer.');return;}setBusy(true);try{await completeLesson(lesson.id);router.replace('/')}catch(e){Alert.alert('Save failed',e instanceof Error?e.message:'Unknown error')}finally{setBusy(false)}}
  return <ScrollView style={s.page} contentContainerStyle={s.content}><Pressable onPress={()=>router.back()}><Text style={s.link}>← Back</Text></Pressable><Text style={s.kicker}>JAVASCRIPT · {lesson.minutes} MIN</Text><Text style={s.title}>{lesson.title}</Text><Text style={s.body}>{lesson.body}</Text><View style={s.code}><Text style={s.codeText}>{lesson.code}</Text></View><Text style={s.heading}>Quick check</Text><Text style={s.body}>{lesson.question}</Text>{lesson.choices.map((answer,i)=><Pressable key={answer} style={[s.choice,selected===i&&s.selected]} onPress={()=>setSelected(i)}><Text style={s.choiceText}>{answer}</Text></Pressable>)}<Pressable style={[s.button,(selected===null||busy)&&{opacity:0.5}]} disabled={selected===null||busy} onPress={finish}><Text style={s.buttonText}>Check & complete</Text></Pressable></ScrollView>
 }
 const s=StyleSheet.create({page:{flex:1,backgroundColor:colors.bg},content:{padding:24,paddingTop:65,paddingBottom:50},link:{color:colors.primary,fontWeight:'700'},kicker:{color:colors.primary,fontWeight:'800',marginTop:28,letterSpacing:1},title:{color:colors.text,fontSize:30,fontWeight:'800',marginTop:12},body:{color:colors.muted,lineHeight:25,marginTop:16,fontSize:16},code:{backgroundColor:'#101C2D',borderColor:colors.border,borderWidth:1,borderRadius:15,padding:20,marginTop:25},codeText:{color:'#A7F3D0',fontSize:15,lineHeight:25},heading:{color:colors.text,fontSize:21,fontWeight:'800',marginTop:32},choice:{borderColor:colors.border,borderWidth:1,backgroundColor:colors.surface,borderRadius:12,padding:16,marginTop:12},selected:{borderColor:colors.primary,backgroundColor:'#294A9C'},choiceText:{color:colors.text,fontSize:16},button:{backgroundColor:colors.primary,padding:17,borderRadius:14,alignItems:'center',marginTop:30},buttonText:{color:'#081022',fontWeight:'800'}})
