@@ -5,7 +5,7 @@ A personal **offline-first** React Native learning app. No account, login, backe
 ## Features currently implemented in source
 - First-launch onboarding (name, programming level, English level, learning goal).
 - Dashboard and 12-month roadmap; planned months are clearly marked in the course catalog.
-- Fifty-three offline lessons: 21 JavaScript fundamentals, 16 advanced JavaScript and 16 TypeScript, each with examples and a quick check.
+- Sixty-nine offline lessons: 21 JavaScript fundamentals, 16 advanced JavaScript, 16 TypeScript and 16 React, each with examples and a quick check.
 - Course catalog with lesson completion status.
 - Daily 60-minute checklist (25m programming, 15m practice, 15m English, 5m review).
 - English Academy: nine starter exercises across A1, A2, B1 and B2.
@@ -33,7 +33,7 @@ Use Expo Go on an Android phone, test first launch, lessons, quiz, English exerc
 
 ## Current limitations
 - **Not yet validated** with TypeScript, Expo Doctor or on a physical Android device.
-- The full 52-week curriculum beyond the first three months, monthly exams, XP/streaks, reminders, offline code execution and AI tutor are **not implemented**.
+- The full 52-week curriculum beyond the first four months, monthly exams, XP/streaks, reminders, offline code execution and AI tutor are **not implemented**.
 - Quiz currently covers one sample JavaScript week.
 - Progress is stored on this device; uninstalling the app may delete it. No export/backup yet.
 - SDK 58 dependency compatibility must be confirmed by local tooling.
