@@ -1,28 +1,47 @@
 # Personal Engineering Academy
 
-A clean restart of the existing repository. **Single-user, offline-first mobile learning app.**
+A personal **offline-first** React Native learning app. No account, login, backend or cloud sync is required.
 
-## Product principles
-- No registration, login, password, JWT, MongoDB, or mandatory backend.
-- First launch: first name, last name, programming level, English level and learning goal.
-- Expo SQLite stores the profile and completed lessons locally.
-- Bundled lessons and quizzes run in airplane mode.
-- Dark, accessible UI with a single shared color palette.
+## Features currently implemented in source
+- First-launch onboarding (name, programming level, English level, learning goal).
+- Dashboard and 12-month roadmap; planned months are clearly marked in the course catalog.
+- Seven JavaScript lessons with examples and short checks.
+- Course catalog with lesson completion status.
+- Daily 60-minute checklist (25m programming, 15m practice, 15m English, 5m review).
+- English Academy: nine starter exercises across A1, A2, B1 and B2.
+- Five-question JavaScript weekly quiz and saved attempt history.
+- Local progress dashboard.
+- Expo SQLite stores profile, lesson completions, English progress, daily tasks and quiz attempts.
 
 ## Stack
-React Native, Expo SDK 58 target, TypeScript, Expo Router, Expo SQLite.
+Expo SDK 58 target, React Native, TypeScript, Expo Router and Expo SQLite.
 
-## Run
-1. Install Node.js and run `npm install`.
-2. Run `npx expo install --fix` to resolve SDK-compatible versions.
-3. Run `npm run typecheck` and `npx expo start`.
-4. Test in Expo Go on Android, including airplane mode and relaunch.
+## Local setup and verification
+```bash
+npm install
+npm run typecheck
+npx expo-doctor
+npx expo install --check
+```
+If Expo reports incompatible dependency versions, inspect the output before running `npx expo install --fix`. Do not assume package versions are correct just because `npm install` succeeded.
 
-**Important:** Expo SDK 58 package compatibility and device runtime have not yet been verified. Current curriculum includes three working sample lessons, not the full 52-week course. The roadmap lists planned months; they are not yet authored. No AI teacher or code execution is claimed. Offline progress is device-local and may be lost on uninstall. Prior repository history remains available in Git history.
+To launch after the checks:
+```bash
+npx expo start
+```
+Use Expo Go on an Android phone, test first launch, lessons, quiz, English exercises, daily checklist, app restart and airplane mode.
 
-## Roadmap
-1. Validate install, typecheck and Android runtime.
-2. Expand daily lesson content and English practice.
-3. Add weekly quizzes, monthly exams and analytics.
-4. Add manual backup/export and import.
-5. Add accessibility, unit tests, QA and APK release.
+## Current limitations
+- **Not yet validated** with TypeScript, Expo Doctor or on a physical Android device.
+- The full 52-week curriculum, monthly exams, XP/streaks, reminders, offline code execution and AI tutor are **not implemented**.
+- Quiz currently covers one sample JavaScript week.
+- Progress is stored on this device; uninstalling the app may delete it. No export/backup yet.
+- SDK 58 dependency compatibility must be confirmed by local tooling.
+- Earlier project versions remain in Git history.
+
+## Next milestones
+1. Fix all TypeScript and Expo Doctor findings, confirm Android launch.
+2. Refine navigation, accessibility and UI.
+3. Author the 52-week curriculum with coding exercises and English practice.
+4. Add monthly assessments, learning analytics and manual data export.
+5. Complete offline QA and produce an Android build.
