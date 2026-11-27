@@ -1,12 +1,6 @@
-import * as SQLite from 'expo-sqlite';
+import { db } from './database/connection';
 export type Profile={firstName:string;lastName:string;codingLevel:'beginner'|'junior'|'intermediate'|'advanced';englishLevel:'a1'|'a2'|'b1'|'b2';goal:'software'|'fullstack'|'mobile'};
 export type QuizAttempt={id:number;quizId:string;score:number;total:number;createdAt:string};
-let pending:Promise<SQLite.SQLiteDatabase>|undefined;
-async function db(){if(!pending)pending=(async()=>{const database=await SQLite.openDatabaseAsync('academy.db');await database.execAsync(`PRAGMA journal_mode=WAL;
-CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS progress (lesson_id TEXT PRIMARY KEY NOT NULL, completed_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS english_progress (exercise_id TEXT PRIMARY KEY NOT NULL, completed_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS quiz_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT, quiz_id TEXT NOT NULL, score INTEGER NOT NULL, total INTEGER NOT NULL, created_at TEXT NOT NULL);`);return database})().catch(e=>{pending=undefined;throw e});return pending}
 export async function loadProfile():Promise<Profile|null>{const row=await(await db()).getFirstAsync<{value:string}>("SELECT value FROM settings WHERE key='profile'");return row?JSON.parse(row.value) as Profile:null}
 export async function saveProfile(p:Profile){await(await db()).runAsync("INSERT INTO settings(key,value) VALUES('profile',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",JSON.stringify(p))}
 export async function completeLesson(id:string){await(await db()).runAsync('INSERT INTO progress(lesson_id,completed_at) VALUES(?,?) ON CONFLICT(lesson_id) DO NOTHING',id,new Date().toISOString())}
@@ -19,12 +13,10 @@ export async function quizAttempts():Promise<QuizAttempt[]>{const rows=await(awa
 export type DailyTask='programming'|'practice'|'english'|'review';
 export async function setDailyTask(day:string,task:DailyTask,completed:boolean){
  const database=await db();
- await database.execAsync('CREATE TABLE IF NOT EXISTS daily_tasks (day TEXT NOT NULL, task TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(day,task));');
  await database.runAsync('INSERT INTO daily_tasks(day,task,completed) VALUES(?,?,?) ON CONFLICT(day,task) DO UPDATE SET completed=excluded.completed',day,task,completed?1:0);
 }
 export async function getDailyTasks(day:string):Promise<DailyTask[]>{
  const database=await db();
- await database.execAsync('CREATE TABLE IF NOT EXISTS daily_tasks (day TEXT NOT NULL, task TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(day,task));');
  const rows=await database.getAllAsync<{task:DailyTask}>('SELECT task FROM daily_tasks WHERE day=? AND completed=1',day);
  return rows.map(r=>r.task);
 }

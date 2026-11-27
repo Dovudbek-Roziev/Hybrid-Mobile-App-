@@ -1,0 +1,19 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import { useTheme } from '../../src/theme';
+
+export default function AcademyTabs() {
+  const { colors, t } = useTheme();
+  return <Tabs screenOptions={{
+    headerShown: false,
+    tabBarActiveTintColor: colors.primary,
+    tabBarInactiveTintColor: colors.muted,
+    tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.border },
+    sceneStyle: { backgroundColor: colors.bg },
+  }}>
+    <Tabs.Screen name="index" options={{title: t('Home', 'Bosh sahifa'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="home-outline"/>}}/>
+    <Tabs.Screen name="catalog" options={{title: t('Academy', 'Akademiya'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="library-outline"/>}}/>
+    <Tabs.Screen name="english" options={{title: 'English', tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="language-outline"/>}}/>
+    <Tabs.Screen name="progress" options={{title: t('Progress', 'Natijalar'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="stats-chart-outline"/>}}/>
+  </Tabs>;
+}

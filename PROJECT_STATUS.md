@@ -12,3 +12,11 @@
 ## Work underway
 
 The implementation will extend the existing routes and database. Remaining gates include on-device validation, content coverage and review, backup import and export, and Android build configuration.
+
+## Stage 1 — Architecture
+
+- Fixed the catalog parser error and unsupported React Native font weights. Locked SDK 58.1-compatible packages and resolved the React DOM peer mismatch.
+- Added reusable screen, card, button, input, progress and loading components. Added a persisted React Context theme and reorganized the existing tabs without changing their URL paths.
+- Registered versioned SQLite migrations. They retain the existing database filename, profile key, tables and completion IDs.
+- TypeScript, Expo dependency check, Expo Doctor (20/20), and the legacy SQL migration fixture passed. The fixture exercises SQL through Node SQLite. Expo SQLite still needs an Android runtime check.
+- Android platform tools and the emulator were found outside PATH. No device was connected and no AVD was configured at audit time.
