@@ -35,3 +35,11 @@ The implementation will extend the existing routes and database. Remaining gates
 - Added a virtualized week-grouped catalog, searchable lesson titles and completion filters. The lesson reader supports copyable code, practical tasks, quiz feedback, completion revisits and next-lesson navigation.
 - The new data model supports goal, plain-language explanation, real example, common mistakes, tailored practice and reflection. The original 125 lessons are preserved and still need editorial enrichment and translation.
 - TypeScript and the SQLite migration fixture passed.
+
+## Stage 4 — 52-week curriculum
+
+- Added 135 offline lessons for months 8–12. The catalog now contains 260 lessons in 12 months and 52 consecutive weeks.
+- Kept all 125 original IDs, code examples, English theory and quiz items. Added Uzbek Latin theory and a topic-specific practical task to each original lesson.
+- New lessons carry Uzbek Latin explanations, examples, common mistakes, practical tasks and knowledge checks. Technical terminology stays in English.
+- TypeScript and three automated tests passed. The curriculum tests check counts, ID preservation, week coverage, and the integrity of lesson and question data. They do not execute the code examples.
+- Legacy quiz prompts and choices retain their original English. Android runtime verification remains pending.
