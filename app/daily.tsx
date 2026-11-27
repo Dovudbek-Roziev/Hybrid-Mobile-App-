@@ -1,22 +1,58 @@
-import { useCallback, useState } from 'react';
-import { useFocusEffect, router } from 'expo-router';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { completedLessons, getDailyTasks, setDailyTask, type DailyTask } from '../src/storage';
+import { useState } from 'react';
+import { router } from 'expo-router';
+import { Button, Card, Label, LoadState, Meter, Screen } from '../src/components/ui';
 import { lessons } from '../src/curriculum';
-import { useTheme, type colors as palette } from '../src/theme';
-const tasks:{id:DailyTask;title:string;description:string;minutes:number}[]=[
-{id:'programming',title:'Programming lesson',description:'Read the lesson and understand the examples.',minutes:25},
-{id:'practice',title:'Coding practice',description:'Write and experiment with the sample code.',minutes:15},
-{id:'english',title:'English Academy',description:'Practice vocabulary and grammar.',minutes:15},
-{id:'review',title:'Daily review',description:'Recall what you learned and write a short summary.',minutes:5}
-];
-function localDay(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-export default function DailyPlan(){
- const s = styles(useTheme().colors);
- const [day,setDay]=useState(localDay);const [completed,setCompleted]=useState<DailyTask[]>([]);const [busy,setBusy]=useState(false);const [nextLesson,setNextLesson]=useState<string|null>(null);
- useFocusEffect(useCallback(()=>{let live=true;const today=localDay();setDay(today);Promise.all([getDailyTasks(today),completedLessons()]).then(([x,done])=>{if(live){setCompleted(x);setNextLesson(lessons.find(l=>!done.includes(l.id))?.id??null)}}).catch(e=>Alert.alert('Storage error',String(e)));return()=>{live=false}},[]));
- async function toggle(id:DailyTask){if(busy)return;setBusy(true);const next=!completed.includes(id);try{await setDailyTask(day,id,next);setCompleted(v=>next?[...v,id]:v.filter(x=>x!==id))}catch(e){Alert.alert('Save failed',String(e))}finally{setBusy(false)}}
- const minutes=tasks.filter(t=>completed.includes(t.id)).reduce((n,t)=>n+t.minutes,0);
- return <ScrollView style={s.page} contentContainerStyle={s.content}><Pressable onPress={()=>router.back()}><Text style={s.link}>← Dashboard</Text></Pressable><Text style={s.kicker}>DAILY LEARNING PLAN · {day}</Text><Text style={s.title}>Your 60 minutes</Text><Text style={s.muted}>Four focused sessions. Check them off as you finish. All data stays offline.</Text><View style={s.summary}><Text style={s.big}>{minutes} / 60</Text><Text style={s.muted}>Minutes completed</Text><View style={s.track}><View style={[s.fill,{width:`${minutes/60*100}%`}]}/></View></View>{tasks.map(t=><Pressable accessibilityRole="checkbox" accessibilityState={{checked:completed.includes(t.id)}} key={t.id} style={s.card} onPress={()=>toggle(t.id)}><View style={s.row}><Text style={s.check}>{completed.includes(t.id)?'☑':'☐'}</Text><View style={s.flex}><Text style={s.cardTitle}>{t.title}</Text><Text style={s.muted}>{t.description}</Text></View><Text style={s.minutes}>{t.minutes}m</Text></View></Pressable>)}<Pressable style={s.button} onPress={()=>nextLesson?router.push({pathname:'/lesson',params:{id:nextLesson}}):router.push('/catalog')}><Text style={s.buttonText}>{nextLesson?'Continue programming →':'Browse course library →'}</Text></Pressable><Pressable style={s.secondary} onPress={()=>router.push('/english')}><Text style={s.link}>Go to English Academy →</Text></Pressable><Text style={s.note}>Tasks reset for each new local calendar day. Previously completed days remain saved in SQLite.</Text></ScrollView>
+import { taskNames } from '../src/features/tasks';
+import { useLocalData } from '../src/hooks/useLocalData';
+import { completedLessons, getDailyTasks, setDailyTask, type DailyTask } from '../src/storage';
+import { useTheme } from '../src/theme';
+import { localDay } from '../src/utils/calendar';
+
+async function loadPlan() {
+  const day = localDay();
+  const [tasks, completed] = await Promise.all([getDailyTasks(day), completedLessons()]);
+  const done = new Set(completed);
+  return {day, tasks, next: lessons.find(lesson => !done.has(lesson.id))};
 }
-const styles=(colors:typeof palette)=>StyleSheet.create({page:{flex:1,backgroundColor:colors.bg},content:{padding:24,paddingTop:62,paddingBottom:50},link:{color:colors.primary,fontWeight:'800'},kicker:{color:colors.primary,fontWeight:'800',fontSize:12,marginTop:25,letterSpacing:1},title:{color:colors.text,fontSize:30,fontWeight:'800',marginTop:12},muted:{color:colors.muted,lineHeight:22,marginTop:7},summary:{backgroundColor:colors.surface,borderWidth:1,borderColor:colors.border,borderRadius:20,padding:23,marginTop:24},big:{color:colors.text,fontSize:34,fontWeight:'800'},track:{height:9,backgroundColor:colors.border,borderRadius:10,overflow:'hidden',marginTop:18},fill:{height:'100%',backgroundColor:colors.success},card:{backgroundColor:colors.surface,borderWidth:1,borderColor:colors.border,borderRadius:17,padding:18,marginTop:14},row:{flexDirection:'row',alignItems:'center',gap:14},check:{color:colors.success,fontSize:25},flex:{flex:1},cardTitle:{color:colors.text,fontSize:16,fontWeight:'800'},minutes:{color:colors.primary,fontWeight:'800'},button:{backgroundColor:colors.primary,padding:17,borderRadius:14,alignItems:'center',marginTop:24},buttonText:{color:colors.bg,fontWeight:'800'},secondary:{padding:16,alignItems:'center'},note:{color:colors.muted,marginTop:16,lineHeight:20}})
+
+export default function DailyPlan() {
+  const {preferences, t} = useTheme();
+  const state = useLocalData(loadPlan);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState(false);
+  async function toggle(task: DailyTask, complete: boolean) {
+    if (busy) return;
+    setBusy(true);
+    setError(false);
+    try {
+      await setDailyTask(localDay(), task, complete);
+      state.retry();
+    } catch {
+      setError(true);
+    } finally {
+      setBusy(false);
+    }
+  }
+  const plan = state.data;
+  const next = plan?.next;
+  const rest = preferences.rest.includes(new Date().getDay());
+  const total = Object.values(preferences.minutes).reduce((sum, minutes) => sum + minutes, 0);
+  const done = plan?.tasks.reduce((sum, task) => sum + (preferences.minutes[task] ?? 0), 0) ?? 0;
+  return <Screen title={t('Daily plan', 'Kunlik reja')} back>
+    <LoadState {...state}/>
+    {plan && !state.error && <>
+      <Card>
+        <Label kind="accent">{plan.day}</Label>
+        <Label kind="heading">{rest ? t('Rest day', 'Dam olish kuni') : done + ' / ' + total + ' ' + t('min planned', 'daq rejalashtirilgan')}</Label>
+        <Meter value={done} total={total}/>
+        {taskNames.map(task => <Button key={task.id} disabled={busy} chosen={plan.tasks.includes(task.id)} onPress={() => toggle(task.id, !plan.tasks.includes(task.id))}>
+          {plan.tasks.includes(task.id) ? '✓ ' : '○ '}{t(task.en, task.uz)} · {preferences.minutes[task.id]} {t('min', 'daq')}
+        </Button>)}
+        {error && <Label>{t('Could not save. Try again.', 'Saqlab bo‘lmadi. Qayta urinib ko‘ring.')}</Label>}
+      </Card>
+      <Button chosen onPress={() => next ? router.push({pathname:'/lesson', params:{id:next.id}}) : router.push('/catalog')}>{t('Continue programming', 'Dasturlashni davom ettirish')}</Button>
+      <Button onPress={() => router.push('/practice')}>{t('Open practice', 'Amaliyotni ochish')}</Button>
+      <Button onPress={() => router.push('/english')}>{t('Open English Academy', 'Ingliz tili akademiyasini ochish')}</Button>
+    </>}
+  </Screen>;
+}

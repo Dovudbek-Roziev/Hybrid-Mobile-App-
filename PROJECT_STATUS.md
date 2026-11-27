@@ -20,3 +20,11 @@ The implementation will extend the existing routes and database. Remaining gates
 - Registered versioned SQLite migrations. They retain the existing database filename, profile key, tables and completion IDs.
 - TypeScript, Expo dependency check, Expo Doctor (20/20), and the legacy SQL migration fixture passed. The fixture exercises SQL through Node SQLite. Expo SQLite still needs an Android runtime check.
 - Android platform tools and the emulator were found outside PATH. No device was connected and no AVD was configured at audit time.
+
+## Stage 2 — Dashboard and onboarding
+
+- Connected all five tabs, improved profile onboarding, and added Settings for display language, theme, font size, name, study duration and rest days.
+- Home shows the next unfinished lesson and real SQLite completion, checklist, activity streak and study-session totals.
+- Home, Settings, onboarding and the daily plan have Uzbek Latin and English UI. Older screen labels and course text are being updated in their respective stages.
+- The Practice tab currently connects to original lesson practice and weekly quiz flows. The dedicated challenge catalog is scheduled for stage 5.
+- TypeScript and the SQLite migration fixture passed.
