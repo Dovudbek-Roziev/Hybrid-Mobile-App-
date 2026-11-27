@@ -28,3 +28,10 @@ The implementation will extend the existing routes and database. Remaining gates
 - Home, Settings, onboarding and the daily plan have Uzbek Latin and English UI. Older screen labels and course text are being updated in their respective stages.
 - The Practice tab currently connects to original lesson practice and weekly quiz flows. The dedicated challenge catalog is scheduled for stage 5.
 - TypeScript and the SQLite migration fixture passed.
+
+## Stage 3 — Lesson engine
+
+- Added curriculum week and difficulty metadata while keeping all original lesson IDs.
+- Added a virtualized week-grouped catalog, searchable lesson titles and completion filters. The lesson reader supports copyable code, practical tasks, quiz feedback, completion revisits and next-lesson navigation.
+- The new data model supports goal, plain-language explanation, real example, common mistakes, tailored practice and reflection. The original 125 lessons are preserved and still need editorial enrichment and translation.
+- TypeScript and the SQLite migration fixture passed.

@@ -18,7 +18,7 @@ export default function Home() {
   const goal = Object.values(preferences.minutes).reduce((sum, minutes) => sum + minutes, 0);
   return <Screen title={t('Hello', 'Salom') + ', ' + data.profile.firstName}>
     <Card>
-      <Label kind="accent">{next ? t('Month ', '') + next.month + t(' / 12', '-oy / 12') : t('Roadmap complete', 'O‘quv rejasi yakunlandi')}</Label>
+      <Label kind="accent">{next ? t('Month ', '') + next.month + t(' / 12', '-oy / 12') + ' · ' + t('Week', 'Hafta') + ' ' + next.week : t('Roadmap complete', 'O‘quv rejasi yakunlandi')}</Label>
       <Label kind="heading">{next ? months[next.month - 1] : t('Review your lessons', 'Darslaringizni takrorlang')}</Label>
       {next && <Label>{next.title} · {next.minutes} {t('min', 'daq')}</Label>}
       <Button chosen onPress={() => next ? router.push({pathname: '/lesson', params: {id: next.id}}) : router.push('/catalog')}>
