@@ -21,6 +21,7 @@ export default function Practice() {
     {(['all','easy','medium','hard'] as const).map(x=><Button key={x} chosen={level===x} onPress={()=>setLevel(x)}>{labels[x]}</Button>)}
     {visible.length===0 && <Label>{t('No matches','Mashq topilmadi')}</Label>}
     {visible.map(x=><Card key={x.id}><Label kind="heading">{x.title}</Label><Label>{labels[x.difficulty]} · {done.has(x.id)?t('Completed','Bajarildi'):t('Not completed','Bajarilmagan')}</Label><Label>{x.task}</Label><Button onPress={()=>router.push({pathname:'/challenge',params:{id:x.id}})}>{t('Open challenge','Mashqni ochish')}</Button></Card>)}
+    <Button onPress={()=>router.push('/exam')}>{t('Exams','Imtihonlar')}</Button>
     <Button onPress={()=>router.push('/quiz')}>{t('Weekly quiz','Haftalik test')}</Button>
     <Button onPress={()=>router.push('/catalog')}>{t('Choose a lesson','Dars tanlash')}</Button>
   </Screen>;
