@@ -4,7 +4,7 @@ import { examHistory } from '../exams/storage';
 import { lessons } from '../curriculum';
 import { exercises } from '../english';
 import { grammar } from '../english/grammar';
-import { reading } from '../english/reading';
+import { readings as reading } from '../english/reading';
 import { vocabulary } from '../english/vocabulary';
 import { challenges } from '../challenges/catalog';
 import { projects } from '../projects/catalog';
