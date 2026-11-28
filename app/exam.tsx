@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button, Card, Label, Screen, Meter } from '../src/components/ui';
 import { useTheme } from '../src/theme';
@@ -46,7 +47,7 @@ export default function Exam(){
  const q=questions[index];
  return <Screen title={t('Exams','Imtihonlar')} back>
  {!questions.length?<Card>
- <Label kind="heading">{t('Choose exam','Imtihonni tanlang')}</Label>
+ <Label kind="heading">{t('Choose exam','Imtihonni tanlang')}</Label><Button onPress={()=>router.push('/exam-history')}>{t('Exam history','Imtihonlar tarixi')}</Button>
  {kinds.map(k=><Button key={k} chosen={kind===k} onPress={()=>{setKind(k);setScope(k==='lesson'?lessons[0].id:'1');}}>{names[k]}</Button>)}
  {kind!=='final'&&<><Label>{t('Scope','Bo‘lim')}: {scope}</Label>
  {kind==='lesson'?<><Button onPress={()=>setScope(lessons[Math.max(0,lessons.findIndex(l=>l.id===scope)-1)].id)}>{t('Previous lesson','Oldingi dars')}</Button><Label>{lessons.find(l=>l.id===scope)?.title}</Label><Button onPress={()=>setScope(lessons[Math.min(lessons.length-1,lessons.findIndex(l=>l.id===scope)+1)].id)}>{t('Next lesson','Keyingi dars')}</Button></>:<><Button onPress={()=>setScope(String(Math.max(1,Number(scope)-1)))}>−</Button><Button onPress={()=>setScope(String(Math.min(kind==='weekly'?52:kind==='monthly'?12:4,Number(scope)+1)))}>+</Button></>}</>}
