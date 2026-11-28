@@ -13,6 +13,7 @@ export type LessonSource = {
   title: string;
   minutes: number;
   body: string;
+  englishBody?: string;
   code: string;
   question: string;
   choices: readonly string[];
