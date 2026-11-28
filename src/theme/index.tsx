@@ -11,6 +11,8 @@ import {
   savePreferences,
   type Preferences,
 } from '../features/preferences';
+import { studyReminderPlan } from '../notifications/reminder-plan';
+import { syncStudyReminders } from '../notifications/study-reminders';
 
 export const colors = {
   bg: '#080E1B',
@@ -52,7 +54,9 @@ const Theme = createContext({
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [preferences, setPreferences] = useState(defaults);
   async function reload() {
-    setPreferences(await loadPreferences());
+    const value = await loadPreferences();
+    setPreferences(value);
+    void syncStudyReminders(value).catch(() => {});
   }
   useEffect(() => {
     reload().catch(() => {});
@@ -63,7 +67,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         colors: preferences.theme === 'dark' ? colors : light,
         preferences,
         update: async (value) => {
-          await savePreferences(value);
+          const previousPlan = studyReminderPlan(preferences)
+            .map((item) => item.identifier)
+            .join('|');
+          const nextPlan = studyReminderPlan(value)
+            .map((item) => item.identifier)
+            .join('|');
+          const remindersChanged = previousPlan !== nextPlan;
+          try {
+            if (remindersChanged) await syncStudyReminders(value);
+            await savePreferences(value);
+          } catch (error) {
+            if (remindersChanged)
+              await syncStudyReminders(preferences).catch(() => {});
+            throw error;
+          }
           setPreferences(value);
         },
         reload,

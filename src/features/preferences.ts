@@ -1,6 +1,7 @@
 import { db } from '../database/connection';
 import type { DailyTask } from '../database/storage';
 import { defaultPassScore, isPassScore } from '../exams/options';
+import { isReminderTime } from '../notifications/reminder-plan';
 
 export type Preferences = {
   theme: 'dark' | 'light';
@@ -40,9 +41,7 @@ export function isPreferences(input: unknown): input is Preferences {
     }) &&
     Array.isArray(value.rest) &&
     value.rest.every((day) => Number.isInteger(day) && day >= 0 && day <= 6) &&
-    (value.reminder === null ||
-      (typeof value.reminder === 'string' &&
-        /^([01]\d|2[0-3]):[0-5]\d$/.test(value.reminder))) &&
+    (value.reminder === null || isReminderTime(value.reminder)) &&
     isPassScore(value.pass)
   );
 }

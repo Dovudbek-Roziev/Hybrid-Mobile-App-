@@ -85,3 +85,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Exam history displays correct, incorrect and unanswered counts by curriculum topic for a single attempt or across all saved attempts. Each known topic expands to lesson results with a direct link for review.
 - Existing answers use the stored lesson ID or, for older snapshots, the lesson prefix in the question ID. Answers with no matching lesson are counted in an unknown-topic group.
 - TypeScript, all 13 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. SQLite integration covers both scopes, all answer categories and older snapshots. Android device interaction remains pending.
+
+## Local study reminders
+
+- Settings schedules a local reminder at the selected device time on each saved study day. Rest-day or language changes update the schedule. Tapping the notification opens the daily plan.
+- Permission is requested from the enable action. The app uses Android best-effort delivery, which can be delayed by the operating system. Reminder settings stay in the existing backup format and are reconciled after restore or app startup.
+- TypeScript, all 16 automated tests, Expo dependency checks, Expo Doctor (20/20), Android config introspection and Android JavaScript export passed. Tests cover weekday mapping, duplicate prevention, permission flow and failed schedule replacement with a simulated native adapter. Android delivery and tap routing still need a device test.
