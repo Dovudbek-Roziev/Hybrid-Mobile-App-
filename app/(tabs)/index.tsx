@@ -1,4 +1,5 @@
 import { Redirect, router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
 import { Button, Card, Label, LoadState, Meter, Screen } from '../../src/components/ui';
 import { lessons, months } from '../../src/curriculum';
@@ -11,13 +12,14 @@ import { taskNames } from '../../src/features/tasks';
 export default function Home() {
   const state = useLocalData(dashboardData);
   const { data } = state;
-  const { t, preferences } = useTheme();
+  const { t, preferences, colors } = useTheme();
   if (!data || state.error) return <Screen title="Personal Engineering Academy"><LoadState {...state}/></Screen>;
   if (!data.profile) return <Redirect href="/onboarding"/>;
   const { next } = data;
   const goal = Object.values(preferences.minutes).reduce((sum, minutes) => sum + minutes, 0);
   return <Screen title={t('Hello', 'Salom') + ', ' + data.profile.firstName}>
     <Card>
+      <View style={{flexDirection:'row',alignItems:'center',gap:10}}><Ionicons name="school-outline" size={28} color={colors.primary}/><Label kind="heading">Personal Engineering Academy</Label></View>
       <Label kind="accent">{next ? t('Month ', '') + next.month + t(' / 12', '-oy / 12') + ' · ' + t('Week', 'Hafta') + ' ' + next.week : t('Roadmap complete', 'O‘quv rejasi yakunlandi')}</Label>
       <Label kind="heading">{next ? months[next.month - 1] : t('Review your lessons', 'Darslaringizni takrorlang')}</Label>
       {next && <Label>{next.title} · {next.minutes} {t('min', 'daq')}</Label>}
@@ -42,6 +44,12 @@ export default function Home() {
       <Meter value={data.lessonCount} total={lessons.length}/>
       <Label>{t('English', 'Ingliz tili')} · {data.englishCount}/{exercises.length}</Label>
       <Meter value={data.englishCount} total={exercises.length}/>
+    </Card>
+    <Card><Label kind="heading">{t('Quick access','Tezkor kirish')}</Label>
+      <Button onPress={()=>router.push('/study-timer')}>{t('Study timer','O‘qish taymeri')}</Button>
+      <Button onPress={()=>router.push('/projects')}>{t('Guided projects','Amaliy loyihalar')}</Button>
+      <Button onPress={()=>router.push('/exam')}>{t('Exams','Imtihonlar')}</Button>
+      <Button onPress={()=>router.push('/exam-history')}>{t('Exam history','Imtihonlar tarixi')}</Button>
     </Card>
     <Button onPress={() => router.push('/quiz')}>{data.quizTaken ? t('Retake weekly quiz', 'Haftalik testni qayta topshirish') : t('Take weekly quiz', 'Haftalik testni boshlash')}</Button>
     <Button onPress={() => router.push('/settings')}>{t('Settings', 'Sozlamalar')}</Button>
