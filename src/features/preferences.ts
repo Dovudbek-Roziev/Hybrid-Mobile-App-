@@ -28,7 +28,11 @@ export function isPreferences(input: unknown): input is Preferences {
     ['dark', 'light'].includes(value.theme) &&
     ['en', 'uz'].includes(value.language) &&
     [1, 1.15, 1.3].includes(value.fontSize) &&
-    !!value.minutes &&
+    value.minutes !== null &&
+    typeof value.minutes === 'object' &&
+    !Array.isArray(value.minutes) &&
+    Object.keys(value.minutes).length ===
+      Object.keys(defaults.minutes).length &&
     Object.keys(defaults.minutes).every((key) => {
       const minutes = value.minutes[key as DailyTask];
       return Number.isInteger(minutes) && minutes >= 1 && minutes <= 180;

@@ -67,3 +67,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Grouped the curriculum, English exercises, exam question bank, SQLite access, preferences and theme by responsibility. The original lesson data is separate from the assembled curriculum catalog. Existing route paths, SQLite tables and content IDs are preserved.
 - Fixed the missing challenge screen content and the exam test import collision. TypeScript, all nine automated tests, Expo dependency checks, Expo Doctor (20/20) and the Android JavaScript export passed after the refactor.
 - The Android export verifies bundling. APK installation and on-device SQLite, backup and offline flows remain pending.
+
+## Backup and restore verification
+
+- Version 1 backups retain the same format and columns. The validator now rejects invalid timestamps and calendar dates, duplicate keys or exam questions, and answers whose attempt is missing. Invalid study preference fields are also rejected.
+- Restore checks database references before committing the replacement transaction. Failure rolls back to the existing data. The backup screen shows import and export errors in Uzbek or English.
+- Node SQLite integration tests round-trip all 11 backup tables and verify that an invalid input or an inconsistent write preserves the original state. TypeScript, all 11 automated tests, Expo Doctor (20/20), dependency checks and Android JavaScript export passed. Native file-picker and share-sheet flows still need an Android device test.

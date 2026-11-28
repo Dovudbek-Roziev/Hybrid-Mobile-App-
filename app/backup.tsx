@@ -7,6 +7,7 @@ import { Button, Card, Label, Screen } from '../src/components/ui';
 import { useTheme } from '../src/theme';
 import {
   exportBackup,
+  maxBackupSize,
   validateBackup,
   restoreBackup,
 } from '../src/database/backup';
@@ -21,66 +22,86 @@ export default function Backup() {
     count: number;
   } | null>(null);
   const lock = useRef(false);
-  async function run(action: () => Promise<void>) {
+  async function run(action: () => Promise<void>, failure: string) {
     if (lock.current) return;
     lock.current = true;
     setBusy(true);
     setMessage('');
     try {
       await action();
-    } catch (e) {
-      setMessage(String(e));
+    } catch {
+      setMessage(failure);
     } finally {
       lock.current = false;
       setBusy(false);
     }
   }
   function share() {
-    void run(async () => {
-      if (!(await Sharing.isAvailableAsync()))
-        throw new Error(
-          t('File sharing unavailable', 'Fayl ulashish mavjud emas'),
+    void run(
+      async () => {
+        if (!(await Sharing.isAvailableAsync())) {
+          setMessage(
+            t('File sharing unavailable', 'Fayl ulashish mavjud emas'),
+          );
+          return;
+        }
+        const contents = await exportBackup();
+        const file = new File(
+          Paths.cache,
+          'academy-backup-' + Date.now() + '.json',
         );
-      const file = new File(
-        Paths.cache,
-        'academy-backup-' + Date.now() + '.json',
-      );
-      file.create();
-      file.write(await exportBackup());
-      try {
-        await Sharing.shareAsync(file.uri, {
-          mimeType: 'application/json',
-          dialogTitle: t('Save backup', 'Zaxirani saqlash'),
-        });
-      } finally {
-        if (file.exists) file.delete();
-      }
-    });
+        try {
+          file.create();
+          file.write(contents);
+          await Sharing.shareAsync(file.uri, {
+            mimeType: 'application/json',
+            dialogTitle: t('Save backup', 'Zaxirani saqlash'),
+          });
+        } finally {
+          if (file.exists) file.delete();
+        }
+      },
+      t(
+        'Could not export the backup.',
+        'Zaxira faylini eksport qilib bo‘lmadi.',
+      ),
+    );
   }
   function pick() {
     setPending(null);
-    void run(async () => {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: ['application/json', 'text/plain'],
-        copyToCacheDirectory: true,
-      });
-      if (result.canceled) return;
-      const asset = result.assets[0];
-      const file = new File(asset.uri);
-      try {
-        if ((asset.size ?? file.size ?? 0) > 20_000_000)
-          throw new Error(t('File too large', 'Fayl juda katta'));
-        const raw = await file.text();
-        const tables = validateBackup(raw);
-        setPending({
-          raw,
-          name: asset.name,
-          count: Object.values(tables).reduce((n, rows) => n + rows.length, 0),
+    void run(
+      async () => {
+        const result = await DocumentPicker.getDocumentAsync({
+          type: ['application/json', 'text/plain'],
+          copyToCacheDirectory: true,
         });
-      } finally {
-        if (file.exists) file.delete();
-      }
-    });
+        if (result.canceled) return;
+        const asset = result.assets[0];
+        const file = new File(asset.uri);
+        try {
+          if ((asset.size ?? file.size ?? 0) > maxBackupSize) {
+            setMessage(t('File too large', 'Fayl juda katta'));
+            return;
+          }
+          const raw = await file.text();
+          const tables = validateBackup(raw);
+          setPending({
+            raw,
+            name: asset.name,
+            count: Object.values(tables).reduce(
+              (n, rows) => n + rows.length,
+              0,
+            ),
+          });
+        } finally {
+          if (file.exists) file.delete();
+        }
+      },
+      t(
+        'This backup could not be read or contains invalid data.',
+        'Zaxira faylini o‘qib bo‘lmadi yoki unda yaroqsiz ma’lumot bor.',
+      ),
+    );
   }
   function confirm() {
     if (!pending || busy) return;
@@ -97,26 +118,32 @@ export default function Backup() {
           text: t('Restore', 'Tiklash'),
           style: 'destructive',
           onPress: () =>
-            void run(async () => {
-              await restoreBackup(raw);
-              setPending(null);
-              setMessage(
-                t(
-                  'Data restored. Reopen the app to refresh all screens.',
-                  'Ma’lumotlar tiklandi. Barcha ekranlarni yangilash uchun ilovani qayta oching.',
-                ),
-              );
-              try {
-                await reload();
-              } catch {
+            void run(
+              async () => {
+                await restoreBackup(raw);
+                setPending(null);
                 setMessage(
                   t(
-                    'Data restored. Restart the app to refresh settings.',
-                    'Ma’lumotlar tiklandi. Sozlamalarni yangilash uchun ilovani qayta oching.',
+                    'Data restored. Reopen the app to refresh all screens.',
+                    'Ma’lumotlar tiklandi. Barcha ekranlarni yangilash uchun ilovani qayta oching.',
                   ),
                 );
-              }
-            }),
+                try {
+                  await reload();
+                } catch {
+                  setMessage(
+                    t(
+                      'Data restored. Restart the app to refresh settings.',
+                      'Ma’lumotlar tiklandi. Sozlamalarni yangilash uchun ilovani qayta oching.',
+                    ),
+                  );
+                }
+              },
+              t(
+                'Could not restore the backup. Existing data was kept.',
+                'Zaxirani tiklab bo‘lmadi. Joriy ma’lumotlar saqlandi.',
+              ),
+            ),
         },
       ],
     );
