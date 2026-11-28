@@ -43,3 +43,10 @@ The implementation will extend the existing routes and database. Remaining gates
 - New lessons carry Uzbek Latin explanations, examples, common mistakes, practical tasks and knowledge checks. Technical terminology stays in English.
 - TypeScript and three automated tests passed. The curriculum tests check counts, ID preservation, week coverage, and the integrity of lesson and question data. They do not execute the code examples.
 - Legacy quiz prompts and choices retain their original English. Android runtime verification remains pending.
+
+## Stage 5 — Coding Challenges (in progress)
+
+- Added 12 Uzbek-language challenges with starter code, hints and reference solutions.
+- Added searchable difficulty-filtered Practice catalog and a challenge editor with explicit draft saving and self-reviewed completion in SQLite.
+- User code is not executed or automatically graded. Completion is self-assessed.
+- Remaining: expand to 100 challenges, review solutions, add tests, verify TypeScript and Android runtime.
