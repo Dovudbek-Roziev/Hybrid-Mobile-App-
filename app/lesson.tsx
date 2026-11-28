@@ -9,7 +9,7 @@ import { useLocalData } from '../src/hooks/useLocalData';
 import { useTheme } from '../src/theme';
 
 function LessonContent({lesson, next, position}: {lesson: Lesson; next?: Lesson; position: number}) {
-  const {t} = useTheme();
+  const {t, preferences} = useTheme();
   const completion = useLocalData(completedLessons);
   const [selected, setSelected] = useState<Record<number, number>>({});
   const [checked, setChecked] = useState(false);
@@ -36,7 +36,7 @@ function LessonContent({lesson, next, position}: {lesson: Lesson; next?: Lesson;
     </Label>
     <Meter value={position} total={lessons.length}/>
     {lesson.goal && <Card><Label kind="heading">{t('Learning objective', 'Dars maqsadi')}</Label><Label>{lesson.goal}</Label></Card>}
-    <Label kind="heading">{t('Theory', 'Nazariya')}</Label><Label>{lesson.body}</Label>
+    <Label kind="heading">{t('Theory', 'Nazariya')}</Label><Label>{preferences.language === 'en' ? lesson.englishBody ?? lesson.body : lesson.body}</Label>
     {lesson.plain && <Card><Label kind="heading">{t('In simple terms', 'Sodda tushuntirish')}</Label><Label>{lesson.plain}</Label></Card>}
     {lesson.example && <Card><Label kind="heading">{t('In practice', 'Hayotiy misol')}</Label><Label>{lesson.example}</Label></Card>}
     <CodeBlock code={lesson.code}/>
