@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
 import { Button, Card, Label, LoadState, Meter, Screen } from '../src/components/ui';
-import { lessons } from '../src/curriculum';
+import { lessons } from '../src/curriculum/catalog';
 import { taskNames } from '../src/features/tasks';
 import { useLocalData } from '../src/hooks/useLocalData';
-import { completedLessons, getDailyTasks, setDailyTask, type DailyTask } from '../src/storage';
+import { completedLessons, getDailyTasks, setDailyTask, type DailyTask } from '../src/database/storage';
 import { useTheme } from '../src/theme';
 import { localDay } from '../src/utils/calendar';
 

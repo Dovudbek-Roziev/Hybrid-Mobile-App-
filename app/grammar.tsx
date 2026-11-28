@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Card, Label, Meter, Screen, LoadState } from '../src/components/ui';
 import { grammar, type Grammar } from '../src/english/grammar';
-import { completedEnglish, completeEnglish } from '../src/storage';
+import { completedEnglish, completeEnglish } from '../src/database/storage';
 import { useLocalData } from '../src/hooks/useLocalData';
 import { useTheme } from '../src/theme';
 

@@ -1,17 +1,6 @@
-import { tsUz } from './curriculum/uz/ts';
-import { reactUz } from './curriculum/uz/react';
-import { nextUz } from './curriculum/uz/next';
-import { backendUz } from './curriculum/uz/backend';
-import { dbUz } from './curriculum/uz/db';
-import { month8 } from './curriculum/month8';
-import { month9 } from './curriculum/month9';
-import { month10 } from './curriculum/month10';
-import { month11 } from './curriculum/month11';
-import { month12 } from './curriculum/month12';
-import { jsUz } from './curriculum/uz/js';
-import { scheduleLessons, type LessonSource } from './curriculum/model';
-export const months=['JavaScript Fundamentals','Advanced JavaScript','TypeScript','React','Next.js','Backend Engineering','MongoDB & Databases','Computer Science','Algorithms','Software Engineering','DevOps & Cloud','Final SaaS Project'];
-const originalLessons: LessonSource[] = [
+import type { LessonSource } from './model';
+
+export const originalLessons: LessonSource[] = [
 {id:'js-001',month:1,title:'Variables: const & let',minutes:25,body:'Variables store values. Use const when a value should not be reassigned, and let when it will change.',code:"const name = 'Developer';\nlet score = 0;\nscore += 10;",question:'Which keyword allows reassignment?',choices:['const','let','import'],correct:1},
 {id:'js-002',month:1,title:'JavaScript Data Types',minutes:25,body:'Strings contain text, numbers represent numeric values, and booleans are true or false.',code:"const age = 15;\nconst ready = true;\nconst language = 'JavaScript';",question:'What type is true?',choices:['string','number','boolean'],correct:2},
 {id:'js-003',month:1,title:'Functions',minutes:25,body:'Functions group reusable logic. Parameters are inputs and return gives back a result.',code:"function add(a, b) {\n  return a + b;\n}\nadd(2, 3);",question:'Which keyword returns a result?',choices:['return','let','break'],correct:0}
@@ -138,10 +127,3 @@ const originalLessons: LessonSource[] = [
 {"id":"db-019","month":7,"title":"Backup and Data Security","minutes":25,"body":"Use least-privilege database accounts, encrypted connections, tested backups and careful logging. Do not log credentials or personal data.","code":"// Security checklist\n// - restrict DB user permissions\n// - rotate credentials\n// - test restoring backups","question":"Which practice reduces impact of credential compromise?","choices":["Least privilege","Public credentials","No backups"],"correct":0},
 {"id":"db-020","month":7,"title":"Mini Project: MongoDB Task Repository","minutes":25,"body":"Build a small repository layer that reads and writes task documents. Keep database access on the server and validate IDs and inputs at the API boundary.","code":"function taskRepository(db) {\n  const tasks = db.collection('tasks');\n  return {\n    list: () => tasks.find({}).limit(50).toArray(),\n    create: title => tasks.insertOne({ title, done: false }),\n    markDone: id => tasks.updateOne({ _id: id }, { $set: { done: true } })\n  };\n}","question":"Which method updates done to true?","choices":["markDone","list","create"],"correct":0}
 ] as const;
-const localized: Record<string, {theory: string; practice: string}> = {...jsUz, ...tsUz, ...reactUz, ...nextUz, ...backendUz, ...dbUz};
-const existing = originalLessons.map(lesson => {
-  const uz = localized[lesson.id];
-  return uz ? {...lesson, body: uz.theory, englishBody: lesson.body, practice: uz.practice} : lesson;
-});
-
-export const lessons = scheduleLessons([...existing, ...month8, ...month9, ...month10, ...month11, ...month12]);

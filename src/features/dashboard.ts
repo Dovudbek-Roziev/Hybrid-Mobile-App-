@@ -1,6 +1,6 @@
-import { lessons } from '../curriculum';
-import { exercises } from '../english';
-import { completedEnglish, completedLessons, getDailyTasks, loadProfile, quizAttempts } from '../storage';
+import { lessons } from '../curriculum/catalog';
+import { exercises } from '../english/exercises';
+import { completedEnglish, completedLessons, getDailyTasks, loadProfile, quizAttempts } from '../database/storage';
 import { activityDays, studyData } from '../database/learning';
 import { localDay, streaks } from '../utils/calendar';
 

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Button, Card, Label, Meter, Screen } from '../src/components/ui';
 import { CodeBlock } from '../src/components/CodeBlock';
-import { lessons } from '../src/curriculum';
+import { lessons } from '../src/curriculum/catalog';
 import { shuffle } from '../src/exams/engine';
 import { lessonQuestions, type Lesson } from '../src/curriculum/model';
-import { completeLesson, completedLessons } from '../src/storage';
+import { completeLesson, completedLessons } from '../src/database/storage';
 import { useLocalData } from '../src/hooks/useLocalData';
 import { useTheme } from '../src/theme';
 

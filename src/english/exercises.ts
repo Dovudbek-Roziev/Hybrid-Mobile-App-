@@ -1,4 +1,4 @@
-import { vocabulary } from './english/vocabulary';
+import { vocabulary } from './vocabulary';
 export type EnglishExercise={id:string;level:'a1'|'a2'|'b1'|'b2';topic:string;word:string;translation:string;example:string;question:string;options:readonly string[];answer:number};
 const originalExercises:EnglishExercise[]=[
 {id:'en-a1-01',level:'a1',topic:'Introductions',word:'Hello',translation:'Салом',example:'Hello, I am a developer.',question:'How do you say “Салом” in English?',options:['Goodbye','Hello','Thanks'],answer:1},

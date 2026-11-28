@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Button, Card, Field, Label, LoadState, Screen } from '../src/components/ui';
 import { taskNames } from '../src/features/tasks';
 import { useLocalData } from '../src/hooks/useLocalData';
-import { loadProfile, saveProfile, type DailyTask, type Profile } from '../src/storage';
+import { loadProfile, saveProfile, type DailyTask, type Profile } from '../src/database/storage';
 import { useTheme } from '../src/theme';
 
 function PreferenceFields({profile}: {profile: Profile}) {

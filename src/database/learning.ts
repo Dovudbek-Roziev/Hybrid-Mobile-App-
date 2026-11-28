@@ -1,6 +1,6 @@
 import { db } from './connection';
 import { localDay, shiftDay } from '../utils/calendar';
-import type { DailyTask } from '../storage';
+import type { DailyTask } from './storage';
 
 const now = () => new Date().toISOString();
 

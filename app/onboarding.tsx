@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { router } from 'expo-router';
 import { View } from 'react-native';
 import { Button, Field, Label, Screen } from '../src/components/ui';
-import { saveProfile, type Profile } from '../src/storage';
+import { saveProfile, type Profile } from '../src/database/storage';
 import { useTheme } from '../src/theme';
 
 const codingLevels = [['beginner', 'Beginner', 'Boshlang‘ich'], ['junior', 'Junior', 'Junior'], ['intermediate', 'Intermediate', 'O‘rta'], ['advanced', 'Advanced', 'Yuqori']] as const;

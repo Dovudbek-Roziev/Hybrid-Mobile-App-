@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import { router, useFocusEffect } from 'expo-router';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { exercises } from '../../src/english';
+import { exercises } from '../../src/english/exercises';
 import { useTheme, type colors as palette } from '../../src/theme';
-import { completedEnglish, completeEnglish, loadProfile } from '../../src/storage';
+import { completedEnglish, completeEnglish, loadProfile } from '../../src/database/storage';
 export default function English(){
  const s = styles(useTheme().colors);
  const [level,setLevel]=useState<'a1'|'a2'|'b1'|'b2'>('a1');const [done,setDone]=useState<string[]>([]);const [chosen,setChosen]=useState<Record<string,number>>({});

@@ -11,7 +11,7 @@ const hooks = registerHooks({
     }
   },
 });
-const { lessons } = await import('../src/curriculum.ts');
+const { lessons } = await import('../src/curriculum/catalog.ts');
 const { lessonQuestions } = await import('../src/curriculum/model.ts');
 hooks.deregister();
 

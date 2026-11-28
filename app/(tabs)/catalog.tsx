@@ -3,10 +3,10 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { SectionList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Field, Label, LoadState, Meter } from '../../src/components/ui';
-import { lessons, months } from '../../src/curriculum';
+import { lessons, months } from '../../src/curriculum/catalog';
 import type { Lesson } from '../../src/curriculum/model';
 import { useLocalData } from '../../src/hooks/useLocalData';
-import { completedLessons } from '../../src/storage';
+import { completedLessons } from '../../src/database/storage';
 import { useTheme } from '../../src/theme';
 
 export default function Catalog() {

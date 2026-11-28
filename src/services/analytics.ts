@@ -1,8 +1,8 @@
-import { completedLessons, completedEnglish, quizAttempts } from '../storage';
+import { completedLessons, completedEnglish, quizAttempts } from '../database/storage';
 import { challengeEntries, vocabularyEntries, projectEntries, studyData, activityDays } from '../database/learning';
 import { examHistory } from '../exams/storage';
-import { lessons } from '../curriculum';
-import { exercises } from '../english';
+import { lessons } from '../curriculum/catalog';
+import { exercises } from '../english/exercises';
 import { grammar } from '../english/grammar';
 import { readings as reading } from '../english/reading';
 import { vocabulary } from '../english/vocabulary';

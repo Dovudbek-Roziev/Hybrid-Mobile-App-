@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { weeklyQuiz } from '../src/quiz';
-import { saveQuizAttempt } from '../src/storage';
+import { weeklyQuiz } from '../src/exams/weekly-quiz';
+import { saveQuizAttempt } from '../src/database/storage';
 import { useTheme, type colors as palette } from '../src/theme';
 export default function Quiz(){
  const s = styles(useTheme().colors);

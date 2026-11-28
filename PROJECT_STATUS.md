@@ -57,6 +57,13 @@ Catalog verification: 100 unique IDs; 47 easy, 40 medium, 13 hard. Reference sol
 
 Implemented catalogs: 260 lessons, 100 challenges, 1000 vocabulary words, 200 English exercises, 40 grammar lessons, 20 readings and 12 projects. Exam engine, analytics, study timer and JSON backup/restore have been added. Challenge lists are paginated; lesson answers are shuffled. Content and exam tests and GitHub Actions quality checks are configured. EAS preview APK and production Android bundle profiles are configured.
 
-**Release gate:** latest TypeScript, automated tests, Expo Doctor, dependency compatibility, Android smoke tests and backup/restore round trip have not been verified. No APK has been built. Challenges are self-reviewed, not executed. Full content and translation review remains pending.
+**Release gate:** Android device smoke tests, airplane-mode behavior and the device backup/restore round trip still need verification. No APK has been built. Challenges are self-reviewed. Full content and translation review remains pending.
 
 Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install --check`, `npx expo-doctor`, `npx expo start`. After successful verification, an authenticated Expo account can run `npx eas-cli build --platform android --profile preview` (subject to build quota/cost).
+
+## Workspace and source organization
+
+- The primary workspace now tracks the latest GitHub history directly. The nested clone and the earlier local exam draft were archived beside the workspace.
+- Grouped the curriculum, English exercises, exam question bank, SQLite access, preferences and theme by responsibility. The original lesson data is separate from the assembled curriculum catalog. Existing route paths, SQLite tables and content IDs are preserved.
+- Fixed the missing challenge screen content and the exam test import collision. TypeScript, all nine automated tests, Expo dependency checks, Expo Doctor (20/20) and the Android JavaScript export passed after the refactor.
+- The Android export verifies bundling. APK installation and on-device SQLite, backup and offline flows remain pending.

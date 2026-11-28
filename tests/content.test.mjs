@@ -4,7 +4,7 @@ import { registerHooks } from 'node:module';
 const hooks=registerHooks({resolve(specifier,context,nextResolve){try{return nextResolve(specifier,context)}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND'||!specifier.startsWith('.'))throw e;return nextResolve(specifier+'.ts',context)}}});
 const {challenges}=await import('../src/challenges/catalog.ts');
 const {vocabulary}=await import('../src/english/vocabulary.ts');
-const {exercises}=await import('../src/english.ts');
+const {exercises}=await import('../src/english/exercises.ts');
 const {grammar}=await import('../src/english/grammar.ts');
 const {readings}=await import('../src/english/reading.ts');
 const {projects}=await import('../src/projects/catalog.ts');
