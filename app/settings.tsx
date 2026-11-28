@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Card, Field, Label, LoadState, Screen } from '../src/components/ui';
@@ -88,6 +89,7 @@ export default function Settings() {
   const {t} = useTheme();
   return <Screen title={t('Settings', 'Sozlamalar')} back>
     <LoadState {...state}/>
+    <Button onPress={()=>router.push('/backup')}>{t('Backup & Restore','Zaxira va tiklash')}</Button>
     {state.data && <PreferenceFields profile={state.data}/>}
     {state.data === null && <Label>{t('Set up your profile first.', 'Avval profilingizni yarating.')}</Label>}
   </Screen>;
