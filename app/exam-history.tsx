@@ -2,14 +2,27 @@ import { useState } from 'react';
 import { Button, Card, Label, Screen, LoadState } from '../src/components/ui';
 import { useTheme } from '../src/theme';
 import { useLocalData } from '../src/hooks/useLocalData';
-import { examHistory, examReview } from '../src/exams/storage';
+import { examHistory, examReview, examTopics } from '../src/exams/storage';
+import { TopicBreakdown } from '../src/exams/TopicBreakdown';
+
+function AllTopics() {
+  const state = useLocalData(examTopics);
+  return (
+    <>
+      <LoadState {...state} />
+      {state.data && !state.error && <TopicBreakdown topics={state.data} />}
+    </>
+  );
+}
 
 export default function ExamHistory() {
   const { t } = useTheme();
   const history = useLocalData(examHistory);
-  const [review, setReview] = useState<Awaited<
-    ReturnType<typeof examReview>
-  > | null>(null);
+  const [review, setReview] = useState<{
+    answers: Awaited<ReturnType<typeof examReview>>;
+    topics: Awaited<ReturnType<typeof examTopics>>;
+  } | null>(null);
+  const [showTopics, setShowTopics] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [page, setPage] = useState(0);
@@ -18,29 +31,44 @@ export default function ExamHistory() {
     setBusy(true);
     setError('');
     try {
-      setReview(await examReview(id));
-    } catch (e) {
-      setError(String(e));
+      const [answers, topics] = await Promise.all([
+        examReview(id),
+        examTopics(id),
+      ]);
+      setReview({ answers, topics });
+    } catch {
+      setError(
+        t(
+          'Could not open this attempt. Try again.',
+          'Imtihon urinishini ochib bo‘lmadi. Qayta urinib ko‘ring.',
+        ),
+      );
     } finally {
       setBusy(false);
     }
   }
   return (
     <Screen title={t('Exam history', 'Imtihonlar tarixi')} back>
-      <LoadState {...history} />
       {!!error && <Label>{error}</Label>}
       {review !== null ? (
         <>
           <Button onPress={() => setReview(null)}>
             {t('Back to history', 'Tarixga qaytish')}
           </Button>
-          {review.map((r) => (
+          <Label kind="heading">
+            {t('Topics in this attempt', 'Shu urinishdagi mavzular')}
+          </Label>
+          <TopicBreakdown topics={review.topics} />
+          <Label kind="heading">{t('Answers', 'Javoblar')}</Label>
+          {review.answers.map((r) => (
             <Card key={r.question.id}>
               <Label kind="heading">{r.question.question}</Label>
               <Label>
-                {r.selected === r.correct
-                  ? t('Correct', 'To‘g‘ri')
-                  : t('Incorrect or unanswered', 'Xato yoki javobsiz')}
+                {r.selected === null
+                  ? t('Unanswered', 'Javobsiz')
+                  : r.selected === r.correct
+                    ? t('Correct', 'To‘g‘ri')
+                    : t('Incorrect', 'Xato')}
               </Label>
               <Label>
                 {t('Your answer', 'Javobingiz')}:{' '}
@@ -54,9 +82,29 @@ export default function ExamHistory() {
             </Card>
           ))}
         </>
+      ) : showTopics ? (
+        <>
+          <Button onPress={() => setShowTopics(false)}>
+            {t('Back to history', 'Tarixga qaytish')}
+          </Button>
+          <Label kind="heading">
+            {t('Topics across all attempts', 'Barcha urinishlardagi mavzular')}
+          </Label>
+          <AllTopics />
+        </>
       ) : (
         <>
-          {!history.loading && !rows.length && (
+          <Button
+            disabled={busy}
+            onPress={() => {
+              setShowTopics(true);
+              setError('');
+            }}
+          >
+            {t('Results by topic', 'Mavzular bo‘yicha natijalar')}
+          </Button>
+          <LoadState {...history} />
+          {!history.loading && !history.error && !rows.length && (
             <Label>{t('No attempts yet', 'Hali imtihon topshirilmagan')}</Label>
           )}
           {rows.slice(page * 10, page * 10 + 10).map((r) => (

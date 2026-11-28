@@ -24,7 +24,9 @@ const hooks = registerHooks({
 const { exportBackup, restoreBackup, validateBackup } = await import(
   '../src/database/backup.ts'
 );
-const { saveExam, examHistory } = await import('../src/exams/storage.ts');
+const { saveExam, examHistory, examTopics } = await import(
+  '../src/exams/storage.ts'
+);
 const { defaults, loadPreferences, savePreferences } = await import(
   '../src/features/preferences.ts'
 );
@@ -306,6 +308,70 @@ test('version 1 backup round-trips every table and a failed import rolls back', 
       (await examHistory()).find((attempt) => attempt.id === 'lower-pass').pass,
       45,
     );
+
+    const backend = {
+      ...question,
+      id: 'backend-001:0',
+      lessonId: 'backend-001',
+    };
+    await saveExam(
+      'backend-result',
+      'monthly',
+      '6',
+      [backend],
+      { [backend.id]: 1 },
+      51,
+    );
+    const single = await examTopics('lower-pass');
+    assert.deepEqual(
+      single.map(({ month, correct, incorrect, unanswered, lessons }) => ({
+        month,
+        correct,
+        incorrect,
+        unanswered,
+        lessonIds: lessons.map((lesson) => lesson.id),
+      })),
+      [
+        {
+          month: 1,
+          correct: 1,
+          incorrect: 0,
+          unanswered: 1,
+          lessonIds: ['js-001', 'js-002'],
+        },
+      ],
+    );
+    const all = await examTopics();
+    assert.deepEqual(
+      all.map(({ month, correct, incorrect, unanswered }) => [
+        month,
+        correct,
+        incorrect,
+        unanswered,
+      ]),
+      [
+        [1, 2, 0, 3],
+        [6, 0, 1, 0],
+      ],
+    );
+    assert.deepEqual(await examTopics('unknown-attempt'), []);
+    assert.equal(all[0].lessons[0].unanswered, 1); // Older snapshots include the lesson ID in question.id.
+
+    const absent = {
+      ...question,
+      id: 'removed-lesson:0',
+      lessonId: 'removed-lesson',
+    };
+    await saveExam('unknown-topic', 'weekly', '1', [absent], {}, 51);
+    const [unmapped] = await examTopics('unknown-topic');
+    assert.deepEqual(unmapped, {
+      month: null,
+      title: null,
+      correct: 0,
+      incorrect: 0,
+      unanswered: 1,
+      lessons: [],
+    });
   } finally {
     database.close();
     delete globalThis.backupTestDatabase;

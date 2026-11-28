@@ -79,3 +79,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Settings stores an exam pass score from 1 to 100. Each new exam captures the selected threshold and records it with the result so history stays accurate after a settings change.
 - The exam setup offers timed and untimed attempts. Timed attempts submit at their deadline. Untimed attempts can be submitted manually.
 - TypeScript, all 13 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The SQLite integration test verifies that two attempts with the same score retain different pass thresholds through a backup round trip. Phone interaction remains unverified.
+
+## Exam topic analysis
+
+- Exam history displays correct, incorrect and unanswered counts by curriculum topic for a single attempt or across all saved attempts. Each known topic expands to lesson results with a direct link for review.
+- Existing answers use the stored lesson ID or, for older snapshots, the lesson prefix in the question ID. Answers with no matching lesson are counted in an unknown-topic group.
+- TypeScript, all 13 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. SQLite integration covers both scopes, all answer categories and older snapshots. Android device interaction remains pending.
