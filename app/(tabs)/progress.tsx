@@ -9,6 +9,7 @@ export default function Progress(){
  const state=useLocalData(loadAnalytics);
  const a=state.data;
  return <Screen title={t('Progress','Natijalar')}>
+ <Button onPress={()=>router.push('/study-timer')}>{t('Study timer','O‘qish taymeri')}</Button>
  <LoadState {...state}/>
  {a&&<>
  <Card><Label kind="heading">{t('Study time','O‘qish vaqti')}</Label><Label kind="title">{Math.floor(a.totalSeconds/3600)}h {Math.floor(a.totalSeconds%3600/60)}m</Label><Label>{t('Current streak','Joriy ketma-ketlik')}: {a.streak.current}</Label><Label>{t('Longest streak','Eng uzun ketma-ketlik')}: {a.streak.longest}</Label></Card>
