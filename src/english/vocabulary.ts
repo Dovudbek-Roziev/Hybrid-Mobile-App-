@@ -4799,5 +4799,1205 @@ export const vocabulary: Word[] = [
     "level": "b1",
     "word": "independence",
     "translation": "mustaqillik"
+  },
+  {
+    "id": "word-a1-201",
+    "level": "a1",
+    "word": "Monday",
+    "translation": "dushanba"
+  },
+  {
+    "id": "word-a1-202",
+    "level": "a1",
+    "word": "Tuesday",
+    "translation": "seshanba"
+  },
+  {
+    "id": "word-a1-203",
+    "level": "a1",
+    "word": "Wednesday",
+    "translation": "chorshanba"
+  },
+  {
+    "id": "word-a1-204",
+    "level": "a1",
+    "word": "Thursday",
+    "translation": "payshanba"
+  },
+  {
+    "id": "word-a1-205",
+    "level": "a1",
+    "word": "Friday",
+    "translation": "juma"
+  },
+  {
+    "id": "word-a1-206",
+    "level": "a1",
+    "word": "Saturday",
+    "translation": "shanba"
+  },
+  {
+    "id": "word-a1-207",
+    "level": "a1",
+    "word": "Sunday",
+    "translation": "yakshanba"
+  },
+  {
+    "id": "word-a1-208",
+    "level": "a1",
+    "word": "January",
+    "translation": "yanvar"
+  },
+  {
+    "id": "word-a1-209",
+    "level": "a1",
+    "word": "February",
+    "translation": "fevral"
+  },
+  {
+    "id": "word-a1-210",
+    "level": "a1",
+    "word": "March",
+    "translation": "mart"
+  },
+  {
+    "id": "word-a1-211",
+    "level": "a1",
+    "word": "April",
+    "translation": "aprel"
+  },
+  {
+    "id": "word-a1-212",
+    "level": "a1",
+    "word": "May",
+    "translation": "may"
+  },
+  {
+    "id": "word-a1-213",
+    "level": "a1",
+    "word": "June",
+    "translation": "iyun"
+  },
+  {
+    "id": "word-a1-214",
+    "level": "a1",
+    "word": "July",
+    "translation": "iyul"
+  },
+  {
+    "id": "word-a1-215",
+    "level": "a1",
+    "word": "August",
+    "translation": "avgust"
+  },
+  {
+    "id": "word-a1-216",
+    "level": "a1",
+    "word": "September",
+    "translation": "sentabr"
+  },
+  {
+    "id": "word-a1-217",
+    "level": "a1",
+    "word": "October",
+    "translation": "oktabr"
+  },
+  {
+    "id": "word-a1-218",
+    "level": "a1",
+    "word": "November",
+    "translation": "noyabr"
+  },
+  {
+    "id": "word-a1-219",
+    "level": "a1",
+    "word": "December",
+    "translation": "dekabr"
+  },
+  {
+    "id": "word-a1-220",
+    "level": "a1",
+    "word": "eleven",
+    "translation": "o‘n bir"
+  },
+  {
+    "id": "word-a1-221",
+    "level": "a1",
+    "word": "twelve",
+    "translation": "o‘n ikki"
+  },
+  {
+    "id": "word-a1-222",
+    "level": "a1",
+    "word": "twenty",
+    "translation": "yigirma"
+  },
+  {
+    "id": "word-a1-223",
+    "level": "a1",
+    "word": "thirty",
+    "translation": "o‘ttiz"
+  },
+  {
+    "id": "word-a1-224",
+    "level": "a1",
+    "word": "forty",
+    "translation": "qirq"
+  },
+  {
+    "id": "word-a1-225",
+    "level": "a1",
+    "word": "fifty",
+    "translation": "ellik"
+  },
+  {
+    "id": "word-a1-226",
+    "level": "a1",
+    "word": "hundred",
+    "translation": "yuz"
+  },
+  {
+    "id": "word-a1-227",
+    "level": "a1",
+    "word": "thousand",
+    "translation": "ming"
+  },
+  {
+    "id": "word-a1-228",
+    "level": "a1",
+    "word": "purple",
+    "translation": "binafsha rang"
+  },
+  {
+    "id": "word-a1-229",
+    "level": "a1",
+    "word": "pink",
+    "translation": "pushti"
+  },
+  {
+    "id": "word-a1-230",
+    "level": "a1",
+    "word": "brown",
+    "translation": "jigarrang"
+  },
+  {
+    "id": "word-a1-231",
+    "level": "a1",
+    "word": "gray",
+    "translation": "kulrang"
+  },
+  {
+    "id": "word-a1-232",
+    "level": "a1",
+    "word": "rabbit",
+    "translation": "quyon"
+  },
+  {
+    "id": "word-a1-233",
+    "level": "a1",
+    "word": "duck",
+    "translation": "o‘rdak"
+  },
+  {
+    "id": "word-a1-234",
+    "level": "a1",
+    "word": "chicken",
+    "translation": "tovuq"
+  },
+  {
+    "id": "word-a1-235",
+    "level": "a1",
+    "word": "mouse",
+    "translation": "sichqon"
+  },
+  {
+    "id": "word-a1-236",
+    "level": "a1",
+    "word": "lion",
+    "translation": "sher"
+  },
+  {
+    "id": "word-a1-237",
+    "level": "a1",
+    "word": "tiger",
+    "translation": "yo‘lbars"
+  },
+  {
+    "id": "word-a1-238",
+    "level": "a1",
+    "word": "bear",
+    "translation": "ayiq"
+  },
+  {
+    "id": "word-a1-239",
+    "level": "a1",
+    "word": "elephant",
+    "translation": "fil"
+  },
+  {
+    "id": "word-a1-240",
+    "level": "a1",
+    "word": "monkey",
+    "translation": "maymun"
+  },
+  {
+    "id": "word-a1-241",
+    "level": "a1",
+    "word": "snake",
+    "translation": "ilon"
+  },
+  {
+    "id": "word-a1-242",
+    "level": "a1",
+    "word": "frog",
+    "translation": "qurbaqa"
+  },
+  {
+    "id": "word-a1-243",
+    "level": "a1",
+    "word": "swim",
+    "translation": "suzmoq"
+  },
+  {
+    "id": "word-a1-244",
+    "level": "a1",
+    "word": "dance",
+    "translation": "raqsga tushmoq"
+  },
+  {
+    "id": "word-a1-245",
+    "level": "a1",
+    "word": "sing",
+    "translation": "kuylamoq"
+  },
+  {
+    "id": "word-a1-246",
+    "level": "a1",
+    "word": "jump",
+    "translation": "sakramoq"
+  },
+  {
+    "id": "word-a1-247",
+    "level": "a1",
+    "word": "smile",
+    "translation": "tabassum qilmoq"
+  },
+  {
+    "id": "word-a1-248",
+    "level": "a1",
+    "word": "laugh",
+    "translation": "kulmoq"
+  },
+  {
+    "id": "word-a1-249",
+    "level": "a1",
+    "word": "cry",
+    "translation": "yig‘lamoq"
+  },
+  {
+    "id": "word-a1-250",
+    "level": "a1",
+    "word": "love",
+    "translation": "sevmoq"
+  },
+  {
+    "id": "word-a2-201",
+    "level": "a2",
+    "word": "dentist",
+    "translation": "tish shifokori"
+  },
+  {
+    "id": "word-a2-202",
+    "level": "a2",
+    "word": "pharmacy",
+    "translation": "dorixona"
+  },
+  {
+    "id": "word-a2-203",
+    "level": "a2",
+    "word": "fever",
+    "translation": "isitma"
+  },
+  {
+    "id": "word-a2-204",
+    "level": "a2",
+    "word": "cough",
+    "translation": "yo‘tal"
+  },
+  {
+    "id": "word-a2-205",
+    "level": "a2",
+    "word": "pain",
+    "translation": "og‘riq"
+  },
+  {
+    "id": "word-a2-206",
+    "level": "a2",
+    "word": "injury",
+    "translation": "jarohat"
+  },
+  {
+    "id": "word-a2-207",
+    "level": "a2",
+    "word": "illness",
+    "translation": "kasallik"
+  },
+  {
+    "id": "word-a2-208",
+    "level": "a2",
+    "word": "patient",
+    "translation": "bemor"
+  },
+  {
+    "id": "word-a2-209",
+    "level": "a2",
+    "word": "treatment",
+    "translation": "davolash"
+  },
+  {
+    "id": "word-a2-210",
+    "level": "a2",
+    "word": "appointment book",
+    "translation": "uchrashuvlar daftari"
+  },
+  {
+    "id": "word-a2-211",
+    "level": "a2",
+    "word": "uniform",
+    "translation": "forma"
+  },
+  {
+    "id": "word-a2-212",
+    "level": "a2",
+    "word": "glove",
+    "translation": "qo‘lqop"
+  },
+  {
+    "id": "word-a2-213",
+    "level": "a2",
+    "word": "scarf",
+    "translation": "sharf"
+  },
+  {
+    "id": "word-a2-214",
+    "level": "a2",
+    "word": "belt",
+    "translation": "kamar"
+  },
+  {
+    "id": "word-a2-215",
+    "level": "a2",
+    "word": "button",
+    "translation": "tugma"
+  },
+  {
+    "id": "word-a2-216",
+    "level": "a2",
+    "word": "zipper",
+    "translation": "fermuar"
+  },
+  {
+    "id": "word-a2-217",
+    "level": "a2",
+    "word": "size",
+    "translation": "o‘lcham"
+  },
+  {
+    "id": "word-a2-218",
+    "level": "a2",
+    "word": "weight",
+    "translation": "vazn"
+  },
+  {
+    "id": "word-a2-219",
+    "level": "a2",
+    "word": "height",
+    "translation": "bo‘y"
+  },
+  {
+    "id": "word-a2-220",
+    "level": "a2",
+    "word": "length",
+    "translation": "uzunlik"
+  },
+  {
+    "id": "word-a2-221",
+    "level": "a2",
+    "word": "width",
+    "translation": "kenglik"
+  },
+  {
+    "id": "word-a2-222",
+    "level": "a2",
+    "word": "depth",
+    "translation": "chuqurlik"
+  },
+  {
+    "id": "word-a2-223",
+    "level": "a2",
+    "word": "distance",
+    "translation": "masofa"
+  },
+  {
+    "id": "word-a2-224",
+    "level": "a2",
+    "word": "speed",
+    "translation": "tezlik"
+  },
+  {
+    "id": "word-a2-225",
+    "level": "a2",
+    "word": "kilometer",
+    "translation": "kilometr"
+  },
+  {
+    "id": "word-a2-226",
+    "level": "a2",
+    "word": "meter",
+    "translation": "metr"
+  },
+  {
+    "id": "word-a2-227",
+    "level": "a2",
+    "word": "liter",
+    "translation": "litr"
+  },
+  {
+    "id": "word-a2-228",
+    "level": "a2",
+    "word": "gram",
+    "translation": "gramm"
+  },
+  {
+    "id": "word-a2-229",
+    "level": "a2",
+    "word": "kilogram",
+    "translation": "kilogramm"
+  },
+  {
+    "id": "word-a2-230",
+    "level": "a2",
+    "word": "cloud",
+    "translation": "bulut"
+  },
+  {
+    "id": "word-a2-231",
+    "level": "a2",
+    "word": "storm",
+    "translation": "bo‘ron"
+  },
+  {
+    "id": "word-a2-232",
+    "level": "a2",
+    "word": "thunder",
+    "translation": "momaqaldiroq"
+  },
+  {
+    "id": "word-a2-233",
+    "level": "a2",
+    "word": "lightning",
+    "translation": "chaqmoq"
+  },
+  {
+    "id": "word-a2-234",
+    "level": "a2",
+    "word": "fog",
+    "translation": "tuman"
+  },
+  {
+    "id": "word-a2-235",
+    "level": "a2",
+    "word": "ice",
+    "translation": "muz"
+  },
+  {
+    "id": "word-a2-236",
+    "level": "a2",
+    "word": "sand",
+    "translation": "qum"
+  },
+  {
+    "id": "word-a2-237",
+    "level": "a2",
+    "word": "stone",
+    "translation": "tosh"
+  },
+  {
+    "id": "word-a2-238",
+    "level": "a2",
+    "word": "soil",
+    "translation": "tuproq"
+  },
+  {
+    "id": "word-a2-239",
+    "level": "a2",
+    "word": "lake",
+    "translation": "ko‘l"
+  },
+  {
+    "id": "word-a2-240",
+    "level": "a2",
+    "word": "ocean",
+    "translation": "okean"
+  },
+  {
+    "id": "word-a2-241",
+    "level": "a2",
+    "word": "valley",
+    "translation": "vodiy"
+  },
+  {
+    "id": "word-a2-242",
+    "level": "a2",
+    "word": "hill",
+    "translation": "tepalik"
+  },
+  {
+    "id": "word-a2-243",
+    "level": "a2",
+    "word": "field",
+    "translation": "dala"
+  },
+  {
+    "id": "word-a2-244",
+    "level": "a2",
+    "word": "farm",
+    "translation": "ferma"
+  },
+  {
+    "id": "word-a2-245",
+    "level": "a2",
+    "word": "farmer",
+    "translation": "dehqon"
+  },
+  {
+    "id": "word-a2-246",
+    "level": "a2",
+    "word": "plant",
+    "translation": "o‘simlik"
+  },
+  {
+    "id": "word-a2-247",
+    "level": "a2",
+    "word": "seed",
+    "translation": "urug‘"
+  },
+  {
+    "id": "word-a2-248",
+    "level": "a2",
+    "word": "root",
+    "translation": "ildiz"
+  },
+  {
+    "id": "word-a2-249",
+    "level": "a2",
+    "word": "leaf",
+    "translation": "barg"
+  },
+  {
+    "id": "word-a2-250",
+    "level": "a2",
+    "word": "branch",
+    "translation": "shox"
+  },
+  {
+    "id": "word-b1-201",
+    "level": "b1",
+    "word": "influence",
+    "translation": "ta’sir"
+  },
+  {
+    "id": "word-b1-202",
+    "level": "b1",
+    "word": "initiative",
+    "translation": "tashabbus"
+  },
+  {
+    "id": "word-b1-203",
+    "level": "b1",
+    "word": "instruction",
+    "translation": "ko‘rsatma"
+  },
+  {
+    "id": "word-b1-204",
+    "level": "b1",
+    "word": "intention",
+    "translation": "niyat"
+  },
+  {
+    "id": "word-b1-205",
+    "level": "b1",
+    "word": "interaction",
+    "translation": "o‘zaro aloqa"
+  },
+  {
+    "id": "word-b1-206",
+    "level": "b1",
+    "word": "interest",
+    "translation": "qiziqish"
+  },
+  {
+    "id": "word-b1-207",
+    "level": "b1",
+    "word": "interpretation",
+    "translation": "talqin"
+  },
+  {
+    "id": "word-b1-208",
+    "level": "b1",
+    "word": "introduction",
+    "translation": "kirish"
+  },
+  {
+    "id": "word-b1-209",
+    "level": "b1",
+    "word": "investigation",
+    "translation": "tekshiruv"
+  },
+  {
+    "id": "word-b1-210",
+    "level": "b1",
+    "word": "judgment",
+    "translation": "mulohaza"
+  },
+  {
+    "id": "word-b1-211",
+    "level": "b1",
+    "word": "justice",
+    "translation": "adolat"
+  },
+  {
+    "id": "word-b1-212",
+    "level": "b1",
+    "word": "leadership",
+    "translation": "yetakchilik"
+  },
+  {
+    "id": "word-b1-213",
+    "level": "b1",
+    "word": "limit",
+    "translation": "chegara"
+  },
+  {
+    "id": "word-b1-214",
+    "level": "b1",
+    "word": "location",
+    "translation": "joylashuv"
+  },
+  {
+    "id": "word-b1-215",
+    "level": "b1",
+    "word": "maintenance",
+    "translation": "texnik xizmat"
+  },
+  {
+    "id": "word-b1-216",
+    "level": "b1",
+    "word": "management",
+    "translation": "boshqaruv"
+  },
+  {
+    "id": "word-b1-217",
+    "level": "b1",
+    "word": "material",
+    "translation": "material"
+  },
+  {
+    "id": "word-b1-218",
+    "level": "b1",
+    "word": "motivation",
+    "translation": "rag‘bat"
+  },
+  {
+    "id": "word-b1-219",
+    "level": "b1",
+    "word": "negotiation",
+    "translation": "muzokara"
+  },
+  {
+    "id": "word-b1-220",
+    "level": "b1",
+    "word": "obligation",
+    "translation": "majburiyat"
+  },
+  {
+    "id": "word-b1-221",
+    "level": "b1",
+    "word": "opinion",
+    "translation": "fikr"
+  },
+  {
+    "id": "word-b1-222",
+    "level": "b1",
+    "word": "organization",
+    "translation": "tashkilot"
+  },
+  {
+    "id": "word-b1-223",
+    "level": "b1",
+    "word": "outcome",
+    "translation": "yakuniy natija"
+  },
+  {
+    "id": "word-b1-224",
+    "level": "b1",
+    "word": "participant",
+    "translation": "ishtirokchi"
+  },
+  {
+    "id": "word-b1-225",
+    "level": "b1",
+    "word": "permission",
+    "translation": "ruxsat"
+  },
+  {
+    "id": "word-b1-226",
+    "level": "b1",
+    "word": "perspective",
+    "translation": "nuqtayi nazar"
+  },
+  {
+    "id": "word-b1-227",
+    "level": "b1",
+    "word": "policy",
+    "translation": "siyosat yoki qoida"
+  },
+  {
+    "id": "word-b1-228",
+    "level": "b1",
+    "word": "possibility",
+    "translation": "ehtimol"
+  },
+  {
+    "id": "word-b1-229",
+    "level": "b1",
+    "word": "preference",
+    "translation": "afzal ko‘rish"
+  },
+  {
+    "id": "word-b1-230",
+    "level": "b1",
+    "word": "preparation",
+    "translation": "tayyorgarlik"
+  },
+  {
+    "id": "word-b1-231",
+    "level": "b1",
+    "word": "pressure",
+    "translation": "bosim"
+  },
+  {
+    "id": "word-b1-232",
+    "level": "b1",
+    "word": "principle",
+    "translation": "tamoyil"
+  },
+  {
+    "id": "word-b1-233",
+    "level": "b1",
+    "word": "procedure",
+    "translation": "tartib"
+  },
+  {
+    "id": "word-b1-234",
+    "level": "b1",
+    "word": "production",
+    "translation": "ishlab chiqarish"
+  },
+  {
+    "id": "word-b1-235",
+    "level": "b1",
+    "word": "profession",
+    "translation": "kasb"
+  },
+  {
+    "id": "word-b1-236",
+    "level": "b1",
+    "word": "proposal",
+    "translation": "taklif"
+  },
+  {
+    "id": "word-b1-237",
+    "level": "b1",
+    "word": "protection",
+    "translation": "himoya"
+  },
+  {
+    "id": "word-b1-238",
+    "level": "b1",
+    "word": "reaction",
+    "translation": "munosabat bildirish"
+  },
+  {
+    "id": "word-b1-239",
+    "level": "b1",
+    "word": "reality",
+    "translation": "haqiqat"
+  },
+  {
+    "id": "word-b1-240",
+    "level": "b1",
+    "word": "reason",
+    "translation": "sabab"
+  },
+  {
+    "id": "word-b1-241",
+    "level": "b1",
+    "word": "recommendation",
+    "translation": "tavsiya"
+  },
+  {
+    "id": "word-b1-242",
+    "level": "b1",
+    "word": "recovery",
+    "translation": "tiklanish"
+  },
+  {
+    "id": "word-b1-243",
+    "level": "b1",
+    "word": "reduction",
+    "translation": "kamayish"
+  },
+  {
+    "id": "word-b1-244",
+    "level": "b1",
+    "word": "reflection",
+    "translation": "mulohaza yuritish"
+  },
+  {
+    "id": "word-b1-245",
+    "level": "b1",
+    "word": "region",
+    "translation": "hudud"
+  },
+  {
+    "id": "word-b1-246",
+    "level": "b1",
+    "word": "regulation",
+    "translation": "tartibga soluvchi qoida"
+  },
+  {
+    "id": "word-b1-247",
+    "level": "b1",
+    "word": "research",
+    "translation": "tadqiqot"
+  },
+  {
+    "id": "word-b1-248",
+    "level": "b1",
+    "word": "resolution",
+    "translation": "yechim"
+  },
+  {
+    "id": "word-b1-249",
+    "level": "b1",
+    "word": "review",
+    "translation": "ko‘rib chiqish"
+  },
+  {
+    "id": "word-b1-250",
+    "level": "b1",
+    "word": "satisfaction",
+    "translation": "qoniqish"
+  },
+  {
+    "id": "word-b2-201",
+    "level": "b2",
+    "word": "feasibility",
+    "translation": "amalga oshirish mumkinligi"
+  },
+  {
+    "id": "word-b2-202",
+    "level": "b2",
+    "word": "viability",
+    "translation": "yashovchanlik"
+  },
+  {
+    "id": "word-b2-203",
+    "level": "b2",
+    "word": "ambiguity",
+    "translation": "noaniqlik"
+  },
+  {
+    "id": "word-b2-204",
+    "level": "b2",
+    "word": "assumption",
+    "translation": "faraz"
+  },
+  {
+    "id": "word-b2-205",
+    "level": "b2",
+    "word": "implication",
+    "translation": "kelib chiqadigan oqibat"
+  },
+  {
+    "id": "word-b2-206",
+    "level": "b2",
+    "word": "inference",
+    "translation": "xulosa chiqarish"
+  },
+  {
+    "id": "word-b2-207",
+    "level": "b2",
+    "word": "hypothesis",
+    "translation": "gipoteza"
+  },
+  {
+    "id": "word-b2-208",
+    "level": "b2",
+    "word": "criterion",
+    "translation": "mezon"
+  },
+  {
+    "id": "word-b2-209",
+    "level": "b2",
+    "word": "methodology",
+    "translation": "metodologiya"
+  },
+  {
+    "id": "word-b2-210",
+    "level": "b2",
+    "word": "correlation",
+    "translation": "korrelyatsiya"
+  },
+  {
+    "id": "word-b2-211",
+    "level": "b2",
+    "word": "causation",
+    "translation": "sababiy bog‘lanish"
+  },
+  {
+    "id": "word-b2-212",
+    "level": "b2",
+    "word": "variance",
+    "translation": "dispersiya"
+  },
+  {
+    "id": "word-b2-213",
+    "level": "b2",
+    "word": "deviation",
+    "translation": "og‘ish"
+  },
+  {
+    "id": "word-b2-214",
+    "level": "b2",
+    "word": "distributional shift",
+    "translation": "taqsimotning siljishi"
+  },
+  {
+    "id": "word-b2-215",
+    "level": "b2",
+    "word": "optimization",
+    "translation": "optimallashtirish"
+  },
+  {
+    "id": "word-b2-216",
+    "level": "b2",
+    "word": "approximation",
+    "translation": "taqribiy hisoblash"
+  },
+  {
+    "id": "word-b2-217",
+    "level": "b2",
+    "word": "heuristic",
+    "translation": "evristik usul"
+  },
+  {
+    "id": "word-b2-218",
+    "level": "b2",
+    "word": "convergence",
+    "translation": "yaqinlashish"
+  },
+  {
+    "id": "word-b2-219",
+    "level": "b2",
+    "word": "divergence",
+    "translation": "uzoqlashish"
+  },
+  {
+    "id": "word-b2-220",
+    "level": "b2",
+    "word": "granularity",
+    "translation": "tafsilot darajasi"
+  },
+  {
+    "id": "word-b2-221",
+    "level": "b2",
+    "word": "modularity",
+    "translation": "modullilik"
+  },
+  {
+    "id": "word-b2-222",
+    "level": "b2",
+    "word": "cohesion",
+    "translation": "ichki bog‘liqlik"
+  },
+  {
+    "id": "word-b2-223",
+    "level": "b2",
+    "word": "coupling",
+    "translation": "modullararo bog‘liqlik"
+  },
+  {
+    "id": "word-b2-224",
+    "level": "b2",
+    "word": "decoupling",
+    "translation": "bog‘liqlikni kamaytirish"
+  },
+  {
+    "id": "word-b2-225",
+    "level": "b2",
+    "word": "extensibility",
+    "translation": "kengaytirish imkoniyati"
+  },
+  {
+    "id": "word-b2-226",
+    "level": "b2",
+    "word": "composability",
+    "translation": "birlashtirib ishlatish imkoniyati"
+  },
+  {
+    "id": "word-b2-227",
+    "level": "b2",
+    "word": "fault tolerance",
+    "translation": "nosozlikka bardoshlilik"
+  },
+  {
+    "id": "word-b2-228",
+    "level": "b2",
+    "word": "disaster recovery",
+    "translation": "falokatdan keyin tiklash"
+  },
+  {
+    "id": "word-b2-229",
+    "level": "b2",
+    "word": "data retention",
+    "translation": "ma’lumotni saqlash muddati"
+  },
+  {
+    "id": "word-b2-230",
+    "level": "b2",
+    "word": "audit trail",
+    "translation": "tekshiruv uchun amallar tarixi"
+  },
+  {
+    "id": "word-b2-231",
+    "level": "b2",
+    "word": "least privilege",
+    "translation": "eng kam zarur ruxsat"
+  },
+  {
+    "id": "word-b2-232",
+    "level": "b2",
+    "word": "access control",
+    "translation": "kirishni boshqarish"
+  },
+  {
+    "id": "word-b2-233",
+    "level": "b2",
+    "word": "secret rotation",
+    "translation": "maxfiy kalitlarni almashtirish"
+  },
+  {
+    "id": "word-b2-234",
+    "level": "b2",
+    "word": "key management",
+    "translation": "kalitlarni boshqarish"
+  },
+  {
+    "id": "word-b2-235",
+    "level": "b2",
+    "word": "data masking",
+    "translation": "ma’lumotni niqoblash"
+  },
+  {
+    "id": "word-b2-236",
+    "level": "b2",
+    "word": "anonymization",
+    "translation": "shaxsni aniqlash imkonini yo‘qotish"
+  },
+  {
+    "id": "word-b2-237",
+    "level": "b2",
+    "word": "pseudonymization",
+    "translation": "identifikatorni taxallus bilan almashtirish"
+  },
+  {
+    "id": "word-b2-238",
+    "level": "b2",
+    "word": "compliance",
+    "translation": "talablarga muvofiqlik"
+  },
+  {
+    "id": "word-b2-239",
+    "level": "b2",
+    "word": "governance",
+    "translation": "boshqaruv qoidalari"
+  },
+  {
+    "id": "word-b2-240",
+    "level": "b2",
+    "word": "accountability",
+    "translation": "hisobdorlik"
+  },
+  {
+    "id": "word-b2-241",
+    "level": "b2",
+    "word": "transparency",
+    "translation": "shaffoflik"
+  },
+  {
+    "id": "word-b2-242",
+    "level": "b2",
+    "word": "sustainability",
+    "translation": "barqaror rivojlanish"
+  },
+  {
+    "id": "word-b2-243",
+    "level": "b2",
+    "word": "mitigation",
+    "translation": "xatarni kamaytirish"
+  },
+  {
+    "id": "word-b2-244",
+    "level": "b2",
+    "word": "contingency",
+    "translation": "favqulodda holat rejasi"
+  },
+  {
+    "id": "word-b2-245",
+    "level": "b2",
+    "word": "prioritization",
+    "translation": "ustuvorliklarni belgilash"
+  },
+  {
+    "id": "word-b2-246",
+    "level": "b2",
+    "word": "stakeholder",
+    "translation": "manfaatdor tomon"
+  },
+  {
+    "id": "word-b2-247",
+    "level": "b2",
+    "word": "deliverable",
+    "translation": "topshiriladigan natija"
+  },
+  {
+    "id": "word-b2-248",
+    "level": "b2",
+    "word": "milestone",
+    "translation": "muhim bosqich"
+  },
+  {
+    "id": "word-b2-249",
+    "level": "b2",
+    "word": "retrospective",
+    "translation": "o‘tgan ishni tahlil qilish"
+  },
+  {
+    "id": "word-b2-250",
+    "level": "b2",
+    "word": "technical debt",
+    "translation": "texnik qarz"
   }
 ];
