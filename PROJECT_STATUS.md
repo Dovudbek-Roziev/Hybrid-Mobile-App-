@@ -52,3 +52,11 @@ The implementation will extend the existing routes and database. Remaining gates
 - Remaining: add topic filters, review solutions, add tests, verify TypeScript and Android runtime.
 
 Catalog verification: 100 unique IDs; 47 easy, 40 medium, 13 hard. Reference solutions and Android runtime have not been tested.
+
+## Release candidate preparation
+
+Implemented catalogs: 260 lessons, 100 challenges, 1000 vocabulary words, 200 English exercises, 40 grammar lessons, 20 readings and 12 projects. Exam engine, analytics, study timer and JSON backup/restore have been added. Challenge lists are paginated; lesson answers are shuffled. Content and exam tests and GitHub Actions quality checks are configured. EAS preview APK and production Android bundle profiles are configured.
+
+**Release gate:** latest TypeScript, automated tests, Expo Doctor, dependency compatibility, Android smoke tests and backup/restore round trip have not been verified. No APK has been built. Challenges are self-reviewed, not executed. Full content and translation review remains pending.
+
+Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install --check`, `npx expo-doctor`, `npx expo start`. After successful verification, an authenticated Expo account can run `npx eas-cli build --platform android --profile preview` (subject to build quota/cost).
