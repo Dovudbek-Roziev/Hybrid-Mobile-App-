@@ -25,7 +25,8 @@ const { checkSentence, checkTranslation } = await import(
 const { weeklyQuiz } = await import('../src/exams/weekly-quiz.ts');
 const { grammar } = await import('../src/english/grammar.ts');
 const { readings } = await import('../src/english/reading.ts');
-const { projects } = await import('../src/projects/catalog.ts');
+const { projects, previousProjects } = await import('../src/projects/catalog.ts');
+const { originalProjects } = await import('../src/projects/original-projects.ts');
 hooks.deregister();
 test('catalog sizes and unique identifiers', () => {
   for (const [items, count] of [
@@ -177,6 +178,10 @@ test('challenges and projects contain required learning material', () => {
     for (const field of ['title', 'task', 'starter', 'hint', 'solution'])
       assert.ok(c[field].trim(), c.id + ' ' + field);
   for (const p of projects) {
+    assert.ok(p.brief.trim() && p.stack.trim() && p.architecture.trim(), p.id);
+    assert.ok(p.steps.length >= 4 && p.steps.every((step) => step.trim()), p.id);
+    for (const field of ['code', 'testing', 'security', 'deployment'])
+      assert.ok(p[field].trim(), p.id + ' ' + field);
     assert.ok(
       p.requirements.length && p.acceptance.length && p.rubric.length,
       p.id,
@@ -184,6 +189,33 @@ test('challenges and projects contain required learning material', () => {
     assert.equal(
       new Set(p.milestones.map((m) => m.id)).size,
       p.milestones.length,
+    );
+  }
+});
+
+test('project guides match the brief and preserve existing milestone keys', () => {
+  assert.deepEqual(projects.map((project) => project.title), [
+    'JavaScript Score Tracker',
+    'Asynchronous Task Queue',
+    'TypeScript Task Manager',
+    'React Dashboard',
+    'Next.js Portfolio',
+    'Express REST API',
+    'MongoDB Task Manager',
+    'Algorithm Visualizer',
+    'Tested Fullstack Application',
+    'Dockerized Application',
+    'React Native Application',
+    'Final SaaS Application',
+  ]);
+  const available = new Map(
+    [...projects, ...previousProjects].map((project) => [project.id, project]),
+  );
+  for (const project of originalProjects) {
+    assert.deepEqual(
+      available.get(project.id)?.milestones.map(({ id }) => id),
+      project.milestones.map(({ id }) => id),
+      project.id,
     );
   }
 });

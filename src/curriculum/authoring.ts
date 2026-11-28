@@ -1,4 +1,4 @@
-import type { LessonSource } from './model';
+import type { LessonNotes, LessonSource } from './model';
 
 type Topic = {
   title: string;
@@ -12,7 +12,7 @@ type Topic = {
   alternatives: readonly [string, string];
 };
 
-export function buildMonth(month: number, topics: readonly Topic[]): LessonSource[] {
+export function buildMonth(month: number, topics: readonly Topic[]): (LessonSource & LessonNotes)[] {
   return topics.map((topic, index) => {
     const correct = index % 3;
     const choices = [...topic.alternatives];

@@ -64,8 +64,7 @@ test('all lessons have practical work, code and a well-formed knowledge check', 
       lesson.body.trim() && lesson.code.trim() && lesson.practice?.trim(),
       lesson.id,
     );
-    if (lesson.month >= 8)
-      assert.ok(lesson.example?.trim() && lesson.mistake?.trim(), lesson.id);
+    assert.ok(lesson.example?.trim() && lesson.mistake?.trim(), lesson.id);
     const questions = lessonQuestions(lesson);
     assert.ok(questions.length, lesson.id);
     for (const { question, choices, correct, explanation } of questions) {

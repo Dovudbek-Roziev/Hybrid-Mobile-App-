@@ -9,6 +9,7 @@ import { month10 } from './month10';
 import { month11 } from './month11';
 import { month12 } from './month12';
 import { jsUz } from './uz/js';
+import { legacyNotes } from './uz/legacy-notes';
 import { scheduleLessons, type LessonGuide } from './model';
 import { originalLessons } from './original-lessons';
 import { foundationsGuides } from './guides/foundations';
@@ -40,14 +41,13 @@ const localized: Record<string, { theory: string; practice: string }> = {
 };
 const existing = originalLessons.map((lesson) => {
   const uz = localized[lesson.id];
-  return uz
-    ? {
-        ...lesson,
-        body: uz.theory,
-        englishBody: lesson.body,
-        practice: uz.practice,
-      }
-    : lesson;
+  const notes = legacyNotes[lesson.id];
+  if (!notes) throw new Error('Missing lesson notes for ' + lesson.id);
+  return {
+    ...lesson,
+    ...notes,
+    ...(uz && { body: uz.theory, englishBody: lesson.body, practice: uz.practice }),
+  };
 });
 
 const guides: Readonly<Partial<Record<string, LessonGuide>>> = {

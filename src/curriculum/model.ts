@@ -13,6 +13,11 @@ export type LessonGuide = {
   reflection: string;
 };
 
+export type LessonNotes = {
+  example: string;
+  mistake: string;
+};
+
 export type LessonSource = {
   id: string;
   month: number;
@@ -32,12 +37,12 @@ export type LessonSource = {
 };
 
 export type Lesson = LessonSource &
-  LessonGuide & { week: number; difficulty: Difficulty };
+  LessonGuide & LessonNotes & { week: number; difficulty: Difficulty };
 
 export const weeksPerMonth = [4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5];
 
 export function scheduleLessons(
-  source: readonly (LessonSource & LessonGuide)[],
+  source: readonly (LessonSource & LessonGuide & LessonNotes)[],
 ): Lesson[] {
   let firstWeek = 1;
   return weeksPerMonth.flatMap((weeks, index) => {
