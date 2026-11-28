@@ -3599,5 +3599,1199 @@ export const vocabulary: Word[] = [
     "level": "b2",
     "word": "mock",
     "translation": "sinov uchun taqlid obyekti"
+  },
+  {
+    "id": "word-a1-151",
+    "level": "a1",
+    "word": "doghouse",
+    "translation": "it uyasi"
+  },
+  {
+    "id": "word-a1-152",
+    "level": "a1",
+    "word": "desk",
+    "translation": "yozuv stoli"
+  },
+  {
+    "id": "word-a1-153",
+    "level": "a1",
+    "word": "bag",
+    "translation": "sumka"
+  },
+  {
+    "id": "word-a1-154",
+    "level": "a1",
+    "word": "box",
+    "translation": "quti"
+  },
+  {
+    "id": "word-a1-155",
+    "level": "a1",
+    "word": "key",
+    "translation": "kalit"
+  },
+  {
+    "id": "word-a1-156",
+    "level": "a1",
+    "word": "clock",
+    "translation": "soat"
+  },
+  {
+    "id": "word-a1-157",
+    "level": "a1",
+    "word": "watch",
+    "translation": "qo‘l soati"
+  },
+  {
+    "id": "word-a1-158",
+    "level": "a1",
+    "word": "mirror",
+    "translation": "ko‘zgu"
+  },
+  {
+    "id": "word-a1-159",
+    "level": "a1",
+    "word": "floor",
+    "translation": "pol"
+  },
+  {
+    "id": "word-a1-160",
+    "level": "a1",
+    "word": "wall",
+    "translation": "devor"
+  },
+  {
+    "id": "word-a1-161",
+    "level": "a1",
+    "word": "roof",
+    "translation": "tom"
+  },
+  {
+    "id": "word-a1-162",
+    "level": "a1",
+    "word": "ceiling",
+    "translation": "shift"
+  },
+  {
+    "id": "word-a1-163",
+    "level": "a1",
+    "word": "soap",
+    "translation": "sovun"
+  },
+  {
+    "id": "word-a1-164",
+    "level": "a1",
+    "word": "towel",
+    "translation": "sochiq"
+  },
+  {
+    "id": "word-a1-165",
+    "level": "a1",
+    "word": "brush",
+    "translation": "cho‘tka"
+  },
+  {
+    "id": "word-a1-166",
+    "level": "a1",
+    "word": "comb",
+    "translation": "taroq"
+  },
+  {
+    "id": "word-a1-167",
+    "level": "a1",
+    "word": "sock",
+    "translation": "paypoq"
+  },
+  {
+    "id": "word-a1-168",
+    "level": "a1",
+    "word": "dress",
+    "translation": "ayollar ko‘ylagi"
+  },
+  {
+    "id": "word-a1-169",
+    "level": "a1",
+    "word": "jacket",
+    "translation": "kurtka"
+  },
+  {
+    "id": "word-a1-170",
+    "level": "a1",
+    "word": "trousers",
+    "translation": "shim"
+  },
+  {
+    "id": "word-a1-171",
+    "level": "a1",
+    "word": "skirt",
+    "translation": "yubka"
+  },
+  {
+    "id": "word-a1-172",
+    "level": "a1",
+    "word": "orange",
+    "translation": "apelsin"
+  },
+  {
+    "id": "word-a1-173",
+    "level": "a1",
+    "word": "banana",
+    "translation": "banan"
+  },
+  {
+    "id": "word-a1-174",
+    "level": "a1",
+    "word": "grape",
+    "translation": "uzum"
+  },
+  {
+    "id": "word-a1-175",
+    "level": "a1",
+    "word": "pear",
+    "translation": "nok"
+  },
+  {
+    "id": "word-a1-176",
+    "level": "a1",
+    "word": "lemon",
+    "translation": "limon"
+  },
+  {
+    "id": "word-a1-177",
+    "level": "a1",
+    "word": "potato",
+    "translation": "kartoshka"
+  },
+  {
+    "id": "word-a1-178",
+    "level": "a1",
+    "word": "tomato",
+    "translation": "pomidor"
+  },
+  {
+    "id": "word-a1-179",
+    "level": "a1",
+    "word": "onion",
+    "translation": "piyoz"
+  },
+  {
+    "id": "word-a1-180",
+    "level": "a1",
+    "word": "carrot",
+    "translation": "sabzi"
+  },
+  {
+    "id": "word-a1-181",
+    "level": "a1",
+    "word": "meat",
+    "translation": "go‘sht"
+  },
+  {
+    "id": "word-a1-182",
+    "level": "a1",
+    "word": "cheese",
+    "translation": "pishloq"
+  },
+  {
+    "id": "word-a1-183",
+    "level": "a1",
+    "word": "butter",
+    "translation": "sariyog‘"
+  },
+  {
+    "id": "word-a1-184",
+    "level": "a1",
+    "word": "soup",
+    "translation": "sho‘rva"
+  },
+  {
+    "id": "word-a1-185",
+    "level": "a1",
+    "word": "cake",
+    "translation": "tort"
+  },
+  {
+    "id": "word-a1-186",
+    "level": "a1",
+    "word": "juice",
+    "translation": "sharbat"
+  },
+  {
+    "id": "word-a1-187",
+    "level": "a1",
+    "word": "hungry",
+    "translation": "och"
+  },
+  {
+    "id": "word-a1-188",
+    "level": "a1",
+    "word": "thirsty",
+    "translation": "chanqagan"
+  },
+  {
+    "id": "word-a1-189",
+    "level": "a1",
+    "word": "tired",
+    "translation": "charchagan"
+  },
+  {
+    "id": "word-a1-190",
+    "level": "a1",
+    "word": "easy",
+    "translation": "oson"
+  },
+  {
+    "id": "word-a1-191",
+    "level": "a1",
+    "word": "hard",
+    "translation": "qiyin"
+  },
+  {
+    "id": "word-a1-192",
+    "level": "a1",
+    "word": "nice",
+    "translation": "yoqimli"
+  },
+  {
+    "id": "word-a1-193",
+    "level": "a1",
+    "word": "beautiful",
+    "translation": "chiroyli"
+  },
+  {
+    "id": "word-a1-194",
+    "level": "a1",
+    "word": "right",
+    "translation": "o‘ng"
+  },
+  {
+    "id": "word-a1-195",
+    "level": "a1",
+    "word": "left",
+    "translation": "chap"
+  },
+  {
+    "id": "word-a1-196",
+    "level": "a1",
+    "word": "near",
+    "translation": "yaqin"
+  },
+  {
+    "id": "word-a1-197",
+    "level": "a1",
+    "word": "far",
+    "translation": "uzoq"
+  },
+  {
+    "id": "word-a1-198",
+    "level": "a1",
+    "word": "inside",
+    "translation": "ichkarida"
+  },
+  {
+    "id": "word-a1-199",
+    "level": "a1",
+    "word": "outside",
+    "translation": "tashqarida"
+  },
+  {
+    "id": "word-a1-200",
+    "level": "a1",
+    "word": "together",
+    "translation": "birga"
+  },
+  {
+    "id": "word-a2-151",
+    "level": "a2",
+    "word": "suitcase",
+    "translation": "chamadon"
+  },
+  {
+    "id": "word-a2-152",
+    "level": "a2",
+    "word": "passport",
+    "translation": "pasport"
+  },
+  {
+    "id": "word-a2-153",
+    "level": "a2",
+    "word": "map",
+    "translation": "xarita"
+  },
+  {
+    "id": "word-a2-154",
+    "level": "a2",
+    "word": "guide",
+    "translation": "yo‘lboshchi"
+  },
+  {
+    "id": "word-a2-155",
+    "level": "a2",
+    "word": "tour",
+    "translation": "sayohat"
+  },
+  {
+    "id": "word-a2-156",
+    "level": "a2",
+    "word": "flight",
+    "translation": "aviaqatnov"
+  },
+  {
+    "id": "word-a2-157",
+    "level": "a2",
+    "word": "platform",
+    "translation": "platforma"
+  },
+  {
+    "id": "word-a2-158",
+    "level": "a2",
+    "word": "railway",
+    "translation": "temir yo‘l"
+  },
+  {
+    "id": "word-a2-159",
+    "level": "a2",
+    "word": "subway",
+    "translation": "metro"
+  },
+  {
+    "id": "word-a2-160",
+    "level": "a2",
+    "word": "crossing",
+    "translation": "kesishma"
+  },
+  {
+    "id": "word-a2-161",
+    "level": "a2",
+    "word": "corner",
+    "translation": "burchak"
+  },
+  {
+    "id": "word-a2-162",
+    "level": "a2",
+    "word": "square",
+    "translation": "maydon"
+  },
+  {
+    "id": "word-a2-163",
+    "level": "a2",
+    "word": "capital",
+    "translation": "poytaxt"
+  },
+  {
+    "id": "word-a2-164",
+    "level": "a2",
+    "word": "population",
+    "translation": "aholi"
+  },
+  {
+    "id": "word-a2-165",
+    "level": "a2",
+    "word": "building",
+    "translation": "bino"
+  },
+  {
+    "id": "word-a2-166",
+    "level": "a2",
+    "word": "apartment",
+    "translation": "kvartira"
+  },
+  {
+    "id": "word-a2-167",
+    "level": "a2",
+    "word": "rent",
+    "translation": "ijaraga olmoq"
+  },
+  {
+    "id": "word-a2-168",
+    "level": "a2",
+    "word": "furniture",
+    "translation": "mebel"
+  },
+  {
+    "id": "word-a2-169",
+    "level": "a2",
+    "word": "shelf",
+    "translation": "tokcha"
+  },
+  {
+    "id": "word-a2-170",
+    "level": "a2",
+    "word": "curtain",
+    "translation": "parda"
+  },
+  {
+    "id": "word-a2-171",
+    "level": "a2",
+    "word": "carpet",
+    "translation": "gilam"
+  },
+  {
+    "id": "word-a2-172",
+    "level": "a2",
+    "word": "blanket",
+    "translation": "adyol"
+  },
+  {
+    "id": "word-a2-173",
+    "level": "a2",
+    "word": "pillow",
+    "translation": "yostiq"
+  },
+  {
+    "id": "word-a2-174",
+    "level": "a2",
+    "word": "shower",
+    "translation": "dush"
+  },
+  {
+    "id": "word-a2-175",
+    "level": "a2",
+    "word": "toilet",
+    "translation": "hojatxona"
+  },
+  {
+    "id": "word-a2-176",
+    "level": "a2",
+    "word": "fridge",
+    "translation": "muzlatkich"
+  },
+  {
+    "id": "word-a2-177",
+    "level": "a2",
+    "word": "oven",
+    "translation": "pech"
+  },
+  {
+    "id": "word-a2-178",
+    "level": "a2",
+    "word": "stove",
+    "translation": "plita"
+  },
+  {
+    "id": "word-a2-179",
+    "level": "a2",
+    "word": "basket",
+    "translation": "savat"
+  },
+  {
+    "id": "word-a2-180",
+    "level": "a2",
+    "word": "package",
+    "translation": "o‘ram"
+  },
+  {
+    "id": "word-a2-181",
+    "level": "a2",
+    "word": "parcel",
+    "translation": "jo‘natma"
+  },
+  {
+    "id": "word-a2-182",
+    "level": "a2",
+    "word": "stamp",
+    "translation": "pochta markasi"
+  },
+  {
+    "id": "word-a2-183",
+    "level": "a2",
+    "word": "envelope",
+    "translation": "konvert"
+  },
+  {
+    "id": "word-a2-184",
+    "level": "a2",
+    "word": "letter",
+    "translation": "xat"
+  },
+  {
+    "id": "word-a2-185",
+    "level": "a2",
+    "word": "postcard",
+    "translation": "otkritka"
+  },
+  {
+    "id": "word-a2-186",
+    "level": "a2",
+    "word": "newspaper",
+    "translation": "gazeta"
+  },
+  {
+    "id": "word-a2-187",
+    "level": "a2",
+    "word": "magazine",
+    "translation": "jurnal"
+  },
+  {
+    "id": "word-a2-188",
+    "level": "a2",
+    "word": "story",
+    "translation": "hikoya"
+  },
+  {
+    "id": "word-a2-189",
+    "level": "a2",
+    "word": "novel",
+    "translation": "roman"
+  },
+  {
+    "id": "word-a2-190",
+    "level": "a2",
+    "word": "poem",
+    "translation": "she’r"
+  },
+  {
+    "id": "word-a2-191",
+    "level": "a2",
+    "word": "song",
+    "translation": "qo‘shiq"
+  },
+  {
+    "id": "word-a2-192",
+    "level": "a2",
+    "word": "concert",
+    "translation": "konsert"
+  },
+  {
+    "id": "word-a2-193",
+    "level": "a2",
+    "word": "actor",
+    "translation": "aktyor"
+  },
+  {
+    "id": "word-a2-194",
+    "level": "a2",
+    "word": "artist",
+    "translation": "rassom"
+  },
+  {
+    "id": "word-a2-195",
+    "level": "a2",
+    "word": "camera",
+    "translation": "kamera"
+  },
+  {
+    "id": "word-a2-196",
+    "level": "a2",
+    "word": "picture",
+    "translation": "rasm"
+  },
+  {
+    "id": "word-a2-197",
+    "level": "a2",
+    "word": "photograph",
+    "translation": "fotosurat"
+  },
+  {
+    "id": "word-a2-198",
+    "level": "a2",
+    "word": "ticket office",
+    "translation": "chipta kassasi"
+  },
+  {
+    "id": "word-a2-199",
+    "level": "a2",
+    "word": "entrance fee",
+    "translation": "kirish to‘lovi"
+  },
+  {
+    "id": "word-a2-200",
+    "level": "a2",
+    "word": "destination",
+    "translation": "manzil"
+  },
+  {
+    "id": "word-b1-151",
+    "level": "b1",
+    "word": "achievement",
+    "translation": "yutuq"
+  },
+  {
+    "id": "word-b1-152",
+    "level": "b1",
+    "word": "alternative",
+    "translation": "muqobil variant"
+  },
+  {
+    "id": "word-b1-153",
+    "level": "b1",
+    "word": "analysis",
+    "translation": "tahlil"
+  },
+  {
+    "id": "word-b1-154",
+    "level": "b1",
+    "word": "application",
+    "translation": "ariza yoki qo‘llash"
+  },
+  {
+    "id": "word-b1-155",
+    "level": "b1",
+    "word": "argument",
+    "translation": "dalil yoki bahs"
+  },
+  {
+    "id": "word-b1-156",
+    "level": "b1",
+    "word": "assessment",
+    "translation": "baholash"
+  },
+  {
+    "id": "word-b1-157",
+    "level": "b1",
+    "word": "assistance",
+    "translation": "yordam"
+  },
+  {
+    "id": "word-b1-158",
+    "level": "b1",
+    "word": "attention",
+    "translation": "e’tibor"
+  },
+  {
+    "id": "word-b1-159",
+    "level": "b1",
+    "word": "attitude",
+    "translation": "munosabat"
+  },
+  {
+    "id": "word-b1-160",
+    "level": "b1",
+    "word": "authority",
+    "translation": "vakolat"
+  },
+  {
+    "id": "word-b1-161",
+    "level": "b1",
+    "word": "balance",
+    "translation": "muvozanat"
+  },
+  {
+    "id": "word-b1-162",
+    "level": "b1",
+    "word": "barrier",
+    "translation": "to‘siq"
+  },
+  {
+    "id": "word-b1-163",
+    "level": "b1",
+    "word": "capacity",
+    "translation": "sig‘im"
+  },
+  {
+    "id": "word-b1-164",
+    "level": "b1",
+    "word": "category",
+    "translation": "toifa"
+  },
+  {
+    "id": "word-b1-165",
+    "level": "b1",
+    "word": "circumstance",
+    "translation": "vaziyat"
+  },
+  {
+    "id": "word-b1-166",
+    "level": "b1",
+    "word": "citizen",
+    "translation": "fuqaro"
+  },
+  {
+    "id": "word-b1-167",
+    "level": "b1",
+    "word": "confidence",
+    "translation": "ishonch"
+  },
+  {
+    "id": "word-b1-168",
+    "level": "b1",
+    "word": "conflict",
+    "translation": "ziddiyat"
+  },
+  {
+    "id": "word-b1-169",
+    "level": "b1",
+    "word": "connection",
+    "translation": "aloqa"
+  },
+  {
+    "id": "word-b1-170",
+    "level": "b1",
+    "word": "consequence",
+    "translation": "oqibat"
+  },
+  {
+    "id": "word-b1-171",
+    "level": "b1",
+    "word": "context",
+    "translation": "kontekst"
+  },
+  {
+    "id": "word-b1-172",
+    "level": "b1",
+    "word": "contract",
+    "translation": "shartnoma"
+  },
+  {
+    "id": "word-b1-173",
+    "level": "b1",
+    "word": "culture",
+    "translation": "madaniyat"
+  },
+  {
+    "id": "word-b1-174",
+    "level": "b1",
+    "word": "debate",
+    "translation": "munozara"
+  },
+  {
+    "id": "word-b1-175",
+    "level": "b1",
+    "word": "demand",
+    "translation": "talab"
+  },
+  {
+    "id": "word-b1-176",
+    "level": "b1",
+    "word": "description",
+    "translation": "tavsif"
+  },
+  {
+    "id": "word-b1-177",
+    "level": "b1",
+    "word": "difference",
+    "translation": "farq"
+  },
+  {
+    "id": "word-b1-178",
+    "level": "b1",
+    "word": "difficulty",
+    "translation": "qiyinchilik"
+  },
+  {
+    "id": "word-b1-179",
+    "level": "b1",
+    "word": "discovery",
+    "translation": "kashfiyot"
+  },
+  {
+    "id": "word-b1-180",
+    "level": "b1",
+    "word": "distribution",
+    "translation": "taqsimot"
+  },
+  {
+    "id": "word-b1-181",
+    "level": "b1",
+    "word": "economy",
+    "translation": "iqtisodiyot"
+  },
+  {
+    "id": "word-b1-182",
+    "level": "b1",
+    "word": "emergency",
+    "translation": "favqulodda holat"
+  },
+  {
+    "id": "word-b1-183",
+    "level": "b1",
+    "word": "emotion",
+    "translation": "hissiyot"
+  },
+  {
+    "id": "word-b1-184",
+    "level": "b1",
+    "word": "emphasis",
+    "translation": "urg‘u"
+  },
+  {
+    "id": "word-b1-185",
+    "level": "b1",
+    "word": "employee",
+    "translation": "xodim"
+  },
+  {
+    "id": "word-b1-186",
+    "level": "b1",
+    "word": "employer",
+    "translation": "ish beruvchi"
+  },
+  {
+    "id": "word-b1-187",
+    "level": "b1",
+    "word": "equipment",
+    "translation": "jihoz"
+  },
+  {
+    "id": "word-b1-188",
+    "level": "b1",
+    "word": "estimate",
+    "translation": "taxminiy baho"
+  },
+  {
+    "id": "word-b1-189",
+    "level": "b1",
+    "word": "event",
+    "translation": "voqea"
+  },
+  {
+    "id": "word-b1-190",
+    "level": "b1",
+    "word": "exception",
+    "translation": "istisno"
+  },
+  {
+    "id": "word-b1-191",
+    "level": "b1",
+    "word": "expert",
+    "translation": "mutaxassis"
+  },
+  {
+    "id": "word-b1-192",
+    "level": "b1",
+    "word": "explanation",
+    "translation": "tushuntirish"
+  },
+  {
+    "id": "word-b1-193",
+    "level": "b1",
+    "word": "feedback",
+    "translation": "fikr-mulohaza"
+  },
+  {
+    "id": "word-b1-194",
+    "level": "b1",
+    "word": "foundation",
+    "translation": "poydevor"
+  },
+  {
+    "id": "word-b1-195",
+    "level": "b1",
+    "word": "freedom",
+    "translation": "erkinlik"
+  },
+  {
+    "id": "word-b1-196",
+    "level": "b1",
+    "word": "generation",
+    "translation": "avlod"
+  },
+  {
+    "id": "word-b1-197",
+    "level": "b1",
+    "word": "guidance",
+    "translation": "yo‘l-yo‘riq"
+  },
+  {
+    "id": "word-b1-198",
+    "level": "b1",
+    "word": "impact",
+    "translation": "ta’sir"
+  },
+  {
+    "id": "word-b1-199",
+    "level": "b1",
+    "word": "impression",
+    "translation": "taassurot"
+  },
+  {
+    "id": "word-b2-151",
+    "level": "b2",
+    "word": "assertion",
+    "translation": "tasdiqlovchi tekshiruv"
+  },
+  {
+    "id": "word-b2-152",
+    "level": "b2",
+    "word": "fixture",
+    "translation": "sinov uchun tayyor ma’lumot"
+  },
+  {
+    "id": "word-b2-153",
+    "level": "b2",
+    "word": "stub",
+    "translation": "sinovdagi soddalashtirilgan o‘rinbosar"
+  },
+  {
+    "id": "word-b2-154",
+    "level": "b2",
+    "word": "coverage",
+    "translation": "test qamrovi"
+  },
+  {
+    "id": "word-b2-155",
+    "level": "b2",
+    "word": "integration",
+    "translation": "birlashtirish"
+  },
+  {
+    "id": "word-b2-156",
+    "level": "b2",
+    "word": "interoperability",
+    "translation": "o‘zaro ishlay olish"
+  },
+  {
+    "id": "word-b2-157",
+    "level": "b2",
+    "word": "compatibility",
+    "translation": "moslik"
+  },
+  {
+    "id": "word-b2-158",
+    "level": "b2",
+    "word": "portability",
+    "translation": "ko‘chiriluvchanlik"
+  },
+  {
+    "id": "word-b2-159",
+    "level": "b2",
+    "word": "maintainability",
+    "translation": "xizmat ko‘rsatish qulayligi"
+  },
+  {
+    "id": "word-b2-160",
+    "level": "b2",
+    "word": "testability",
+    "translation": "sinash qulayligi"
+  },
+  {
+    "id": "word-b2-161",
+    "level": "b2",
+    "word": "accessibility",
+    "translation": "foydalanish imkoniyati"
+  },
+  {
+    "id": "word-b2-162",
+    "level": "b2",
+    "word": "usability",
+    "translation": "foydalanish qulayligi"
+  },
+  {
+    "id": "word-b2-163",
+    "level": "b2",
+    "word": "localization",
+    "translation": "mahalliylashtirish"
+  },
+  {
+    "id": "word-b2-164",
+    "level": "b2",
+    "word": "internationalization",
+    "translation": "xalqarolashtirish"
+  },
+  {
+    "id": "word-b2-165",
+    "level": "b2",
+    "word": "responsive design",
+    "translation": "moslashuvchan dizayn"
+  },
+  {
+    "id": "word-b2-166",
+    "level": "b2",
+    "word": "rendering",
+    "translation": "tasvirni hosil qilish"
+  },
+  {
+    "id": "word-b2-167",
+    "level": "b2",
+    "word": "hydration",
+    "translation": "statik sahifaga interaktivlik ulash"
+  },
+  {
+    "id": "word-b2-168",
+    "level": "b2",
+    "word": "bundling",
+    "translation": "modullarni paketlash"
+  },
+  {
+    "id": "word-b2-169",
+    "level": "b2",
+    "word": "minification",
+    "translation": "kodni ixchamlashtirish"
+  },
+  {
+    "id": "word-b2-170",
+    "level": "b2",
+    "word": "transpilation",
+    "translation": "bir kod shaklidan boshqasiga o‘girish"
+  },
+  {
+    "id": "word-b2-171",
+    "level": "b2",
+    "word": "tree shaking",
+    "translation": "ishlatilmagan kodni chiqarish"
+  },
+  {
+    "id": "word-b2-172",
+    "level": "b2",
+    "word": "lazy loading",
+    "translation": "kerak bo‘lganda yuklash"
+  },
+  {
+    "id": "word-b2-173",
+    "level": "b2",
+    "word": "memoization",
+    "translation": "natijalarni eslab qolish"
+  },
+  {
+    "id": "word-b2-174",
+    "level": "b2",
+    "word": "reconciliation",
+    "translation": "interfeys holatlarini solishtirish"
+  },
+  {
+    "id": "word-b2-175",
+    "level": "b2",
+    "word": "component",
+    "translation": "komponent"
+  },
+  {
+    "id": "word-b2-176",
+    "level": "b2",
+    "word": "hook",
+    "translation": "huk"
+  },
+  {
+    "id": "word-b2-177",
+    "level": "b2",
+    "word": "reducer",
+    "translation": "holatni yangilovchi funksiya"
+  },
+  {
+    "id": "word-b2-178",
+    "level": "b2",
+    "word": "dispatch",
+    "translation": "amalni yuborish"
+  },
+  {
+    "id": "word-b2-179",
+    "level": "b2",
+    "word": "selector",
+    "translation": "holatdan qiymat tanlovchi funksiya"
+  },
+  {
+    "id": "word-b2-180",
+    "level": "b2",
+    "word": "subscription",
+    "translation": "obuna"
+  },
+  {
+    "id": "word-b2-181",
+    "level": "b2",
+    "word": "publisher",
+    "translation": "nashr qiluvchi"
+  },
+  {
+    "id": "word-b2-182",
+    "level": "b2",
+    "word": "subscriber",
+    "translation": "obunachi"
+  },
+  {
+    "id": "word-b2-183",
+    "level": "b2",
+    "word": "broker",
+    "translation": "xabar vositachisi"
+  },
+  {
+    "id": "word-b2-184",
+    "level": "b2",
+    "word": "message bus",
+    "translation": "xabarlar shinasi"
+  },
+  {
+    "id": "word-b2-185",
+    "level": "b2",
+    "word": "event sourcing",
+    "translation": "hodisalar orqali holatni saqlash"
+  },
+  {
+    "id": "word-b2-186",
+    "level": "b2",
+    "word": "webhook",
+    "translation": "hodisaga javoban HTTP chaqiruvi"
+  },
+  {
+    "id": "word-b2-187",
+    "level": "b2",
+    "word": "polling",
+    "translation": "takroriy so‘rov yuborish"
+  },
+  {
+    "id": "word-b2-188",
+    "level": "b2",
+    "word": "streaming",
+    "translation": "oqimli uzatish"
+  },
+  {
+    "id": "word-b2-189",
+    "level": "b2",
+    "word": "handshake",
+    "translation": "aloqa o‘rnatish kelishuvi"
+  },
+  {
+    "id": "word-b2-190",
+    "level": "b2",
+    "word": "timeout",
+    "translation": "kutish vaqti chegarasi"
+  },
+  {
+    "id": "word-b2-191",
+    "level": "b2",
+    "word": "retry",
+    "translation": "qayta urinish"
+  },
+  {
+    "id": "word-b2-192",
+    "level": "b2",
+    "word": "exponential backoff",
+    "translation": "kutish vaqtini eksponensial oshirish"
+  },
+  {
+    "id": "word-b2-193",
+    "level": "b2",
+    "word": "load shedding",
+    "translation": "ortiqcha yukni rad etish"
+  },
+  {
+    "id": "word-b2-194",
+    "level": "b2",
+    "word": "health check",
+    "translation": "xizmat holatini tekshirish"
+  },
+  {
+    "id": "word-b2-195",
+    "level": "b2",
+    "word": "reverse proxy",
+    "translation": "teskari proksi"
+  },
+  {
+    "id": "word-b2-196",
+    "level": "b2",
+    "word": "service discovery",
+    "translation": "xizmatlarni topish"
+  },
+  {
+    "id": "word-b2-197",
+    "level": "b2",
+    "word": "blue-green deployment",
+    "translation": "ikki muhitli reliz"
+  },
+  {
+    "id": "word-b2-198",
+    "level": "b2",
+    "word": "canary release",
+    "translation": "kichik guruhga dastlabki reliz"
+  },
+  {
+    "id": "word-b2-199",
+    "level": "b2",
+    "word": "feature flag",
+    "translation": "funksiyani boshqaruvchi belgi"
+  },
+  {
+    "id": "word-b2-200",
+    "level": "b2",
+    "word": "rollback strategy",
+    "translation": "oldingi holatga qaytish strategiyasi"
   }
 ];
