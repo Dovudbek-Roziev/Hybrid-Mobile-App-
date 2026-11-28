@@ -15,8 +15,9 @@ const originalExercises:EnglishExercise[]=[
 const generated: EnglishExercise[] = vocabulary.slice(0,191).map((w,index) => {
  const alternatives = vocabulary.filter(v => v.level === w.level && v.id !== w.id && v.translation !== w.translation);
  const first = alternatives[index % alternatives.length];
- const second = alternatives.find(v => v.id !== first.id && v.translation !== first.translation)!;
- const answer = index % 3;
+ const distinct = alternatives.filter(v => v.id !== first.id && v.translation !== first.translation);
+ const second = distinct[(index * 17 + 11) % distinct.length];
+ const answer = [...w.id].reduce((hash,ch)=>(Math.imul(hash,31)+ch.charCodeAt(0))>>>0,2166136261) % 3;
  const options = [first.word, second.word];
  options.splice(answer,0,w.word);
  return {id:'exercise-'+w.id,level:w.level,topic:'Vocabulary',word:'',translation:'',example:'',question:'Choose the English word for: '+w.translation,options,answer};
