@@ -119,3 +119,8 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - All 100 challenges now include a sample input, expected output and an Uzbek explanation. The explanation appears beside the reference solution. Shell, UI and framework exercises use scenario inputs and describe the expected behavior.
 - Fixed unsigned bit-mask matching for the highest 32-bit flag and reused a single lookup set in the intersection solution. Challenge IDs, drafts and completion tracking are preserved.
 - TypeScript, all 24 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The tests check guide coverage, run selected JavaScript reference snippets and exercise SQL solutions on disposable fixtures. Android presentation and external framework scenarios remain unverified.
+
+## Vocabulary example sentences
+
+- Added an original English sentence and an Uzbek Latin translation to all 1,000 A1–B2 vocabulary entries. Cards show the example after the learner reveals the definition. The word catalog, IDs and spaced-repetition dates are preserved.
+- The coverage test verifies one distinct English sentence per word, inclusion of the exact headword or phrase and a corresponding Uzbek Latin translation. TypeScript, all 25 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Card display on an Android device remains unverified.

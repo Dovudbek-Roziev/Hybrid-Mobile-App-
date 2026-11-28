@@ -6,7 +6,7 @@ Oflayn foydalanish uchun React Native va Expo ilovasi. Profil, o‘quv natijalar
 
 - 12 oy va 52 haftaga bo‘lingan 260 ta dasturlash darsi.
 - Kod yozish, qoralama saqlash va yechim bilan mustaqil solishtirish uchun 100 ta mashq.
-- A1–B2 darajalarida 1 000 ta lug‘at birligi, 224 ta mashq, 40 ta grammatika darsi va 20 ta texnik matn. Mashqlar javob tanlash, inglizcha tarjima yozish va so‘zlarni tartiblab gap tuzishni qamrab oladi.
+- A1–B2 darajalarida misol gap va o‘zbekcha tarjimasi bilan 1 000 ta lug‘at birligi, 224 ta mashq, 40 ta grammatika darsi va 20 ta texnik matn. Mashqlar javob tanlash, inglizcha tarjima yozish va so‘zlarni tartiblab gap tuzishni qamrab oladi.
 - 12 ta amaliy loyiha, imtihonlar va javoblar tarixi.
 - Kunlik reja, o‘qish taymeri, natijalar, yorug‘ va tungi mavzu, JSON orqali zaxiralash va tiklash.
 
