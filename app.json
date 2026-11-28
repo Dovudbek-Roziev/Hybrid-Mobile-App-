@@ -9,10 +9,25 @@
     "plugins": [
       "expo-router",
       "expo-sqlite",
-      ["expo-notifications", { "enableRemoteNotifications": false }]
+      [
+        "expo-notifications",
+        {
+          "enableRemoteNotifications": false
+        }
+      ]
     ],
     "android": {
       "package": "com.dovudbek.personalacademy"
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "2bf96ecf-f8bd-4c75-a5b0-8fc196ee37b9"
+      }
     }
   }
 }
