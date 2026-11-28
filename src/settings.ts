@@ -12,7 +12,7 @@ export type Preferences = {
 };
 
 export const defaults: Preferences = {
-  theme: 'dark', language: 'en', fontSize: 1,
+  theme: 'dark', language: 'uz', fontSize: 1,
   minutes: { programming: 25, practice: 15, english: 15, review: 5 },
   rest: [], reminder: null, pass: 70,
 };
@@ -34,8 +34,12 @@ export function isPreferences(input: unknown): input is Preferences {
 export async function loadPreferences() {
   const row = await (await db()).getFirstAsync<{ value: string }>("SELECT value FROM settings WHERE key = 'preferences'");
   if (!row) return defaults;
-  const value: unknown = JSON.parse(row.value);
-  return isPreferences(value) ? value : defaults;
+  try {
+    const value: unknown = JSON.parse(row.value);
+    return isPreferences(value) ? value : defaults;
+  } catch {
+    return defaults;
+  }
 }
 
 export async function savePreferences(value: Preferences) {
