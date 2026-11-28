@@ -1,15 +1,45 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
+import { Text, useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../src/theme';
 
 export default function AcademyTabs() {
-  const { colors, t } = useTheme();
+  const { colors, preferences, t } = useTheme();
+  const { fontScale } = useWindowDimensions();
+  const { bottom } = useSafeAreaInsets();
+  const maxLabelScale = 1.5;
+  const labelLineHeight = 14 * preferences.fontSize;
+  const labelHeight = Math.ceil(labelLineHeight * Math.min(fontScale, maxLabelScale));
+  const tabContentHeight = 38 + labelHeight * 2;
+
   return <Tabs screenOptions={{
     headerShown: false,
     tabBarActiveTintColor: colors.primary,
     tabBarInactiveTintColor: colors.muted,
-    tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.border, paddingTop: 6 },
-    tabBarLabelStyle: {fontSize: 11, fontWeight: '600'},
+    tabBarStyle: {
+      backgroundColor: colors.surface,
+      borderTopColor: colors.border,
+      height: tabContentHeight + bottom,
+    },
+    tabBarLabelPosition: 'below-icon',
+    tabBarLabel: ({ children, color }) => (
+      <Text
+        maxFontSizeMultiplier={maxLabelScale}
+        numberOfLines={2}
+        style={{
+          color,
+          fontSize: 11 * preferences.fontSize,
+          fontWeight: '600',
+          includeFontPadding: false,
+          lineHeight: labelLineHeight,
+          marginTop: 3,
+          textAlign: 'center',
+        }}
+      >
+        {children}
+      </Text>
+    ),
     tabBarHideOnKeyboard: true,
     sceneStyle: { backgroundColor: colors.bg },
   }}>
