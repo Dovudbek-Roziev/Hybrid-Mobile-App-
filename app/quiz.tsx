@@ -1,14 +1,126 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { router } from 'expo-router';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { weeklyQuiz } from '../src/exams/weekly-quiz';
+import { Button, Card, Label, Screen } from '../src/components/ui';
 import { saveQuizAttempt } from '../src/database/storage';
-import { useTheme, type colors as palette } from '../src/theme';
-export default function Quiz(){
- const s = styles(useTheme().colors);
- const [answers,setAnswers]=useState<Record<string,number>>({});const [score,setScore]=useState<number|null>(null);const [busy,setBusy]=useState(false);
- const all=weeklyQuiz.every(q=>answers[q.id]!==undefined);
- async function submit(){if(!all||busy||score!==null)return;const n=weeklyQuiz.filter(q=>answers[q.id]===q.answer).length;setBusy(true);try{await saveQuizAttempt('js-week-1',n,weeklyQuiz.length);setScore(n)}catch(e){Alert.alert('Save failed',String(e))}finally{setBusy(false)}}
- return <ScrollView style={s.page} contentContainerStyle={s.content}><Pressable onPress={()=>router.back()}><Text style={s.link}>← Dashboard</Text></Pressable><Text style={s.kicker}>WEEK 1 · JAVASCRIPT</Text><Text style={s.title}>Weekly Quiz</Text><Text style={s.muted}>5 questions · Offline · Results saved on your device</Text>{score!==null&&<View style={s.result}><Text style={s.title}>{score} / {weeklyQuiz.length}</Text><Text style={s.muted}>Your attempt was saved offline.</Text></View>}{weeklyQuiz.map((q,index)=><View key={q.id} style={s.card}><Text style={s.question}>{index+1}. {q.question}</Text>{q.options.map((option,i)=><Pressable key={i} disabled={score!==null} onPress={()=>setAnswers(v=>({...v,[q.id]:i}))} style={[s.option,answers[q.id]===i&&s.selected,score!==null&&i===q.answer&&s.correct]}><Text style={s.white}>{option}</Text></Pressable>)}{score!==null&&<Text style={s.muted}>{q.explanation}</Text>}</View>)}{score===null?<Pressable disabled={!all||busy} onPress={submit} style={[s.button,(!all||busy)&&{opacity:0.45}]}><Text style={s.buttonText}>{busy?'Saving...':'Submit answers'}</Text></Pressable>:<Pressable style={s.button} onPress={()=>router.replace('/progress')}><Text style={s.buttonText}>View my progress →</Text></Pressable>}</ScrollView>
+import { weeklyQuiz } from '../src/exams/weekly-quiz';
+import { useTheme } from '../src/theme';
+
+export default function Quiz() {
+  const { t, preferences } = useTheme();
+  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [score, setScore] = useState<number | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const locked = useRef(false);
+  const ready = weeklyQuiz.every(
+    (question) => answers[question.id] !== undefined,
+  );
+  const submitted = score !== null;
+
+  async function submit() {
+    if (!ready || locked.current || submitted) return;
+    locked.current = true;
+    setBusy(true);
+    setFailed(false);
+    try {
+      const correct = weeklyQuiz.filter(
+        (question) => answers[question.id] === question.answer,
+      ).length;
+      await saveQuizAttempt('js-week-1', correct, weeklyQuiz.length);
+      setScore(correct);
+    } catch {
+      setFailed(true);
+    } finally {
+      setBusy(false);
+      locked.current = false;
+    }
+  }
+
+  return (
+    <Screen title={t('Weekly quiz', 'Haftalik test')} back>
+      <Label kind="accent">{t('Week 1', '1-hafta')} · JavaScript</Label>
+      <Label>
+        {weeklyQuiz.length} {t('questions', 'ta savol')}
+      </Label>
+      {submitted && (
+        <Card>
+          <Label kind="heading">
+            {t('Score', 'Natija')} {score}/{weeklyQuiz.length}
+          </Label>
+          <Label>
+            {t(
+              'Your attempt was saved on this device.',
+              'Natijangiz qurilmada saqlandi.',
+            )}
+          </Label>
+        </Card>
+      )}
+      {weeklyQuiz.map((question, index) => {
+        const options =
+          preferences.language === 'uz'
+            ? (question.optionsUz ?? question.options)
+            : question.options;
+        return (
+          <Card key={question.id}>
+            <Label kind="heading">
+              {index + 1}. {t(question.question, question.questionUz)}
+            </Label>
+            {options.map((option, choice) => (
+              <Button
+                key={choice}
+                disabled={busy || submitted}
+                chosen={
+                  submitted
+                    ? choice === question.answer
+                    : answers[question.id] === choice
+                }
+                onPress={() =>
+                  setAnswers((old) => ({ ...old, [question.id]: choice }))
+                }
+              >
+                {option}
+              </Button>
+            ))}
+            {submitted && (
+              <>
+                <Label kind="accent">
+                  {answers[question.id] === question.answer
+                    ? t('Correct', 'To‘g‘ri')
+                    : t('Incorrect', 'Xato')}
+                </Label>
+                <Label>
+                  {t('Your answer', 'Javobingiz')} ·{' '}
+                  {options[answers[question.id]]}
+                </Label>
+                <Label>
+                  {t('Correct answer', 'To‘g‘ri javob')} ·{' '}
+                  {options[question.answer]}
+                </Label>
+                <Label>{t(question.explanation, question.explanationUz)}</Label>
+              </>
+            )}
+          </Card>
+        );
+      })}
+      {failed && (
+        <Label>
+          {t(
+            'Could not save the result. Try again.',
+            'Natijani saqlab bo‘lmadi. Qayta urinib ko‘ring.',
+          )}
+        </Label>
+      )}
+      {submitted ? (
+        <Button onPress={() => router.replace('/progress')}>
+          {t('View my progress', 'Natijalarimni ko‘rish')}
+        </Button>
+      ) : (
+        <Button disabled={!ready || busy} onPress={() => void submit()}>
+          {busy
+            ? t('Saving…', 'Saqlanmoqda…')
+            : t('Submit answers', 'Javoblarni topshirish')}
+        </Button>
+      )}
+    </Screen>
+  );
 }
-const styles=(colors:typeof palette)=>StyleSheet.create({page:{flex:1,backgroundColor:colors.bg},content:{padding:24,paddingTop:62,paddingBottom:60},link:{color:colors.primary,fontWeight:'800'},kicker:{color:colors.primary,fontSize:12,fontWeight:'800',marginTop:25},title:{color:colors.text,fontSize:30,fontWeight:'800',marginTop:12},muted:{color:colors.muted,lineHeight:23,marginTop:10},card:{backgroundColor:colors.surface,borderColor:colors.border,borderWidth:1,borderRadius:18,padding:20,marginTop:18},question:{color:colors.text,fontSize:17,fontWeight:'700',marginBottom:12},option:{padding:14,borderRadius:12,borderWidth:1,borderColor:colors.border,marginTop:9},selected:{borderColor:colors.primary,backgroundColor:colors.selected},correct:{borderColor:colors.success},white:{color:colors.text},button:{backgroundColor:colors.primary,borderRadius:14,padding:17,alignItems:'center',marginTop:24},buttonText:{color:colors.bg,fontWeight:'800'},result:{backgroundColor:colors.selected,padding:20,borderRadius:16,marginTop:20}})

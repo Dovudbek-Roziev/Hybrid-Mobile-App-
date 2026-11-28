@@ -26,7 +26,7 @@ export default function GrammarScreen(){
   finally{setBusy(false);}
  }
  return <Screen title={t('Grammar','Grammatika')} back>
- <LoadState {...progress}/>
+ <LoadState {...progress} error={progress.error ? t('Grammar results are unavailable.', 'Grammatika natijalarini ko‘rsatib bo‘lmadi.') : null}/>
  <Card><Label>{list.filter(g=>done.has(g.id)).length} / {list.length}</Label><Meter value={list.filter(g=>done.has(g.id)).length} total={list.length}/></Card>
  {(['a1','a2','b1','b2'] as const).map(l=><Button key={l} disabled={busy} chosen={l===level} onPress={()=>{setLevel(l);setSelected(null);setChoice(null);setMessage('')}}>{l.toUpperCase()}</Button>)}
  {item?<Card><Label kind="heading">{item.title}</Label><Label>{item.theory}</Label><Label kind="accent">{item.example}</Label><Label kind="heading">{item.question}</Label>

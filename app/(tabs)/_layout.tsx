@@ -16,7 +16,7 @@ export default function AcademyTabs() {
     <Tabs.Screen name="index" options={{title: t('Home', 'Bosh sahifa'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name={focused ? "home" : "home-outline"}/>}}/>
     <Tabs.Screen name="catalog" options={{title: t('Academy', 'Akademiya'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name={focused ? "library" : "library-outline"}/>}}/>
     <Tabs.Screen name="practice" options={{title: t('Practice', 'Amaliyot'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="code-slash-outline"/>}}/>
-    <Tabs.Screen name="english" options={{title: 'English', tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="language-outline"/>}}/>
+    <Tabs.Screen name="english" options={{title: t('English', 'Ingliz tili'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name="language-outline"/>}}/>
     <Tabs.Screen name="progress" options={{title: t('Progress', 'Natijalar'), tabBarIcon: ({size, focused}) => <Ionicons size={size} color={focused ? colors.primary : colors.muted} name={focused ? "stats-chart" : "stats-chart-outline"}/>}}/>
   </Tabs>;
 }

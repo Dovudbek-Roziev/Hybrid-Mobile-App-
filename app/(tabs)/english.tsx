@@ -1,16 +1,219 @@
-import { useCallback, useState } from 'react';
-import { router, useFocusEffect } from 'expo-router';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { exercises } from '../../src/english/exercises';
-import { useTheme, type colors as palette } from '../../src/theme';
-import { completedEnglish, completeEnglish, loadProfile } from '../../src/database/storage';
-export default function English(){
- const s = styles(useTheme().colors);
- const [level,setLevel]=useState<'a1'|'a2'|'b1'|'b2'>('a1');const [done,setDone]=useState<string[]>([]);const [chosen,setChosen]=useState<Record<string,number>>({});
- useFocusEffect(useCallback(()=>{let live=true;Promise.all([loadProfile(),completedEnglish()]).then(([p,d])=>{if(!live)return;if(p)setLevel(p.englishLevel);setDone(d)}).catch(e=>Alert.alert('Storage error',String(e)));return()=>{live=false}},[]));
- const [page,setPage]=useState(0);
- const list=exercises.filter(e=>e.level===level);const pageCount=Math.max(1,Math.ceil(list.length/10));const currentPage=Math.min(page,pageCount-1);
- async function answer(id:string,choice:number,correct:number){setChosen(v=>({...v,[id]:choice}));if(choice!==correct)return;try{await completeEnglish(id);setDone(v=>v.includes(id)?v:[...v,id])}catch(e){Alert.alert('Save failed',String(e))}}
- return <ScrollView style={s.page} contentContainerStyle={s.content}><Pressable onPress={()=>router.back()}><Text style={s.link}>← Dashboard</Text></Pressable><Text style={s.kicker}>OFFLINE ENGLISH ACADEMY</Text><Text style={s.title}>Learn English</Text><Pressable accessibilityRole="button" onPress={()=>router.push('/vocabulary')} style={s.card}><Text style={s.word}>Vocabulary · Flashcards</Text><Text style={s.muted}>Lug‘at va oraliqli takrorlash</Text></Pressable><Pressable accessibilityRole="button" onPress={()=>router.push('/grammar')} style={s.card}><Text style={s.word}>Grammar · 40 lessons</Text><Text style={s.muted}>Grammatika va testlar</Text></Pressable><Pressable accessibilityRole="button" onPress={()=>router.push('/reading')} style={s.card}><Text style={s.word}>Technical Reading · 20 lessons</Text><Text style={s.muted}>Texnik matnlar va testlar</Text></Pressable><Text style={s.muted}>Vocabulary, grammar and developer English. Choose your level.</Text><View style={s.row}>{(['a1','a2','b1','b2'] as const).map(x=><Pressable key={x} onPress={()=>{setLevel(x);setPage(0)}} style={[s.pill,level===x&&s.active]}><Text style={s.white}>{x.toUpperCase()}</Text></Pressable>)}</View><Text style={s.muted}>{list.filter(x=>done.includes(x.id)).length} / {list.length} exercises completed</Text>{list.slice(currentPage*10,currentPage*10+10).map(e=><View key={e.id} style={s.card}><Text style={s.kicker}>{e.topic.toUpperCase()} {done.includes(e.id)?'✓':''}</Text>{!!e.word&&<Text style={s.word}>{e.word}</Text>}{!!e.translation&&<Text style={s.muted}>{e.translation}</Text>}{!!e.example&&<Text style={s.example}>{e.example}</Text>}<Text style={s.question}>{e.question}</Text>{e.options.map((option,i)=><Pressable key={i} onPress={()=>answer(e.id,i,e.answer)} style={[s.option,chosen[e.id]===i&&(i===e.answer?s.correct:s.incorrect)]}><Text style={s.white}>{option}</Text></Pressable>)}{chosen[e.id]!==undefined&&<Text style={s.muted}>{chosen[e.id]===e.answer?'Correct! Saved offline.':'Not quite. Try another answer.'}</Text>}</View>)}<View style={s.row}><Pressable disabled={currentPage===0} onPress={()=>setPage(currentPage-1)} style={s.pill}><Text style={s.white}>Previous</Text></Pressable><Text style={s.muted}>{currentPage+1} / {pageCount}</Text><Pressable disabled={currentPage>=pageCount-1} onPress={()=>setPage(currentPage+1)} style={s.pill}><Text style={s.white}>Next</Text></Pressable></View></ScrollView>
+import { useRef, useState } from 'react';
+import { router } from 'expo-router';
+import { View } from 'react-native';
+import {
+  Button,
+  Card,
+  Label,
+  LoadState,
+  Meter,
+  Screen,
+} from '../../src/components/ui';
+import {
+  completedEnglish,
+  completeEnglish,
+  loadProfile,
+} from '../../src/database/storage';
+import { exercises, type EnglishExercise } from '../../src/english/exercises';
+import { useLocalData } from '../../src/hooks/useLocalData';
+import { useTheme } from '../../src/theme';
+
+const levels = ['a1', 'a2', 'b1', 'b2'] as const;
+const pageSize = 10;
+
+async function loadExercises() {
+  const [profile, completed] = await Promise.all([
+    loadProfile(),
+    completedEnglish(),
+  ]);
+  return {
+    level: profile?.englishLevel ?? 'a1',
+    completed: new Set(completed),
+  };
 }
-const styles=(colors:typeof palette)=>StyleSheet.create({page:{flex:1,backgroundColor:colors.bg},content:{padding:24,paddingTop:62,paddingBottom:60},link:{color:colors.primary,fontWeight:'800'},kicker:{color:colors.primary,fontSize:12,fontWeight:'800',letterSpacing:1,marginTop:16},title:{color:colors.text,fontSize:30,fontWeight:'800',marginTop:12},muted:{color:colors.muted,fontSize:14,lineHeight:22,marginTop:9},row:{flexDirection:'row',gap:9,marginVertical:24},pill:{backgroundColor:colors.surface,borderColor:colors.border,borderWidth:1,borderRadius:12,padding:14},active:{backgroundColor:colors.selected,borderColor:colors.primary},white:{color:colors.text,fontWeight:'600'},card:{backgroundColor:colors.surface,borderColor:colors.border,borderWidth:1,borderRadius:18,padding:20,marginTop:18},word:{color:colors.text,fontSize:25,fontWeight:'800',marginTop:9},example:{color:colors.success,marginTop:12,lineHeight:23},question:{color:colors.text,fontWeight:'700',marginTop:22,marginBottom:8},option:{padding:14,borderRadius:11,borderWidth:1,borderColor:colors.border,marginTop:9},correct:{borderColor:colors.success,backgroundColor:colors.selected},incorrect:{borderColor:colors.danger,backgroundColor:colors.surface}})
+
+type ExerciseFeedback = { choice: number; saving: boolean; error: boolean };
+
+export default function English() {
+  const { t } = useTheme();
+  const state = useLocalData(loadExercises);
+  const [levelOverride, setLevelOverride] =
+    useState<EnglishExercise['level']>();
+  const [page, setPage] = useState(0);
+  const [feedback, setFeedback] = useState<Record<string, ExerciseFeedback>>(
+    {},
+  );
+  const saving = useRef(new Set<string>());
+  const level = levelOverride ?? state.data?.level ?? 'a1';
+  const list = exercises.filter((exercise) => exercise.level === level);
+  const complete = list.filter((exercise) =>
+    state.data?.completed.has(exercise.id),
+  ).length;
+  const pageCount = Math.max(1, Math.ceil(list.length / pageSize));
+  const current = Math.min(page, pageCount - 1);
+
+  async function answer(exercise: EnglishExercise, choice: number) {
+    const { id } = exercise;
+    if (saving.current.has(id)) return;
+    const shouldSave =
+      choice === exercise.answer && !state.data?.completed.has(id);
+    setFeedback((old) => ({
+      ...old,
+      [id]: { choice, saving: shouldSave, error: false },
+    }));
+    if (!shouldSave) return;
+    saving.current.add(id);
+    try {
+      await completeEnglish(id);
+      state.retry();
+      setFeedback((old) => ({
+        ...old,
+        [id]: { choice, saving: false, error: false },
+      }));
+    } catch {
+      setFeedback((old) => ({
+        ...old,
+        [id]: { choice, saving: false, error: true },
+      }));
+    } finally {
+      saving.current.delete(id);
+    }
+  }
+
+  return (
+    <Screen title={t('English Academy', 'Ingliz tili akademiyasi')}>
+      <Button onPress={() => router.push('/vocabulary')}>
+        {t('Vocabulary and flashcards', 'Lug‘at va kartochkalar')}
+      </Button>
+      <Button onPress={() => router.push('/grammar')}>
+        {t('Grammar', 'Grammatika')}
+      </Button>
+      <Button onPress={() => router.push('/reading')}>
+        {t('Technical reading', 'Texnik matnlar')}
+      </Button>
+      <Label kind="heading">{t('Exercises', 'Mashqlar')}</Label>
+      <LoadState
+        {...state}
+        error={
+          state.error
+            ? t(
+                'Your exercise results are unavailable.',
+                'Mashq natijalarini ko‘rsatib bo‘lmadi.',
+              )
+            : null
+        }
+      />
+      {state.data && !state.error && (
+        <>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            {levels.map((option) => (
+              <Button
+                key={option}
+                chosen={option === level}
+                onPress={() => {
+                  setLevelOverride(option);
+                  setPage(0);
+                }}
+              >
+                {option.toUpperCase()}
+              </Button>
+            ))}
+          </View>
+          <Label>
+            {complete}/{list.length}{' '}
+            {t('exercises completed', 'ta mashq bajarildi')}
+          </Label>
+          <Meter value={complete} total={list.length} />
+          {!list.length && (
+            <Label>
+              {t('No exercises at this level.', 'Bu darajada mashqlar yo‘q.')}
+            </Label>
+          )}
+          {list
+            .slice(current * pageSize, (current + 1) * pageSize)
+            .map((exercise) => {
+              const previous = feedback[exercise.id];
+              const saved = state.data?.completed.has(exercise.id);
+              return (
+                <Card key={exercise.id}>
+                  <Label kind="accent">
+                    {t(exercise.topic, exercise.topicUz)}
+                    {saved ? ' · ✓' : ''}
+                  </Label>
+                  {!!exercise.word && (
+                    <Label kind="heading">{exercise.word}</Label>
+                  )}
+                  {!!exercise.translation && (
+                    <Label>{exercise.translation}</Label>
+                  )}
+                  {!!exercise.example && <Label>{exercise.example}</Label>}
+                  <Label kind="heading">
+                    {t(exercise.question, exercise.questionUz)}
+                  </Label>
+                  {exercise.options.map((option, index) => (
+                    <Button
+                      key={index}
+                      disabled={previous?.saving}
+                      chosen={previous?.choice === index}
+                      onPress={() => void answer(exercise, index)}
+                    >
+                      {option}
+                    </Button>
+                  ))}
+                  {previous?.saving && (
+                    <Label>{t('Saving…', 'Saqlanmoqda…')}</Label>
+                  )}
+                  {previous?.error && (
+                    <Label>
+                      {t(
+                        'Could not save. Select the answer again to retry.',
+                        'Saqlab bo‘lmadi. Qayta urinish uchun javobni yana tanlang.',
+                      )}
+                    </Label>
+                  )}
+                  {previous && !previous.saving && !previous.error && (
+                    <Label>
+                      {previous.choice !== exercise.answer
+                        ? t('Try another answer.', 'Boshqa javobni belgilang.')
+                        : saved
+                          ? t(
+                              'Correct. Saved on this device.',
+                              'To‘g‘ri. Qurilmada saqlandi.',
+                            )
+                          : t('Correct.', 'To‘g‘ri.')}
+                    </Label>
+                  )}
+                </Card>
+              );
+            })}
+          {pageCount > 1 && (
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              <Button
+                disabled={current === 0}
+                onPress={() => setPage(current - 1)}
+              >
+                {t('Previous', 'Oldingi')}
+              </Button>
+              <Label>
+                {current + 1}/{pageCount}
+              </Label>
+              <Button
+                disabled={current === pageCount - 1}
+                onPress={() => setPage(current + 1)}
+              >
+                {t('Next', 'Keyingi')}
+              </Button>
+            </View>
+          )}
+        </>
+      )}
+    </Screen>
+  );
+}

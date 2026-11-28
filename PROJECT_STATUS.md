@@ -96,3 +96,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 
 - Settings offers a reset behind an explicit destructive confirmation. One SQLite transaction clears the ten learning tables, including challenge drafts and exam history. Profile, study preferences, notifications and schema migration history are preserved.
 - SQLite integration verifies rollback after a simulated deletion failure, safe repeated resets and restoring the original backup afterward. TypeScript, all 17 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The confirmation dialog still needs a device smoke test.
+
+## English Academy and weekly quiz localization
+
+- Localized the English Academy tab, exercise instructions and progress feedback, and the legacy weekly JavaScript quiz in English and Uzbek Latin. English learning examples and technical language stay visible where the exercises use them.
+- Replaced the legacy Cyrillic Uzbek translations with Uzbek Latin. Original exercise IDs, option positions and the weekly quiz attempt ID are preserved.
+- TypeScript, all 18 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Language switching on an Android device remains unverified.

@@ -27,7 +27,7 @@ export default function ReadingScreen(){
   finally{setBusy(false);}
  }
  return <Screen title={t('Technical Reading','Texnik matnlar')} back>
- <LoadState {...progress}/>
+ <LoadState {...progress} error={progress.error ? t('Reading results are unavailable.', 'Texnik matnlar natijalarini ko‘rsatib bo‘lmadi.') : null}/>
  <Card><Label>{list.filter(g=>done.has(g.id)).length} / {list.length}</Label><Meter value={list.filter(g=>done.has(g.id)).length} total={list.length}/></Card>
  {(['a1','a2','b1','b2'] as const).map(l=><Button key={l} disabled={busy} chosen={l===level} onPress={()=>{setLevel(l);setSelected(null);setChoice(null);setTranslation(false);setMessage('')}}>{l.toUpperCase()}</Button>)}
  {item?<Card><Label kind="heading">{item.title}</Label><Label>{item.passage}</Label><Button onPress={()=>setTranslation(v=>!v)}>{translation?t('Hide translation','Tarjimani yashirish'):t('Show translation','Tarjimani ko‘rish')}</Button>{translation&&<Label>{item.translation}</Label>}<Label kind="heading">{item.question}</Label>

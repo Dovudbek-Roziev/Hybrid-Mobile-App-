@@ -28,7 +28,7 @@ export default function Vocabulary(){
  return <Screen title={t('Vocabulary','Lug‘at')} back>
   <Card><Label kind="heading">{t('Spaced repetition','Oraliqli takrorlash')}</Label><Label>{t('Review words when they are due.','So‘zlarni belgilangan vaqtda takrorlang.')}</Label></Card>
   {(['a1','a2','b1','b2'] as const).map(l=><Button key={l} disabled={busy} chosen={level===l} onPress={()=>{setLevel(l);setSeen([]);setRevealed(false);setError('')}}>{l.toUpperCase()}</Button>)}
-  <LoadState {...progress}/>
+  <LoadState {...progress} error={progress.error ? t('Vocabulary reviews are unavailable.', 'Lug‘at natijalarini ko‘rsatib bo‘lmadi.') : null}/>
   {progress.data&&!progress.error&&<>
    <Card><Label>{t('Reviewed at least once','Kamida bir marta takrorlangan')}: {words.filter(w=>reviews.has(w.id)).length} / {words.length}</Label><Meter value={words.filter(w=>reviews.has(w.id)).length} total={words.length}/><Label>{t('Due in this session','Ushbu mashg‘ulotda qolgan')}: {due.filter(w=>!seen.includes(w.id)).length}</Label></Card>
    {current?<Card><Label kind="accent">{level.toUpperCase()}</Label><Label kind="title">{current.word}</Label>{revealed&&<Label kind="heading">{current.translation}</Label>}
