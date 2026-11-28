@@ -73,3 +73,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Version 1 backups retain the same format and columns. The validator now rejects invalid timestamps and calendar dates, duplicate keys or exam questions, and answers whose attempt is missing. Invalid study preference fields are also rejected.
 - Restore checks database references before committing the replacement transaction. Failure rolls back to the existing data. The backup screen shows import and export errors in Uzbek or English.
 - Node SQLite integration tests round-trip all 11 backup tables and verify that an invalid input or an inconsistent write preserves the original state. TypeScript, all 11 automated tests, Expo Doctor (20/20), dependency checks and Android JavaScript export passed. Native file-picker and share-sheet flows still need an Android device test.
+
+## Exam settings
+
+- Settings stores an exam pass score from 1 to 100. Each new exam captures the selected threshold and records it with the result so history stays accurate after a settings change.
+- The exam setup offers timed and untimed attempts. Timed attempts submit at their deadline. Untimed attempts can be submitted manually.
+- TypeScript, all 13 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The SQLite integration test verifies that two attempts with the same score retain different pass thresholds through a backup round trip. Phone interaction remains unverified.

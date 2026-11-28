@@ -6,6 +6,7 @@ import { taskNames } from '../src/features/tasks';
 import { useLocalData } from '../src/hooks/useLocalData';
 import { loadProfile, saveProfile, type DailyTask, type Profile } from '../src/database/storage';
 import { useTheme } from '../src/theme';
+import { isPassScore } from '../src/exams/options';
 
 function PreferenceFields({profile}: {profile: Profile}) {
   const {preferences, update, t} = useTheme();
@@ -13,9 +14,14 @@ function PreferenceFields({profile}: {profile: Profile}) {
   const [last, setLast] = useState(profile.lastName);
   const [minutes, setMinutes] = useState(() => Object.fromEntries(taskNames.map(({id}) => [id, String(preferences.minutes[id])])) as Record<DailyTask, string>);
   const [rest, setRest] = useState(preferences.rest);
+  const [draftPass, setDraftPass] = useState<string | null>(null);
+  const [passMessage, setPassMessage] = useState('');
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const valid = first.trim() && last.trim() && taskNames.every(({id}) => /^\d+$/.test(minutes[id]) && Number(minutes[id]) >= 1 && Number(minutes[id]) <= 180);
+  const passInput = draftPass ?? String(preferences.pass);
+  const candidatePass = Number(passInput);
+  const validPass = /^\d{1,3}$/.test(passInput) && isPassScore(candidatePass);
   async function save() {
     if (!valid || busy) return;
     setBusy(true);
@@ -38,6 +44,20 @@ function PreferenceFields({profile}: {profile: Profile}) {
     try { await update({...preferences, ...patch}); }
     catch { setMessage(t('Could not save settings.', 'Sozlamalarni saqlab bo‘lmadi.')); }
     finally { setBusy(false); }
+  }
+  async function savePassScore() {
+    if (!validPass || busy) return;
+    setBusy(true);
+    setPassMessage('');
+    try {
+      await update({...preferences, pass: candidatePass});
+      setDraftPass(null);
+      setPassMessage(t('Pass score saved.', 'O‘tish bali saqlandi.'));
+    } catch {
+      setPassMessage(t('Could not save the pass score.', 'O‘tish balini saqlab bo‘lmadi.'));
+    } finally {
+      setBusy(false);
+    }
   }
   const weekdays = t('Mon Tue Wed Thu Fri Sat Sun', 'Du Se Chor Pay Ju Shan Yak').split(' ');
   return <>
@@ -79,6 +99,26 @@ function PreferenceFields({profile}: {profile: Profile}) {
       </View>
       <Button chosen disabled={busy || !valid} onPress={save}>{t('Save profile and plan', 'Profil va rejani saqlash')}</Button>
       {message && <Label>{message}</Label>}
+    </Card>
+    <Card>
+      <Label kind="heading">{t('Exams', 'Imtihonlar')}</Label>
+      <Label>{t('Pass score for new exams (1–100)', 'Yangi imtihonlar uchun o‘tish bali (1–100)')}</Label>
+      <Field
+        accessibilityLabel={t('Exam pass score', 'Imtihon o‘tish bali')}
+        inputMode="numeric"
+        maxLength={3}
+        editable={!busy}
+        value={passInput}
+        onChangeText={value => {
+          setDraftPass(value);
+          setPassMessage('');
+        }}
+      />
+      {!validPass && <Label>{t('Enter a whole number from 1 to 100.', '1 dan 100 gacha butun son kiriting.')}</Label>}
+      <Button disabled={busy || !validPass || candidatePass === preferences.pass} onPress={savePassScore}>
+        {t('Save pass score', 'O‘tish balini saqlash')}
+      </Button>
+      {passMessage && <Label>{passMessage}</Label>}
     </Card>
     <Card><Label kind="heading">{t('About', 'Ilova haqida')}</Label><Label>Personal Engineering Academy · 0.1.0</Label><Label>{t('Your learning data stays on this device.', 'O‘quv ma’lumotlaringiz shu qurilmada saqlanadi.')}</Label></Card>
   </>;

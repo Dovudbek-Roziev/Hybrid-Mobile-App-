@@ -24,6 +24,10 @@ const hooks = registerHooks({
 const { exportBackup, restoreBackup, validateBackup } = await import(
   '../src/database/backup.ts'
 );
+const { saveExam, examHistory } = await import('../src/exams/storage.ts');
+const { defaults, loadPreferences, savePreferences } = await import(
+  '../src/features/preferences.ts'
+);
 hooks.deregister();
 
 const day = '2026-11-28';
@@ -258,6 +262,49 @@ test('version 1 backup round-trips every table and a failed import rolls back', 
     assert.equal(
       Object.keys(valid.tables).length,
       Object.keys(backupTables).length,
+    );
+
+    database.exec('DROP TRIGGER test_broken_reference');
+    await savePreferences({ ...defaults, pass: 45 });
+    const questions = [
+      { ...question, lessonId: 'js-001' },
+      { ...question, id: 'js-002:0', lessonId: 'js-002' },
+    ];
+    const answers = { [question.id]: question.correct };
+    const first = await saveExam(
+      'lower-pass',
+      'weekly',
+      '1',
+      questions,
+      answers,
+      (await loadPreferences()).pass,
+    );
+    await savePreferences({ ...defaults, pass: 51 });
+    const second = await saveExam(
+      'higher-pass',
+      'weekly',
+      '1',
+      questions,
+      answers,
+      (await loadPreferences()).pass,
+    );
+    assert.deepEqual(
+      [first.score, first.passed, second.score, second.passed],
+      [50, true, 50, false],
+    );
+    const recorded = new Map(
+      (await examHistory()).map((attempt) => [attempt.id, attempt.pass]),
+    );
+    assert.deepEqual(
+      [recorded.get('lower-pass'), recorded.get('higher-pass')],
+      [45, 51],
+    );
+
+    await restoreBackup(await exportBackup());
+    assert.equal((await loadPreferences()).pass, 51);
+    assert.equal(
+      (await examHistory()).find((attempt) => attempt.id === 'lower-pass').pass,
+      45,
     );
   } finally {
     database.close();

@@ -69,6 +69,8 @@ export default function ExamHistory() {
                 {r.score >= r.pass
                   ? t('Passed', 'O‘tdingiz')
                   : t('Not passed', 'O‘tmadingiz')}
+                {' · '}
+                {t('Pass score', 'O‘tish bali')} {r.pass}/100
               </Label>
               <Button disabled={busy} onPress={() => void open(r.id)}>
                 {t('Review answers', 'Javoblarni ko‘rish')}

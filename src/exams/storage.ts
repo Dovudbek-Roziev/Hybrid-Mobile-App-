@@ -7,9 +7,10 @@ export async function saveExam(
   scope: string,
   questions: readonly ExamQuestion[],
   answers: Readonly<Record<string, number>>,
+  passScore: number,
 ) {
   if (!questions.length) throw new Error('Empty exam');
-  const result = gradeExam(questions, answers);
+  const result = gradeExam(questions, answers, passScore);
   const database = await db();
   await database.withExclusiveTransactionAsync(async (tx) => {
     await tx.runAsync(
@@ -17,7 +18,7 @@ export async function saveExam(
       id,
       kind + ':' + scope,
       result.score,
-      70,
+      passScore,
       new Date().toISOString(),
     );
     for (const q of questions) {

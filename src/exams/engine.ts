@@ -1,5 +1,6 @@
 import { lessons } from '../curriculum/catalog';
 import { lessonQuestions, type LessonQuestion } from '../curriculum/model';
+import { defaultPassScore, isPassScore } from './options';
 
 export type ExamKind = 'lesson' | 'weekly' | 'monthly' | 'quarterly' | 'final';
 export type ExamQuestion = LessonQuestion & { id: string; lessonId: string };
@@ -59,7 +60,10 @@ export function buildExam(
 export function gradeExam(
   questions: readonly ExamQuestion[],
   answers: Readonly<Record<string, number>>,
+  passScore = defaultPassScore,
 ) {
+  if (!isPassScore(passScore))
+    throw new RangeError('Pass score must be between 1 and 100');
   const correct = questions.filter((q) => answers[q.id] === q.correct).length;
   const score = questions.length
     ? Math.round((correct * 100) / questions.length)
@@ -68,6 +72,6 @@ export function gradeExam(
     correct,
     total: questions.length,
     score,
-    passed: questions.length > 0 && score >= 70,
+    passed: questions.length > 0 && score >= passScore,
   };
 }

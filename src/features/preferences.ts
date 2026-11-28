@@ -1,5 +1,6 @@
 import { db } from '../database/connection';
 import type { DailyTask } from '../database/storage';
+import { defaultPassScore, isPassScore } from '../exams/options';
 
 export type Preferences = {
   theme: 'dark' | 'light';
@@ -18,7 +19,7 @@ export const defaults: Preferences = {
   minutes: { programming: 25, practice: 15, english: 15, review: 5 },
   rest: [],
   reminder: null,
-  pass: 70,
+  pass: defaultPassScore,
 };
 
 export function isPreferences(input: unknown): input is Preferences {
@@ -42,9 +43,7 @@ export function isPreferences(input: unknown): input is Preferences {
     (value.reminder === null ||
       (typeof value.reminder === 'string' &&
         /^([01]\d|2[0-3]):[0-5]\d$/.test(value.reminder))) &&
-    Number.isInteger(value.pass) &&
-    value.pass >= 1 &&
-    value.pass <= 100
+    isPassScore(value.pass)
   );
 }
 

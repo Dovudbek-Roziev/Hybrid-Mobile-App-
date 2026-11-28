@@ -11,42 +11,57 @@ import {
   type ExamQuestion,
 } from '../src/exams/engine';
 import { saveExam } from '../src/exams/storage';
+import { examDeadline, examSecondsRemaining } from '../src/exams/options';
 
 export default function Exam() {
-  const { t } = useTheme();
+  const { t, preferences } = useTheme();
   const [kind, setKind] = useState<ExamKind>('weekly');
   const [scope, setScope] = useState('1');
   const [questions, setQuestions] = useState<ExamQuestion[]>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [index, setIndex] = useState(0);
-  const [deadline, setDeadline] = useState(0);
-  const [remaining, setRemaining] = useState(0);
+  const [timed, setTimed] = useState(true);
+  const [passScore, setPassScore] = useState(preferences.pass);
+  const [deadline, setDeadline] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
   const attempt = useRef('');
   const saving = useRef(false);
-  const result = gradeExam(questions, answers);
+  const result = gradeExam(questions, answers, passScore);
   const persist = useCallback(async () => {
     if (saving.current || !questions.length || saved) return;
     saving.current = true;
     setBusy(true);
     setError('');
     try {
-      await saveExam(attempt.current, kind, scope, questions, answers);
+      await saveExam(
+        attempt.current,
+        kind,
+        scope,
+        questions,
+        answers,
+        passScore,
+      );
       setSaved(true);
-    } catch (e) {
-      setError(String(e));
+    } catch {
+      setError(
+        t(
+          'Could not save the result. Try again.',
+          'Natijani saqlab bo‘lmadi. Qayta urinib ko‘ring.',
+        ),
+      );
     } finally {
       saving.current = false;
       setBusy(false);
     }
-  }, [kind, scope, questions, answers, saved]);
+  }, [kind, scope, questions, answers, passScore, saved, t]);
   useEffect(() => {
-    if (!deadline || finished) return;
+    if (deadline === null || finished) return;
     const tick = () => {
-      const seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      const seconds = examSecondsRemaining(deadline);
       setRemaining(seconds);
       if (seconds === 0) setFinished(true);
     };
@@ -85,8 +100,11 @@ export default function Exam() {
     setSaved(false);
     setFinished(false);
     setError('');
-    setRemaining(examRules[kind].minutes * 60);
-    setDeadline(Date.now() + examRules[kind].minutes * 60000);
+    setPassScore(preferences.pass);
+    const now = Date.now();
+    const end = examDeadline(examRules[kind].minutes, timed, now);
+    setRemaining(examSecondsRemaining(end, now));
+    setDeadline(end);
   }
   const q = questions[index];
   return (
@@ -178,14 +196,27 @@ export default function Exam() {
             </>
           )}
           <Label>
-            {examRules[kind].minutes} min · {t('Up to', 'Ko‘pi bilan')}{' '}
-            {examRules[kind].count}
+            {t('Pass score', 'O‘tish bali')} {preferences.pass}/100 ·{' '}
+            {t('Up to', 'Ko‘pi bilan')} {examRules[kind].count}{' '}
+            {t('questions', 'savol')}
           </Label>
+          <Button chosen={timed} onPress={() => setTimed((value) => !value)}>
+            {timed
+              ? t('Timer on', 'Taymer yoqilgan') +
+                ' · ' +
+                examRules[kind].minutes +
+                ' ' +
+                t('min', 'daq')
+              : t('Timer off', 'Taymer o‘chirilgan')}
+          </Button>
           <Button onPress={start}>{t('Start', 'Boshlash')}</Button>
         </Card>
       ) : finished ? (
         <Card>
           <Label kind="title">{result.score}/100</Label>
+          <Label>
+            {t('Pass score', 'O‘tish bali')} {passScore}/100
+          </Label>
           <Label>
             {result.correct}/{result.total} ·{' '}
             {result.passed
@@ -221,7 +252,8 @@ export default function Exam() {
             disabled={!saved || busy}
             onPress={() => {
               setQuestions([]);
-              setDeadline(0);
+              setDeadline(null);
+              setRemaining(null);
               setFinished(false);
             }}
           >
@@ -231,10 +263,12 @@ export default function Exam() {
       ) : (
         q && (
           <Card>
-            <Label kind="heading">
-              {Math.floor(remaining / 60)}:
-              {String(remaining % 60).padStart(2, '0')}
-            </Label>
+            {remaining !== null && (
+              <Label kind="heading">
+                {Math.floor(remaining / 60)}:
+                {String(remaining % 60).padStart(2, '0')}
+              </Label>
+            )}
             <Meter
               value={Object.keys(answers).length}
               total={questions.length}
@@ -248,8 +282,11 @@ export default function Exam() {
                 key={i}
                 chosen={answers[q.id] === i}
                 onPress={() => {
-                  if (Date.now() < deadline)
-                    setAnswers((a) => ({ ...a, [q.id]: i }));
+                  if (examSecondsRemaining(deadline) === 0) {
+                    setFinished(true);
+                    return;
+                  }
+                  setAnswers((a) => ({ ...a, [q.id]: i }));
                 }}
               >
                 {choice}

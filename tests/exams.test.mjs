@@ -17,6 +17,9 @@ const { buildExam, gradeExam, examRules, shuffle } = await import(
 );
 const { lessons } = await import('../src/curriculum/catalog.ts');
 const { lessonQuestions } = await import('../src/curriculum/model.ts');
+const { examDeadline, examSecondsRemaining, isPassScore } = await import(
+  '../src/exams/options.ts'
+);
 hooks.deregister();
 const random = () => 0.42;
 test('every exam scope has valid unique questions within its limit', () => {
@@ -91,4 +94,25 @@ test('shuffle preserves input and invalid scopes return no questions', () => {
   assert.deepEqual(shuffle(original, () => 0).sort(), original);
   assert.deepEqual(original, [1, 2, 3, 4]);
   assert.deepEqual(buildExam('weekly', '53'), []);
+});
+
+test('a custom pass score applies at the boundary', () => {
+  const questions = buildExam('final', '1', random);
+  const answers = Object.fromEntries(
+    questions.slice(0, 40).map((q) => [q.id, q.correct]),
+  );
+  assert.equal(gradeExam(questions, answers, 80).passed, true);
+  assert.equal(gradeExam(questions, answers, 81).passed, false);
+  for (const invalid of [0, 101, 2.5, NaN, '70'])
+    assert.equal(isPassScore(invalid), false);
+});
+
+test('untimed exams never expire and timed exams use an absolute deadline', () => {
+  assert.equal(examDeadline(5, false, 1_000), null);
+  assert.equal(examSecondsRemaining(null, 500_000), null);
+  const deadline = examDeadline(5, true, 1_000);
+  assert.equal(deadline, 301_000);
+  assert.equal(examSecondsRemaining(deadline, 300_999), 1);
+  assert.equal(examSecondsRemaining(deadline, 301_000), 0);
+  assert.equal(examSecondsRemaining(deadline, 500_000), 0);
 });
