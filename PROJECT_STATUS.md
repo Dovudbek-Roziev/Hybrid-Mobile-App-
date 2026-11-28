@@ -124,3 +124,8 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 
 - Added an original English sentence and an Uzbek Latin translation to all 1,000 A1–B2 vocabulary entries. Cards show the example after the learner reveals the definition. The word catalog, IDs and spaced-repetition dates are preserved.
 - The coverage test verifies one distinct English sentence per word, inclusion of the exact headword or phrase and a corresponding Uzbek Latin translation. TypeScript, all 25 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Card display on an Android device remains unverified.
+
+## Programming lesson objectives and summaries
+
+- Added a topic-specific learning objective, plain-language explanation and practical takeaway to each of the 260 lessons. The lesson reader displays these Uzbek Latin sections alongside the existing theory, code, practical task and quiz.
+- TypeScript, all 26 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Catalog tests verify full coverage, distinct text and the existing 12 months, 52 weeks and lesson IDs. Android presentation remains unverified.
