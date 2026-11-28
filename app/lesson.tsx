@@ -3,6 +3,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Button, Card, Label, Meter, Screen } from '../src/components/ui';
 import { CodeBlock } from '../src/components/CodeBlock';
 import { lessons } from '../src/curriculum';
+import { shuffle } from '../src/exams/engine';
 import { lessonQuestions, type Lesson } from '../src/curriculum/model';
 import { completeLesson, completedLessons } from '../src/storage';
 import { useLocalData } from '../src/hooks/useLocalData';
@@ -16,7 +17,10 @@ function LessonContent({lesson, next, position}: {lesson: Lesson; next?: Lesson;
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
-  const quiz = lessonQuestions(lesson);
+  const [quiz] = useState(()=>lessonQuestions(lesson).map(q=>{
+    const options=shuffle(q.choices.map((choice,index)=>({choice,index})));
+    return {...q,choices:options.map(o=>o.choice),correct:options.findIndex(o=>o.index===q.correct)};
+  }));
   const alreadyDone = saved || completion.data?.includes(lesson.id);
   const allSelected = quiz.every((_, index) => selected[index] !== undefined);
   async function finish() {
