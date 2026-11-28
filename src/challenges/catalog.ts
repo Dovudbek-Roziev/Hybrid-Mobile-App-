@@ -1,7 +1,8 @@
 import type { ChallengeTopic } from './topics';
+import type { GuidedChallengeId } from './guides';
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
-export type Challenge = {id:string;title:string;difficulty:Difficulty;topic:ChallengeTopic;task:string;starter:string;hint:string;solution:string};
+export type Challenge = {id:GuidedChallengeId;title:string;difficulty:Difficulty;topic:ChallengeTopic;task:string;starter:string;hint:string;solution:string};
 export const challenges: Challenge[] = [
   {
     "id": "challenge-1",
@@ -129,7 +130,7 @@ export const challenges: Challenge[] = [
 {"id":"challenge-15","topic":"javascript","title":"Kvadratlar","difficulty":"easy","task":"Har bir sonning kvadratini qaytaring.","starter":"function solve(a) {\n  // TODO\n}","hint":"map","solution":"function solve(a) {\n  return a.map(n=>n*n);\n}"},
 {"id":"challenge-16","topic":"problem-solving","title":"So‘zlar soni","difficulty":"easy","task":"Bo‘shliqlar bilan ajratilgan so‘zlarni sanang.","starter":"function solve(s) {\n  // TODO\n}","hint":"trim va split","solution":"function solve(s) {\n  return s.trim()?s.trim().split(/\\s+/).length:0;\n}"},
 {"id":"challenge-17","topic":"problem-solving","title":"Anagram","difficulty":"medium","task":"Ikki matn bir xil belgilar to‘plamiga ega ekanini tekshiring (registr muhim).","starter":"function solve(a,b) {\n  // TODO\n}","hint":"Belgilarni saralang","solution":"function solve(a,b) {\n  return Array.from(a).sort().join('')===Array.from(b).sort().join('');\n}"},
-{"id":"challenge-18","topic":"algorithms","title":"Intersection","difficulty":"medium","task":"Ikki massivning noyob umumiy qiymatlarini toping.","starter":"function solve(a,b) {\n  // TODO\n}","hint":"Set va filter","solution":"function solve(a,b) {\n  return [...new Set(a)].filter(x=>new Set(b).has(x));\n}"},
+{"id":"challenge-18","topic":"algorithms","title":"Intersection","difficulty":"medium","task":"Ikki massivning noyob umumiy qiymatlarini toping.","starter":"function solve(a,b) {\n  // TODO\n}","hint":"Set va filter","solution":"function solve(a,b) {\n  const values = new Set(b);\n  return [...new Set(a)].filter(x => values.has(x));\n}"},
 {"id":"challenge-19","topic":"javascript","title":"Chunk","difficulty":"medium","task":"Massivni k o‘lchamli guruhlarga ajrating (k musbat butun).","starter":"function solve(a,k) {\n  // TODO\n}","hint":"slice","solution":"function solve(a,k) {\n  return Array.from({length:Math.ceil(a.length/k)},(_,i)=>a.slice(i*k,(i+1)*k));\n}"},
 {"id":"challenge-20","topic":"javascript","title":"Flatten","difficulty":"medium","task":"Ichma-ich massivni bir darajali qiling.","starter":"function solve(a) {\n  // TODO\n}","hint":"flat","solution":"function solve(a) {\n  return a.flat(Infinity);\n}"},
 {"id":"challenge-21","topic":"algorithms","title":"Balanced brackets","difficulty":"hard","task":"Faqat ()[]{} belgilaridan iborat matnda qavslar muvozanatini tekshiring.","starter":"function solve(s) {\n  // TODO\n}","hint":"Stack","solution":"function solve(s) {\n  return (()=>{const stack=[];const pairs={')':'(',']':'[','}':'{'};for(const c of s){if('([{'.includes(c))stack.push(c);else if(stack.pop()!==pairs[c])return false;}return stack.length===0;})();\n}"},
@@ -191,7 +192,7 @@ export const challenges: Challenge[] = [
 {"id":"challenge-74","topic":"backend","title":"HTTP: Retry","difficulty":"hard","task":"Idempotent operatsiyani ko‘pi bilan 3 marta sinang, oxirgi xatoni uzating.","starter":"// TODO","solution":"async function retry(fn){for(let i=0;i<3;i++){try{return await fn()}catch(e){if(i===2)throw e;}}}","hint":"Loop va try/catch"},
 {"id":"challenge-75","topic":"computer-science","title":"CS: Binary","difficulty":"easy","task":"Manfiy bo‘lmagan butun sonni binary stringga aylantiring.","starter":"// TODO","solution":"function binary(n){return n.toString(2);}","hint":"Radix 2"},
 {"id":"challenge-76","topic":"computer-science","title":"CS: Hex","difficulty":"easy","task":"Hex stringni songa aylantiring (valid input).","starter":"// TODO","solution":"function hex(s){return parseInt(s,16);}","hint":"Radix 16"},
-{"id":"challenge-77","topic":"computer-science","title":"CS: Bit flag","difficulty":"medium","task":"32-bit mask ichida berilgan flag mavjudligini tekshiring.","starter":"// TODO","solution":"function has(mask,flag){return (mask & flag)===flag;}","hint":"Bitwise AND"},
+{"id":"challenge-77","topic":"computer-science","title":"CS: Bit flag","difficulty":"medium","task":"32-bit mask ichida berilgan flag mavjudligini tekshiring.","starter":"// TODO","solution":"function has(mask, flag) {\n  return ((mask & flag) >>> 0) === (flag >>> 0);\n}","hint":"Bitwise AND"},
 {"id":"challenge-78","topic":"algorithms","title":"CS: Stack","difficulty":"easy","task":"Massiv asosida push va pop metodli stack yarating.","starter":"// TODO","solution":"function stack(){const a=[];return {push:x=>a.push(x),pop:()=>a.pop()};}","hint":"LIFO"},
 {"id":"challenge-79","topic":"algorithms","title":"CS: Queue","difficulty":"medium","task":"FIFO queue yarating; dequeue bo‘sh bo‘lsa undefined qaytarsin.","starter":"// TODO","solution":"function queue(){const a=[];return {enqueue:x=>a.push(x),dequeue:()=>a.shift()};}","hint":"FIFO"},
 {"id":"challenge-80","topic":"computer-science","title":"CS: GCD","difficulty":"medium","task":"Ikki manfiy bo‘lmagan butun sonning EKUB ini toping.","starter":"// TODO","solution":"function gcd(a,b){while(b){[a,b]=[b,a%b]}return a;}","hint":"Euclid"},

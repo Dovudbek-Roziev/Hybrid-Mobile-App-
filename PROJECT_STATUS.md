@@ -113,3 +113,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 
 - Tagged all 100 challenge records with one of 11 topics. The Practice screen combines the topic picker, difficulty selector and search. Searches match both topic labels, and the existing challenge IDs and content are preserved.
 - TypeScript, all 21 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Tests cover all topics, unchanged IDs and combined filters. Picking topics on an Android device remains unverified.
+
+## Coding challenge examples and explanations
+
+- All 100 challenges now include a sample input, expected output and an Uzbek explanation. The explanation appears beside the reference solution. Shell, UI and framework exercises use scenario inputs and describe the expected behavior.
+- Fixed unsigned bit-mask matching for the highest 32-bit flag and reused a single lookup set in the intersection solution. Challenge IDs, drafts and completion tracking are preserved.
+- TypeScript, all 24 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The tests check guide coverage, run selected JavaScript reference snippets and exercise SQL solutions on disposable fixtures. Android presentation and external framework scenarios remain unverified.
