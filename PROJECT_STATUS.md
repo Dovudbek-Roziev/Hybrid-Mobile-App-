@@ -46,7 +46,7 @@ The implementation will extend the existing routes and database. Remaining gates
 
 ## Stage 5 — Coding Challenges (in progress)
 
-- Added 12 Uzbek-language challenges with starter code, hints and reference solutions.
+- Added 42 Uzbek-language challenges with starter code, hints and reference solutions.
 - Added searchable difficulty-filtered Practice catalog and a challenge editor with explicit draft saving and self-reviewed completion in SQLite.
 - User code is not executed or automatically graded. Completion is self-assessed.
 - Remaining: expand to 100 challenges, review solutions, add tests, verify TypeScript and Android runtime.
