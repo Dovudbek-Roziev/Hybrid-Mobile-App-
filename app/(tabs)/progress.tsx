@@ -1,17 +1,20 @@
-import { useCallback, useState } from 'react';
-import { router, useFocusEffect } from 'expo-router';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { completedLessons, completedEnglish, quizAttempts, type QuizAttempt } from '../../src/storage';
-import { lessons } from '../../src/curriculum';
-import { exercises } from '../../src/english';
-import { useTheme, type colors as palette } from '../../src/theme';
+import { router } from 'expo-router';
+import { Button, Card, Label, Screen, Meter, LoadState } from '../../src/components/ui';
+import { useTheme } from '../../src/theme';
+import { useLocalData } from '../../src/hooks/useLocalData';
+import { loadAnalytics } from '../../src/services/analytics';
+
 export default function Progress(){
- const s = styles(useTheme().colors);
- const [lessonsDone,setLessonsDone]=useState(0);const [englishDone,setEnglishDone]=useState(0);const [attempts,setAttempts]=useState<QuizAttempt[]>([]);
- useFocusEffect(useCallback(()=>{let live=true;Promise.all([completedLessons(),completedEnglish(),quizAttempts()]).then(([l,e,a])=>{if(live){setLessonsDone(l.length);setEnglishDone(e.length);setAttempts(a)}}).catch(e=>Alert.alert('Storage error',String(e)));return()=>{live=false}},[]));
- const best=attempts.length?Math.max(...attempts.filter(a=>a.total>0).map(a=>Math.round(a.score/a.total*100)),0):null;
- const codingPercent=lessons.length?Math.round(lessonsDone/lessons.length*100):0;
- const englishPercent=exercises.length?Math.round(englishDone/exercises.length*100):0;
- return <ScrollView style={s.page} contentContainerStyle={s.content}><Pressable onPress={()=>router.back()}><Text style={s.link}>← Dashboard</Text></Pressable><Text style={s.kicker}>YOUR LEARNING JOURNEY</Text><Text style={s.title}>Progress</Text><View style={s.grid}><View style={s.card}><Text style={s.metric}>{lessonsDone}/{lessons.length}</Text><Text style={s.muted}>Coding lessons · {codingPercent}%</Text><View style={s.track}><View style={[s.fill,{width:`${Math.min(100,codingPercent)}%`}]}/></View></View><View style={s.card}><Text style={s.metric}>{englishDone}/{exercises.length}</Text><Text style={s.muted}>English exercises · {englishPercent}%</Text><View style={s.track}><View style={[s.fill,{width:`${Math.min(100,englishPercent)}%`}]}/></View></View></View><View style={s.card}><Text style={s.metric}>{best===null?'—':best+'%'}</Text><Text style={s.muted}>Best weekly quiz score · {attempts.length} attempts</Text></View><Text style={s.section}>Recent quiz attempts</Text>{attempts.length===0?<Text style={s.muted}>No quizzes completed yet.</Text>:attempts.slice(0,10).map(a=><View style={s.item} key={a.id}><Text style={s.white}>{a.quizId}</Text><Text style={s.muted}>{a.score}/{a.total} · {new Date(a.createdAt).toLocaleDateString()}</Text></View>)}<Text style={s.footer}>Stored locally in SQLite · Works offline</Text></ScrollView>
+ const {t}=useTheme();
+ const state=useLocalData(loadAnalytics);
+ const a=state.data;
+ return <Screen title={t('Progress','Natijalar')}>
+ <LoadState {...state}/>
+ {a&&<>
+ <Card><Label kind="heading">{t('Study time','O‘qish vaqti')}</Label><Label kind="title">{Math.floor(a.totalSeconds/3600)}h {Math.floor(a.totalSeconds%3600/60)}m</Label><Label>{t('Current streak','Joriy ketma-ketlik')}: {a.streak.current}</Label><Label>{t('Longest streak','Eng uzun ketma-ketlik')}: {a.streak.longest}</Label></Card>
+ <Card><Label kind="heading">{t('Last seven days','Oxirgi yetti kun')}</Label>{a.week.map(d=><Card key={d.day}><Label>{d.day} · {Math.floor(d.seconds/60)} min · {d.tasks}/4</Label><Meter value={Math.min(d.seconds,3600)} total={3600}/></Card>)}</Card>
+ {([[t('Lessons','Darslar'),a.lessons],[t('Challenges','Mashqlar'),a.challenges],[t('English exercises','Ingliz tili mashqlari'),a.exercises],[t('Grammar','Grammatika'),a.grammar],[t('Reading','O‘qish'),a.reading],[t('Words reviewed','Takrorlangan so‘zlar'),a.vocabulary],[t('Projects','Loyihalar'),a.projects]] as const).map(([name,p])=><Card key={name}><Label kind="heading">{name}</Label><Label>{p.done}/{p.total}</Label><Meter value={p.done} total={p.total}/></Card>)}
+ <Card><Label kind="heading">{t('Exam statistics','Imtihon statistikasi')}</Label><Label>{t('Attempts','Urinishlar')}: {a.exams.count}</Label><Label>{t('Best','Eng yuqori')}: {a.exams.best??'—'}</Label><Label>{t('Average','O‘rtacha')}: {a.exams.average??'—'}</Label><Button onPress={()=>router.push('/exam-history')}>{t('Exam history','Imtihonlar tarixi')}</Button></Card>
+ </>}
+ </Screen>;
 }
-const styles=(colors:typeof palette)=>StyleSheet.create({page:{flex:1,backgroundColor:colors.bg},content:{padding:24,paddingTop:62,paddingBottom:60},link:{color:colors.primary,fontWeight:'800'},kicker:{color:colors.primary,fontSize:12,fontWeight:'800',marginTop:25},title:{color:colors.text,fontSize:30,fontWeight:'800',marginTop:12},grid:{flexDirection:'row',gap:12,marginTop:20},card:{flex:1,backgroundColor:colors.surface,borderColor:colors.border,borderWidth:1,borderRadius:18,padding:20,marginTop:14},metric:{color:colors.text,fontSize:26,fontWeight:'800'},muted:{color:colors.muted,fontSize:13,marginTop:10,lineHeight:20},section:{color:colors.text,fontSize:20,fontWeight:'800',marginTop:30},item:{paddingVertical:15,borderBottomColor:colors.border,borderBottomWidth:1},white:{color:colors.text,fontWeight:'700'},footer:{color:colors.muted,textAlign:'center',marginTop:32},track:{height:8,borderRadius:8,backgroundColor:colors.border,overflow:'hidden',marginTop:15},fill:{height:'100%',backgroundColor:colors.success}})
