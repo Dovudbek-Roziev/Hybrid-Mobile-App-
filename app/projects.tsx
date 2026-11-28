@@ -27,6 +27,8 @@ export default function Projects(){
  {!!error&&<Label>{error}</Label>}
  {project?<><Button onPress={()=>setSelected(null)}>{t('All projects','Barcha loyihalar')}</Button>
  <Card><Label kind="title">{project.title}</Label><Label>{project.stack}</Label><Label>{project.brief}</Label><Label kind="heading">{t('Architecture','Arxitektura')}</Label><Label>{project.architecture}</Label><Meter value={count(project)} total={project.milestones.length}/><Label>{Math.round(count(project)*100/project.milestones.length)}%</Label></Card>
+ <Card><Label kind="heading">{t('Requirements','Talablar')}</Label>{project.requirements.map((r,i)=><Label key={i}>{i+1}. {r}</Label>)}</Card>
+ <Card><Label kind="heading">{t('Acceptance criteria','Qabul mezonlari')}</Label>{project.acceptance.map((r,i)=><Label key={i}>{i+1}. {r}</Label>)}</Card>
  <Card><Label kind="heading">{t('Milestones','Vazifalar')}</Label>{project.milestones.map(m=><Button key={m.id} disabled={busy||progress.loading||!!progress.error} chosen={done.has(project.id+':'+m.id)} onPress={()=>void toggle(project.id,m.id)}>{done.has(project.id+':'+m.id)?'✓ ':'○ '}{m.title}</Button>)}</Card>
  <Card><Label kind="heading">{t('Review criteria','Baholash mezonlari')}</Label>{project.rubric.map((r,i)=><Label key={i}>{i+1}. {r}</Label>)}<Label>{t('Self-assessment: checklist completion does not verify code quality.','Mustaqil baholash: vazifalarni belgilash kod sifatini tasdiqlamaydi.')}</Label></Card></>:<>
  <Card><Label kind="heading">{t('Completed projects','Tugallangan loyihalar')}</Label><Label>{projects.filter(p=>count(p)===p.milestones.length).length} / {projects.length}</Label><Meter value={projects.reduce((n,p)=>n+count(p),0)} total={projects.reduce((n,p)=>n+p.milestones.length,0)}/></Card>
