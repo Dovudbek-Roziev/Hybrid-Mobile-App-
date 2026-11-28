@@ -4793,5 +4793,11 @@ export const vocabulary: Word[] = [
     "level": "b2",
     "word": "rollback strategy",
     "translation": "oldingi holatga qaytish strategiyasi"
+  },
+  {
+    "id": "word-b1-200",
+    "level": "b1",
+    "word": "independence",
+    "translation": "mustaqillik"
   }
 ];
