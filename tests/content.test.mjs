@@ -13,6 +13,8 @@ const hooks = registerHooks({
   },
 });
 const { challenges } = await import('../src/challenges/catalog.ts');
+const { challengeTopics } = await import('../src/challenges/topics.ts');
+const { filterChallenges } = await import('../src/challenges/filter.ts');
 const { vocabulary } = await import('../src/english/vocabulary.ts');
 const { choiceExercises, exercises } = await import(
   '../src/english/exercises.ts'
@@ -184,4 +186,40 @@ test('challenges and projects contain required learning material', () => {
       p.milestones.length,
     );
   }
+});
+
+test('all 100 existing challenge IDs are searchable and topic, difficulty and query filters compose', () => {
+  const all = filterChallenges('', 'all', 'all');
+  assert.deepEqual(
+    all.map((item) => item.id),
+    Array.from({ length: 100 }, (_, index) => 'challenge-' + (index + 1)),
+  );
+  for (const topic of Object.keys(challengeTopics)) {
+    const results = filterChallenges('', 'all', topic);
+    assert.ok(results.length > 0, topic);
+    assert.ok(
+      results.every((item) => item.topic === topic),
+      topic,
+    );
+  }
+  assert.equal(
+    Object.keys(challengeTopics).reduce(
+      (count, topic) => count + filterChallenges('', 'all', topic).length,
+      0,
+    ),
+    all.length,
+  );
+  assert.deepEqual(
+    filterChallenges('  BINARY    SEARCH  ', 'hard', 'algorithms').map(
+      (item) => item.id,
+    ),
+    ['challenge-12'],
+  );
+  assert.deepEqual(filterChallenges('binary search', 'easy', 'algorithms'), []);
+  assert.deepEqual(filterChallenges('binary search', 'hard', 'react'), []);
+  assert.deepEqual(
+    filterChallenges("MA'LUMOTLAR BAZASI", 'all', 'all'),
+    filterChallenges('', 'all', 'databases'),
+  );
+  assert.deepEqual(filterChallenges('missing-text-xyz', 'all', 'all'), []);
 });

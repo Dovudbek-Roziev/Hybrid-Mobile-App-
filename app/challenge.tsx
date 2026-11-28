@@ -10,6 +10,7 @@ import {
 } from '../src/components/ui';
 import { CodeBlock } from '../src/components/CodeBlock';
 import { challenges, type Challenge } from '../src/challenges/catalog';
+import { challengeTopics } from '../src/challenges/topics';
 import { challengeEntries, saveChallenge } from '../src/database/learning';
 import { useLocalData } from '../src/hooks/useLocalData';
 import { useTheme } from '../src/theme';
@@ -24,6 +25,7 @@ function Editor({
   completed: boolean;
 }) {
   const { t } = useTheme();
+  const topic = challengeTopics[item.topic];
   const [draft, setDraft] = useState(initial);
   const [hint, setHint] = useState(false);
   const [solution, setSolution] = useState(false);
@@ -48,6 +50,7 @@ function Editor({
   }
   return (
     <Screen title={item.title} back>
+      <Label kind="accent">{t(topic.en, topic.uz)}</Label>
       <Card>
         <Label kind="heading">{t('Task', 'Vazifa')}</Label>
         <Label>{item.task}</Label>

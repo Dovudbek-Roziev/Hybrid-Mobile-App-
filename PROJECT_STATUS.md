@@ -49,7 +49,7 @@ The implementation will extend the existing routes and database. Remaining gates
 - Added 100 Uzbek-language challenges with starter code, hints and reference solutions.
 - Added searchable difficulty-filtered Practice catalog and a challenge editor with explicit draft saving and self-reviewed completion in SQLite.
 - User code is not executed or automatically graded. Completion is self-assessed.
-- Remaining: add topic filters, review solutions, add tests, verify TypeScript and Android runtime.
+- Remaining: review reference solutions and verify Android runtime.
 
 Catalog verification: 100 unique IDs; 47 easy, 40 medium, 13 hard. Reference solutions and Android runtime have not been tested.
 
@@ -108,3 +108,8 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Added 12 written translation exercises and 12 word-order exercises across A1–B2. All 200 original multiple-choice exercises retain their IDs. The English Academy can filter exercises by level and format, and progress totals count all 224 exercises.
 - Written answers are checked locally against authored variants, with normalization for case, spacing and common punctuation. Word-order checking supports repeated words and requires one use of each displayed tile.
 - TypeScript, all 20 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The Android keyboard and word-tile interaction still need a device smoke test.
+
+## Coding challenge topic filter
+
+- Tagged all 100 challenge records with one of 11 topics. The Practice screen combines the topic picker, difficulty selector and search. Searches match both topic labels, and the existing challenge IDs and content are preserved.
+- TypeScript, all 21 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Tests cover all topics, unchanged IDs and combined filters. Picking topics on an Android device remains unverified.
