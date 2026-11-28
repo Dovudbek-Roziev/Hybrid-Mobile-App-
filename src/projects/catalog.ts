@@ -1,4 +1,4 @@
-export type GuidedProject = {id:string;month:number;title:string;stack:string;brief:string;architecture:string;milestones:{id:string;title:string}[];rubric:string[]};
+export type GuidedProject = {id:string;month:number;title:string;stack:string;brief:string;architecture:string;milestones:{id:string;title:string}[];rubric:string[];requirements:string[];acceptance:string[]};
 export const projects: GuidedProject[] = [
   {
     "id": "project-1",
@@ -29,6 +29,16 @@ export const projects: GuidedProject[] = [
       "CRUD ishlashi",
       "Bo‘sh qiymat tekshiruvi",
       "Qayta yuklashda ma’lumot saqlanishi"
+    ],
+    "requirements": [
+      "Vazifa nomi, holati va identifikatorini saqlang",
+      "Qo‘shish, tahrirlash, o‘chirish va holat bo‘yicha filtr yarating",
+      "localStorage xatosini boshqaring"
+    ],
+    "acceptance": [
+      "Bo‘sh nom rad etiladi",
+      "Sahifa yangilanganda vazifalar saqlanadi",
+      "Filtr asl ro‘yxatni o‘zgartirmaydi"
     ]
   },
   {
@@ -60,6 +70,16 @@ export const projects: GuidedProject[] = [
       "Xatolar boshqarilishi",
       "Eski so‘rov natijasi yangi natijani bosmasligi",
       "Qayta urinish"
+    ],
+    "requirements": [
+      "Ochiq API yoki mahalliy fixture tanlang",
+      "Loading, empty va error holatlarini ajrating",
+      "AbortController orqali eski so‘rovni bekor qiling"
+    ],
+    "acceptance": [
+      "HTTP xatosida qayta urinish mavjud",
+      "Tez qidiruvda eski javob ko‘rsatilmaydi",
+      "Offline fixture bilan ishlaydi"
     ]
   },
   {
@@ -91,6 +111,16 @@ export const projects: GuidedProject[] = [
       "Strict typecheck",
       "To‘g‘ri jami",
       "Noto‘g‘ri qiymat rad etilishi"
+    ],
+    "requirements": [
+      "Income va expense uchun discriminated union yarating",
+      "Summani eng kichik pul birligida saqlang",
+      "Oy bo‘yicha hisobot chiqaring"
+    ],
+    "acceptance": [
+      "Manfiy yoki NaN summa rad etiladi",
+      "Jami test misollariga mos",
+      "Strict TypeScript xatosiz"
     ]
   },
   {
@@ -122,6 +152,16 @@ export const projects: GuidedProject[] = [
       "Immutable state",
       "Komponent testlari",
       "Qulay interfeys"
+    ],
+    "requirements": [
+      "Dars, sana va holat modelini tuzing",
+      "Komponentlarga ajrating",
+      "Filtr va progressni derived state orqali hisoblang"
+    ],
+    "acceptance": [
+      "Vazifa o‘zgarganda progress yangilanadi",
+      "Bo‘sh ro‘yxat ishlaydi",
+      "Form klaviatura orqali boshqariladi"
     ]
   },
   {
@@ -153,6 +193,16 @@ export const projects: GuidedProject[] = [
       "404 holati",
       "Server validatsiyasi",
       "Metadata"
+    ],
+    "requirements": [
+      "Maqola slug va metadata modelini tuzing",
+      "Public sahifalar va himoyalangan tahrirlash paneli yarating",
+      "Serverda input tekshiring"
+    ],
+    "acceptance": [
+      "Noma’lum slug 404 qaytaradi",
+      "Ruxsatsiz tahrir rad etiladi",
+      "Metadata har sahifaga mos"
     ]
   },
   {
@@ -184,6 +234,16 @@ export const projects: GuidedProject[] = [
       "HTTP statuslar",
       "Ruxsat tekshiruvi",
       "Parol xeshlash"
+    ],
+    "requirements": [
+      "REST endpoint va status kodlarini hujjatlang",
+      "Parolni xavfsiz xeshlang va auth middleware yozing",
+      "Foydalanuvchi faqat o‘z vazifasiga kira olsin"
+    ],
+    "acceptance": [
+      "Noto‘g‘ri input 400",
+      "Ruxsatsiz so‘rov 401 yoki 403",
+      "CRUD integration testlari mavjud"
     ]
   },
   {
@@ -215,6 +275,16 @@ export const projects: GuidedProject[] = [
       "Manfiy qoldiq oldini olish",
       "Parametrli SQL",
       "Indeks tahlili"
+    ],
+    "requirements": [
+      "Mahsulot va ombor harakati modelini tuzing",
+      "Qoldiqni atomar yangilang",
+      "Qidiruv uchun indeks va parametrli SQL ishlating"
+    ],
+    "acceptance": [
+      "Bir vaqtdagi chiqim manfiy qoldiq yaratmaydi",
+      "SQL injection matni parametr sifatida qoladi",
+      "Harakatlar tarixi saqlanadi"
     ]
   },
   {
@@ -246,6 +316,16 @@ export const projects: GuidedProject[] = [
       "Birliklar aniqligi",
       "Resurs sarfi",
       "Xatolarni boshqarish"
+    ],
+    "requirements": [
+      "CPU va RAM o‘lchovlarini davriy yig‘ing",
+      "Cheklangan tarix buferini yarating",
+      "Chegara qiymatida ogohlantiring"
+    ],
+    "acceptance": [
+      "Foizlar 0–100 oralig‘ida",
+      "Bufer cheksiz o‘smaydi",
+      "Timer to‘xtatilganda resurs bo‘shaydi"
     ]
   },
   {
@@ -277,6 +357,16 @@ export const projects: GuidedProject[] = [
       "Yo‘l topilmagan holat",
       "Manfiy vazn rad etilishi",
       "Murakkablik izohi"
+    ],
+    "requirements": [
+      "Grafni adjacency list bilan ifodalang",
+      "BFS va Dijkstra yozing",
+      "Kichik va katta grafda vaqtni o‘lchang"
+    ],
+    "acceptance": [
+      "Uzilgan grafda yo‘l yo‘qligi qaytariladi",
+      "Manfiy vazn rad etiladi",
+      "Ma’lum grafda optimal yo‘l topiladi"
     ]
   },
   {
@@ -308,6 +398,16 @@ export const projects: GuidedProject[] = [
       "Ikki marta band qilish oldini olish",
       "Idempotency",
       "Arxitektura qarorlari"
+    ],
+    "requirements": [
+      "Xona va vaqt oralig‘i modelini tuzing",
+      "Band qilishni tranzaksiya bilan himoyalang",
+      "Idempotency kaliti va yuk sinovi qo‘shing"
+    ],
+    "acceptance": [
+      "Bir xil slot ikki marta band bo‘lmaydi",
+      "Takroriy so‘rov yangi band yaratmaydi",
+      "Arxitektura qarorlari hujjatlangan"
     ]
   },
   {
@@ -339,6 +439,16 @@ export const projects: GuidedProject[] = [
       "Secrets repoda yo‘qligi",
       "Takrorlanuvchi build",
       "Health check"
+    ],
+    "requirements": [
+      "Ilovani Docker image sifatida yig‘ing",
+      "CI da test va build ishga tushiring",
+      "Staging va rollback jarayonini hujjatlang"
+    ],
+    "acceptance": [
+      "Secret git tarixiga kiritilmaydi",
+      "Test xatosida deploy to‘xtaydi",
+      "Health check muvaffaqiyatsiz relizni aniqlaydi"
     ]
   },
   {
@@ -375,6 +485,16 @@ export const projects: GuidedProject[] = [
       "End-to-end asosiy oqim",
       "Backup va restore",
       "README"
+    ],
+    "requirements": [
+      "Tenant, user, course va progress modelini tuzing",
+      "Rollarni serverda tekshiring",
+      "Asosiy oqimni testlang va backup tiklashni sinang"
+    ],
+    "acceptance": [
+      "Tenantlar bir-birining ma’lumotini ko‘rmaydi",
+      "Ro‘yxatdan o‘tishdan dars tugatishgacha oqim ishlaydi",
+      "README va tiklash yo‘riqnomasi mavjud"
     ]
   }
 ];
