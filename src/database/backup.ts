@@ -1,4 +1,6 @@
 import { db } from './connection';
+import { isPreferences } from '../settings';
+import { isProfile } from '../storage';
 import { backupTables } from './schema';
 type Cell=string|number|null;
 type Row=Record<string,Cell>;
@@ -30,7 +32,17 @@ export function validateBackup(raw:string){
  if(numeric.has(key)?typeof value!=='number'||!Number.isSafeInteger(value):typeof value!=='string')throw new Error('Invalid field: '+key);
  clean[col]=value as Cell;
  }
- if(name==='settings')JSON.parse(clean.value as string);
+ if(name==='settings'){
+ const value=JSON.parse(clean.value as string);
+ if(clean.key==='profile'&&!isProfile(value))throw new Error('Invalid profile');
+ if(clean.key==='preferences'&&!isPreferences(value))throw new Error('Invalid preferences');
+ }
+ if((name==='daily_tasks'||name==='study_sessions')&&!['programming','practice','english','review'].includes(String(clean.task)))throw new Error('Invalid task');
+ if(name==='daily_tasks'&&clean.completed!==0&&clean.completed!==1)throw new Error('Invalid completion');
+ if(name==='study_sessions'&&Number(clean.seconds)<=0)throw new Error('Invalid duration');
+ if(name==='vocabulary_reviews'&&(Number(clean.interval_days)<0||Number(clean.interval_days)>90))throw new Error('Invalid review interval');
+ if(name==='quiz_attempts'&&(Number(clean.total)<=0||Number(clean.score)<0||Number(clean.score)>Number(clean.total)))throw new Error('Invalid quiz score');
+ if(name==='exam_attempts'&&(Number(clean.score)<0||Number(clean.score)>100||Number(clean.pass)<1||Number(clean.pass)>100))throw new Error('Invalid exam score');
  if(name==='exam_answers'){const q=JSON.parse(clean.question as string);if(!q||!Array.isArray(q.choices)||typeof q.id!=='string'||typeof q.question!=='string'||typeof q.explanation!=='string'||!Number.isInteger(q.correct)||q.correct!==clean.correct||q.correct<0||q.correct>=q.choices.length||!q.choices.every((x:unknown)=>typeof x==='string')||(clean.selected!==null&&(Number(clean.selected)<0||Number(clean.selected)>=q.choices.length)))throw new Error('Invalid exam answer');}
  return clean;
  });
