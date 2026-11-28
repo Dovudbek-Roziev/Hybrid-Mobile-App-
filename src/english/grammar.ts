@@ -280,4 +280,25 @@ export const grammar: Grammar[] = [
     ],
     "answer": 2
   }
+,
+{"id":"grammar-21","level":"a1","title":"Possessives","theory":"My, your, his, her egalikni bildiradi.","example":"This is my laptop.","question":"I own this. It is ___ laptop.","options":["my","me","I"],"answer":0},
+{"id":"grammar-22","level":"a1","title":"There is / are","theory":"Birlik uchun there is, ko‘plik uchun there are.","example":"There are two books.","question":"There ___ three files.","options":["is","are","am"],"answer":1},
+{"id":"grammar-23","level":"a1","title":"Imperatives","theory":"Buyruq uchun fe’lning asosiy shakli ishlatiladi.","example":"Open the file.","question":"___ the door, please.","options":["Opening","Opened","Close"],"answer":2},
+{"id":"grammar-24","level":"a1","title":"Prepositions","theory":"In ichida, on ustida, under ostida.","example":"The book is on the desk.","question":"The keys are inside the box: they are ___ it.","options":["in","on","under"],"answer":0},
+{"id":"grammar-25","level":"a1","title":"Question words","theory":"Where joyni, when vaqtni, who shaxsni so‘raydi.","example":"Where do you live?","question":"___ is your birthday?","options":["Who","When","Where"],"answer":1},
+{"id":"grammar-26","level":"a2","title":"Adverbs of frequency","theory":"Usually va often asosiy fe’ldan oldin keladi.","example":"I often read.","question":"I ___ study after lunch.","options":["every","many","usually"],"answer":2},
+{"id":"grammar-27","level":"a2","title":"Superlatives","theory":"Qisqa sifatlarda the + -est ishlatiladi.","example":"The fastest car.","question":"This is the ___ route.","options":["shortest","shorter","short"],"answer":0},
+{"id":"grammar-28","level":"a2","title":"Should","theory":"Should maslahat beradi; keyin asosiy fe’l keladi.","example":"You should rest.","question":"You should ___ more.","options":["studying","study","studied"],"answer":1},
+{"id":"grammar-29","level":"a2","title":"Some and any","theory":"Any ko‘pincha inkor gaplarda ishlatiladi.","example":"I don't have any money.","question":"We don't have ___ tickets.","options":["much","a","any"],"answer":2},
+{"id":"grammar-30","level":"a2","title":"Past questions","theory":"Did bilan savolda asosiy fe’l o‘zgarmaydi.","example":"Did you work?","question":"Did she ___ yesterday?","options":["call","called","calls"],"answer":0},
+{"id":"grammar-31","level":"b1","title":"Second Conditional","theory":"If + past simple, would + base verb farazni bildiradi.","example":"If I had time, I would travel.","question":"If I were rich, I ___ travel.","options":["will","would","did"],"answer":1},
+{"id":"grammar-32","level":"b1","title":"Gerunds","theory":"Enjoy dan keyin odatda -ing shakli keladi.","example":"I enjoy coding.","question":"She enjoys ___.","options":["read","to read","reading"],"answer":2},
+{"id":"grammar-33","level":"b1","title":"Infinitives","theory":"Want dan keyin to + fe’l ishlatiladi.","example":"I want to learn.","question":"We want ___ an app.","options":["to build","building","built"],"answer":0},
+{"id":"grammar-34","level":"b1","title":"Used to","theory":"O‘tmishdagi, hozir davom etmaydigan odatni bildiradi.","example":"I used to play tennis.","question":"He used to ___ here.","options":["worked","work","working"],"answer":1},
+{"id":"grammar-35","level":"b1","title":"Present Perfect Continuous","theory":"Have/has been + -ing davomiy harakatni bildiradi.","example":"I have been studying for an hour.","question":"She has been ___ all day.","options":["work","worked","working"],"answer":2},
+{"id":"grammar-36","level":"b2","title":"Future Perfect","theory":"Will have + past participle kelajakdagi muddatgacha tugashni bildiradi.","example":"By Friday, I will have finished.","question":"By noon, we will have ___ the task.","options":["completed","complete","completing"],"answer":0},
+{"id":"grammar-37","level":"b2","title":"Inversion","theory":"Never kabi inkor ravishi gap boshida kelsa yordamchi fe’l oldinga chiqadi.","example":"Never have I seen this.","question":"Never ___ I heard that before.","options":["has","have","had been"],"answer":1},
+{"id":"grammar-38","level":"b2","title":"Wish","theory":"Hozirgi noreal istak uchun wish + past simple.","example":"I wish I knew the answer.","question":"I wish I ___ more time.","options":["have","will have","had"],"answer":2},
+{"id":"grammar-39","level":"b2","title":"Mixed conditional","theory":"O‘tgan shartning hozirgi natijasi: if + past perfect, would + base verb.","example":"If I had slept, I would feel better now.","question":"If I had studied, I ___ know the answer now.","options":["would","will","had"],"answer":0},
+{"id":"grammar-40","level":"b2","title":"Participle clauses","theory":"Bir xil ega bo‘lsa -ing clause qo‘shimcha harakatni bildirishi mumkin.","example":"Walking home, I saw a friend.","question":"___ the code, I noticed a bug.","options":["Review","Reviewing","Reviewed by"],"answer":1}
 ];
