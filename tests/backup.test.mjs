@@ -27,6 +27,9 @@ const { exportBackup, restoreBackup, validateBackup } = await import(
 const { saveExam, examHistory, examTopics } = await import(
   '../src/exams/storage.ts'
 );
+const { resetLearningProgress } = await import(
+  '../src/database/reset-progress.ts'
+);
 const { defaults, loadPreferences, savePreferences } = await import(
   '../src/features/preferences.ts'
 );
@@ -194,7 +197,7 @@ test('rejects invalid dates, invalid settings, orphan answers and duplicate rows
   }
 });
 
-test('version 1 backup round-trips every table and a failed import rolls back', async () => {
+test('version 1 backup round-trips every table and a failed import rolls back', async (t) => {
   // Expo opens a separate connection for exclusive transactions. Match that scope here.
   const database = new DatabaseSync(':memory:', {
     enableForeignKeyConstraints: false,
@@ -372,6 +375,45 @@ test('version 1 backup round-trips every table and a failed import rolls back', 
       unanswered: 1,
       lessons: [],
     });
+
+    await t.test(
+      'reset clears learning data atomically and preserves settings and restore support',
+      async () => {
+        const exportedBeforeReset = await exportBackup();
+        const beforeReset = validateBackup(exportedBeforeReset);
+        const migrationVersions = database
+          .prepare('SELECT version FROM schema_migrations ORDER BY version')
+          .all();
+
+        database.exec(`CREATE TRIGGER fail_progress_delete BEFORE DELETE ON progress
+        BEGIN SELECT RAISE(ABORT, 'simulated reset failure'); END`);
+        await assert.rejects(
+          resetLearningProgress(),
+          /simulated reset failure/,
+        );
+        assert.deepEqual(validateBackup(await exportBackup()), beforeReset);
+        database.exec('DROP TRIGGER fail_progress_delete');
+
+        await resetLearningProgress();
+        await resetLearningProgress();
+        const afterReset = validateBackup(await exportBackup());
+        assert.deepEqual(afterReset.settings, beforeReset.settings);
+        for (const table of Object.keys(backupTables)) {
+          if (table !== 'settings')
+            assert.deepEqual(afterReset[table], [], table);
+        }
+        assert.deepEqual(
+          database
+            .prepare('SELECT version FROM schema_migrations ORDER BY version')
+            .all(),
+          migrationVersions,
+        );
+        assert.deepEqual(await examTopics(), []);
+
+        await restoreBackup(exportedBeforeReset);
+        assert.deepEqual(validateBackup(await exportBackup()), beforeReset);
+      },
+    );
   } finally {
     database.close();
     delete globalThis.backupTestDatabase;

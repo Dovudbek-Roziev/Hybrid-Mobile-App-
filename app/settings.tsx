@@ -9,6 +9,7 @@ import { useTheme } from '../src/theme';
 import { isPassScore } from '../src/exams/options';
 import { isReminderTime, studyReminderPlan } from '../src/notifications/reminder-plan';
 import { requestStudyReminderPermission, supportsStudyReminders, syncStudyReminders } from '../src/notifications/study-reminders';
+import { ResetProgressCard } from '../src/features/ResetProgressCard';
 
 function PreferenceFields({profile}: {profile: Profile}) {
   const {preferences, update, t} = useTheme();
@@ -175,6 +176,7 @@ function PreferenceFields({profile}: {profile: Profile}) {
       </Button>
       {passMessage && <Label>{passMessage}</Label>}
     </Card>
+    <ResetProgressCard />
     <Card><Label kind="heading">{t('About', 'Ilova haqida')}</Label><Label>Personal Engineering Academy · 0.1.0</Label><Label>{t('Your learning data stays on this device.', 'O‘quv ma’lumotlaringiz shu qurilmada saqlanadi.')}</Label></Card>
   </>;
 }

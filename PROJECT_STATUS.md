@@ -91,3 +91,8 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Settings schedules a local reminder at the selected device time on each saved study day. Rest-day or language changes update the schedule. Tapping the notification opens the daily plan.
 - Permission is requested from the enable action. The app uses Android best-effort delivery, which can be delayed by the operating system. Reminder settings stay in the existing backup format and are reconciled after restore or app startup.
 - TypeScript, all 16 automated tests, Expo dependency checks, Expo Doctor (20/20), Android config introspection and Android JavaScript export passed. Tests cover weekday mapping, duplicate prevention, permission flow and failed schedule replacement with a simulated native adapter. Android delivery and tap routing still need a device test.
+
+## Reset learning progress
+
+- Settings offers a reset behind an explicit destructive confirmation. One SQLite transaction clears the ten learning tables, including challenge drafts and exam history. Profile, study preferences, notifications and schema migration history are preserved.
+- SQLite integration verifies rollback after a simulated deletion failure, safe repeated resets and restoring the original backup afterward. TypeScript, all 17 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The confirmation dialog still needs a device smoke test.
