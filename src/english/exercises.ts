@@ -1,4 +1,5 @@
 import { vocabulary } from './vocabulary';
+import { sentenceExercises } from './sentence-exercises';
 export type EnglishExercise = {
   id: string;
   level: 'a1' | 'a2' | 'b1' | 'b2';
@@ -166,7 +167,15 @@ const generated: EnglishExercise[] = vocabulary
       answer,
     };
   });
-export const exercises: EnglishExercise[] = [
+export const choiceExercises: readonly EnglishExercise[] = [
   ...originalExercises,
   ...generated,
+];
+
+export const exercises = [
+  ...choiceExercises.map((exercise) => ({
+    ...exercise,
+    kind: 'choice' as const,
+  })),
+  ...sentenceExercises,
 ];

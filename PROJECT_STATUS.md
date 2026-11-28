@@ -102,3 +102,9 @@ Local verification: `npm ci`, `npm run typecheck`, `npm test`, `npx expo install
 - Localized the English Academy tab, exercise instructions and progress feedback, and the legacy weekly JavaScript quiz in English and Uzbek Latin. English learning examples and technical language stay visible where the exercises use them.
 - Replaced the legacy Cyrillic Uzbek translations with Uzbek Latin. Original exercise IDs, option positions and the weekly quiz attempt ID are preserved.
 - TypeScript, all 18 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. Language switching on an Android device remains unverified.
+
+## Translation and sentence-building practice
+
+- Added 12 written translation exercises and 12 word-order exercises across A1–B2. All 200 original multiple-choice exercises retain their IDs. The English Academy can filter exercises by level and format, and progress totals count all 224 exercises.
+- Written answers are checked locally against authored variants, with normalization for case, spacing and common punctuation. Word-order checking supports repeated words and requires one use of each displayed tile.
+- TypeScript, all 20 automated tests, Expo dependency checks, Expo Doctor (20/20) and Android JavaScript export passed. The Android keyboard and word-tile interaction still need a device smoke test.

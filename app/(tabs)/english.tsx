@@ -15,11 +15,13 @@ import {
   loadProfile,
 } from '../../src/database/storage';
 import { exercises, type EnglishExercise } from '../../src/english/exercises';
+import { SentencePractice } from '../../src/english/SentencePractice';
 import { useLocalData } from '../../src/hooks/useLocalData';
 import { useTheme } from '../../src/theme';
 
 const levels = ['a1', 'a2', 'b1', 'b2'] as const;
 const pageSize = 10;
+const kinds = ['all', 'choice', 'translation', 'sentence'] as const;
 
 async function loadExercises() {
   const [profile, completed] = await Promise.all([
@@ -32,7 +34,12 @@ async function loadExercises() {
   };
 }
 
-type ExerciseFeedback = { choice: number; saving: boolean; error: boolean };
+type ExerciseFeedback = {
+  choice?: number;
+  correct: boolean;
+  saving: boolean;
+  error: boolean;
+};
 
 export default function English() {
   const { t } = useTheme();
@@ -40,26 +47,44 @@ export default function English() {
   const [levelOverride, setLevelOverride] =
     useState<EnglishExercise['level']>();
   const [page, setPage] = useState(0);
+  const [kind, setKind] = useState<(typeof kinds)[number]>('all');
   const [feedback, setFeedback] = useState<Record<string, ExerciseFeedback>>(
     {},
   );
   const saving = useRef(new Set<string>());
   const level = levelOverride ?? state.data?.level ?? 'a1';
-  const list = exercises.filter((exercise) => exercise.level === level);
+  const list = exercises.filter(
+    (exercise) =>
+      exercise.level === level && (kind === 'all' || exercise.kind === kind),
+  );
   const complete = list.filter((exercise) =>
     state.data?.completed.has(exercise.id),
   ).length;
   const pageCount = Math.max(1, Math.ceil(list.length / pageSize));
   const current = Math.min(page, pageCount - 1);
 
-  async function answer(exercise: EnglishExercise, choice: number) {
-    const { id } = exercise;
+  const descriptions = {
+    all: t('All types', 'Barcha turlar'),
+    choice: t('Multiple choice', 'Javob tanlash'),
+    translation: t('Translation', 'Tarjima'),
+    sentence: t('Sentence building', 'Gap tuzish'),
+  };
+
+  function clearAnswer(id: string) {
+    setFeedback((old) => {
+      if (!old[id]) return old;
+      const next = { ...old };
+      delete next[id];
+      return next;
+    });
+  }
+
+  async function answer(id: string, correct: boolean, choice?: number) {
     if (saving.current.has(id)) return;
-    const shouldSave =
-      choice === exercise.answer && !state.data?.completed.has(id);
+    const shouldSave = correct && !state.data?.completed.has(id);
     setFeedback((old) => ({
       ...old,
-      [id]: { choice, saving: shouldSave, error: false },
+      [id]: { choice, correct, saving: shouldSave, error: false },
     }));
     if (!shouldSave) return;
     saving.current.add(id);
@@ -68,12 +93,12 @@ export default function English() {
       state.retry();
       setFeedback((old) => ({
         ...old,
-        [id]: { choice, saving: false, error: false },
+        [id]: { choice, correct, saving: false, error: false },
       }));
     } catch {
       setFeedback((old) => ({
         ...old,
-        [id]: { choice, saving: false, error: true },
+        [id]: { choice, correct, saving: false, error: true },
       }));
     } finally {
       saving.current.delete(id);
@@ -119,15 +144,27 @@ export default function English() {
               </Button>
             ))}
           </View>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            {kinds.map((option) => (
+              <Button
+                key={option}
+                chosen={option === kind}
+                onPress={() => {
+                  setKind(option);
+                  setPage(0);
+                }}
+              >
+                {descriptions[option]}
+              </Button>
+            ))}
+          </View>
           <Label>
             {complete}/{list.length}{' '}
             {t('exercises completed', 'ta mashq bajarildi')}
           </Label>
           <Meter value={complete} total={list.length} />
           {!list.length && (
-            <Label>
-              {t('No exercises at this level.', 'Bu darajada mashqlar yo‘q.')}
-            </Label>
+            <Label>{t('No matching exercises.', 'Mos mashq topilmadi.')}</Label>
           )}
           {list
             .slice(current * pageSize, (current + 1) * pageSize)
@@ -137,44 +174,76 @@ export default function English() {
               return (
                 <Card key={exercise.id}>
                   <Label kind="accent">
-                    {t(exercise.topic, exercise.topicUz)}
+                    {exercise.kind === 'choice'
+                      ? t(exercise.topic, exercise.topicUz)
+                      : descriptions[exercise.kind]}
                     {saved ? ' · ✓' : ''}
                   </Label>
-                  {!!exercise.word && (
-                    <Label kind="heading">{exercise.word}</Label>
+                  {exercise.kind === 'choice' ? (
+                    <>
+                      {!!exercise.word && (
+                        <Label kind="heading">{exercise.word}</Label>
+                      )}
+                      {!!exercise.translation && (
+                        <Label>{exercise.translation}</Label>
+                      )}
+                      {!!exercise.example && <Label>{exercise.example}</Label>}
+                      <Label kind="heading">
+                        {t(exercise.question, exercise.questionUz)}
+                      </Label>
+                      {exercise.options.map((option, index) => (
+                        <Button
+                          key={index}
+                          disabled={previous?.saving}
+                          chosen={previous?.choice === index}
+                          onPress={() =>
+                            void answer(
+                              exercise.id,
+                              index === exercise.answer,
+                              index,
+                            )
+                          }
+                        >
+                          {option}
+                        </Button>
+                      ))}
+                    </>
+                  ) : (
+                    <SentencePractice
+                      exercise={exercise}
+                      busy={previous?.saving ?? false}
+                      onEdit={() => clearAnswer(exercise.id)}
+                      onCheck={(correct) => void answer(exercise.id, correct)}
+                    />
                   )}
-                  {!!exercise.translation && (
-                    <Label>{exercise.translation}</Label>
-                  )}
-                  {!!exercise.example && <Label>{exercise.example}</Label>}
-                  <Label kind="heading">
-                    {t(exercise.question, exercise.questionUz)}
-                  </Label>
-                  {exercise.options.map((option, index) => (
-                    <Button
-                      key={index}
-                      disabled={previous?.saving}
-                      chosen={previous?.choice === index}
-                      onPress={() => void answer(exercise, index)}
-                    >
-                      {option}
-                    </Button>
-                  ))}
                   {previous?.saving && (
                     <Label>{t('Saving…', 'Saqlanmoqda…')}</Label>
                   )}
                   {previous?.error && (
                     <Label>
                       {t(
-                        'Could not save. Select the answer again to retry.',
-                        'Saqlab bo‘lmadi. Qayta urinish uchun javobni yana tanlang.',
+                        'Could not save. Check the answer again to retry.',
+                        'Saqlab bo‘lmadi. Qayta urinish uchun javobni yana tekshiring.',
                       )}
                     </Label>
                   )}
                   {previous && !previous.saving && !previous.error && (
                     <Label>
-                      {previous.choice !== exercise.answer
-                        ? t('Try another answer.', 'Boshqa javobni belgilang.')
+                      {!previous.correct
+                        ? exercise.kind === 'choice'
+                          ? t(
+                              'Try another answer.',
+                              'Boshqa javobni belgilang.',
+                            )
+                          : exercise.kind === 'translation'
+                            ? t(
+                                'Your translation did not match the accepted answers.',
+                                'Tarjimangiz qabul qilinadigan javoblarga mos kelmadi.',
+                              )
+                            : t(
+                                'Check the word order and try again.',
+                                'So‘zlar tartibini tekshirib, qayta urinib ko‘ring.',
+                              )
                         : saved
                           ? t(
                               'Correct. Saved on this device.',
@@ -183,6 +252,16 @@ export default function English() {
                           : t('Correct.', 'To‘g‘ri.')}
                     </Label>
                   )}
+                  {previous &&
+                    !previous.correct &&
+                    exercise.kind !== 'choice' && (
+                      <Label>
+                        {t('Example answer', 'Javob namunasi')} ·{' '}
+                        {exercise.kind === 'translation'
+                          ? exercise.answers[0]
+                          : exercise.answer}
+                      </Label>
+                    )}
                 </Card>
               );
             })}

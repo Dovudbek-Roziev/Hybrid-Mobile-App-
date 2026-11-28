@@ -14,7 +14,12 @@ const hooks = registerHooks({
 });
 const { challenges } = await import('../src/challenges/catalog.ts');
 const { vocabulary } = await import('../src/english/vocabulary.ts');
-const { exercises } = await import('../src/english/exercises.ts');
+const { choiceExercises, exercises } = await import(
+  '../src/english/exercises.ts'
+);
+const { checkSentence, checkTranslation } = await import(
+  '../src/english/answer-check.ts'
+);
 const { weeklyQuiz } = await import('../src/exams/weekly-quiz.ts');
 const { grammar } = await import('../src/english/grammar.ts');
 const { readings } = await import('../src/english/reading.ts');
@@ -24,7 +29,8 @@ test('catalog sizes and unique identifiers', () => {
   for (const [items, count] of [
     [challenges, 100],
     [vocabulary, 1000],
-    [exercises, 200],
+    [choiceExercises, 200],
+    [exercises, 224],
     [grammar, 40],
     [readings, 20],
     [projects, 12],
@@ -36,7 +42,7 @@ test('catalog sizes and unique identifiers', () => {
     assert.equal(vocabulary.filter((w) => w.level === level).length, 250);
 });
 test('English questions have valid and distinct choices', () => {
-  for (const q of [...exercises, ...grammar, ...readings]) {
+  for (const q of [...choiceExercises, ...grammar, ...readings]) {
     assert.ok(q.question.trim(), q.id);
     assert.ok(Number.isInteger(q.answer) && q.options[q.answer]?.trim(), q.id);
     assert.equal(new Set(q.options).size, q.options.length, q.id);
@@ -57,9 +63,13 @@ test('English instructions and the weekly quiz support Uzbek Latin without chang
     'en-b2-02': 1,
   };
   for (const [id, answer] of Object.entries(originalAnswers)) {
-    assert.equal(exercises.find((item) => item.id === id)?.answer, answer, id);
+    assert.equal(
+      choiceExercises.find((item) => item.id === id)?.answer,
+      answer,
+      id,
+    );
   }
-  for (const exercise of exercises) {
+  for (const exercise of choiceExercises) {
     assert.ok(
       exercise.topicUz.trim() && exercise.questionUz.trim(),
       exercise.id,
@@ -100,6 +110,65 @@ test('English instructions and the weekly quiz support Uzbek Latin without chang
       item.id,
     );
   }
+});
+
+test('all levels have authored translation and sentence-building exercises with valid answers', () => {
+  for (const level of ['a1', 'a2', 'b1', 'b2']) {
+    const translations = exercises.filter(
+      (item) => item.kind === 'translation' && item.level === level,
+    );
+    const sentences = exercises.filter(
+      (item) => item.kind === 'sentence' && item.level === level,
+    );
+    assert.equal(translations.length, 3);
+    assert.equal(sentences.length, 3);
+    for (const exercise of translations) {
+      assert.ok(exercise.prompt.trim() && exercise.answers.length, exercise.id);
+      for (const answer of exercise.answers)
+        assert.ok(checkTranslation(exercise, answer), exercise.id);
+      assert.equal(checkTranslation(exercise, '  '), false, exercise.id);
+    }
+    for (const exercise of sentences) {
+      assert.ok(exercise.prompt.trim(), exercise.id);
+      const order = exercise.answer.split(' ').map((word, position, words) => {
+        const used = words
+          .slice(0, position)
+          .filter((previous) => previous === word).length;
+        return exercise.words
+          .map((token, index) => (token === word ? index : -1))
+          .filter((index) => index >= 0)[used];
+      });
+      assert.ok(checkSentence(exercise, order), exercise.id);
+      assert.equal(
+        checkSentence(
+          exercise,
+          exercise.words.map((_, index) => index),
+        ),
+        false,
+        exercise.id,
+      );
+      assert.equal(checkSentence(exercise, order.slice(1)), false, exercise.id);
+      assert.equal(
+        checkSentence(exercise, [order[1], ...order.slice(1)]),
+        false,
+        exercise.id,
+      );
+      assert.equal(
+        checkSentence(exercise, [exercise.words.length, ...order.slice(1)]),
+        false,
+        exercise.id,
+      );
+    }
+  }
+});
+
+test('translation checking accepts authored variants and normal punctuation but preserves negation', () => {
+  const where = exercises.find((item) => item.id === 'en-translate-a1-02');
+  assert.ok(checkTranslation(where, "   WHERE'S   the document?  "));
+  assert.equal(checkTranslation(where, 'Where is a document?'), false);
+  const offline = exercises.find((item) => item.id === 'en-translate-a2-03');
+  assert.ok(checkTranslation(offline, 'The app doesn’t work offline.'));
+  assert.equal(checkTranslation(offline, 'The app works offline.'), false);
 });
 test('challenges and projects contain required learning material', () => {
   for (const c of challenges)
