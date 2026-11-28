@@ -1,5 +1,6 @@
+import { vocabulary } from './english/vocabulary';
 export type EnglishExercise={id:string;level:'a1'|'a2'|'b1'|'b2';topic:string;word:string;translation:string;example:string;question:string;options:readonly string[];answer:number};
-export const exercises:EnglishExercise[]=[
+const originalExercises:EnglishExercise[]=[
 {id:'en-a1-01',level:'a1',topic:'Introductions',word:'Hello',translation:'Салом',example:'Hello, I am a developer.',question:'How do you say “Салом” in English?',options:['Goodbye','Hello','Thanks'],answer:1},
 {id:'en-a1-02',level:'a1',topic:'Daily words',word:'Learn',translation:'Ўрганмоқ',example:'I learn JavaScript every day.',question:'What does “learn” mean?',options:['Ўрганмоқ','Югурмоқ','Ухламоқ'],answer:0},
 {id:'en-a1-03',level:'a1',topic:'Grammar',word:'I am',translation:'Мен ...ман',example:'I am a student.',question:'Choose the correct sentence.',options:['I is a student','I am a student','I are student'],answer:1},
@@ -10,3 +11,14 @@ export const exercises:EnglishExercise[]=[
 {id:'en-b2-01',level:'b2',topic:'Architecture',word:'Scalability',translation:'Кенгайиш имконияти',example:'Scalability matters as traffic grows.',question:'Scalability is the ability to...',options:['Handle growth','Remove tests','Avoid updates'],answer:0},
 {id:'en-b2-02',level:'b2',topic:'Engineering',word:'Trade-off',translation:'Муроса / танловдаги йўқотиш',example:'There is a trade-off between speed and accuracy.',question:'A trade-off is...',options:['A syntax error','A compromise','A backup'],answer:1},
 ];
+
+const generated: EnglishExercise[] = vocabulary.slice(0,191).map((w,index) => {
+ const alternatives = vocabulary.filter(v => v.level === w.level && v.id !== w.id && v.translation !== w.translation);
+ const first = alternatives[index % alternatives.length];
+ const second = alternatives.find(v => v.id !== first.id && v.translation !== first.translation)!;
+ const answer = index % 3;
+ const options = [first.word, second.word];
+ options.splice(answer,0,w.word);
+ return {id:'exercise-'+w.id,level:w.level,topic:'Vocabulary',word:'',translation:'',example:'',question:'Choose the English word for: '+w.translation,options,answer};
+});
+export const exercises: EnglishExercise[] = [...originalExercises,...generated];
